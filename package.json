@@ -1,0 +1,41 @@
+{
+  "name": "lifeverses",
+  "version": "1.0.0",
+  "description": "bible verses for life situations",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "bible",
+    "life",
+    "situation",
+    "love",
+    "hope",
+    "health",
+    "healing",
+    "peace",
+    "frustration",
+    "disappointment",
+    "faith",
+    "grace",
+    "hope",
+    "word",
+    "dictionary",
+    "comfort",
+    "verses"
+  ],
+  "author": "Udoh Ndem",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.1",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^13.7.0"
+  }
+}
