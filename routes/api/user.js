@@ -11,6 +11,8 @@ const updateUserController = require("../../controllers/user/updateUserControlle
 const getUserController = require("../../controllers/user/getUserController");
 const getAllUsersController = require("../../controllers/user/getAllUsersController");
 const deleteUserController = require("../../controllers/user/deleteUserController");
+const addFavouriteScriptureController = require("../../controllers/user/addFavouriteScriptureController");
+const deleteFavouriteScriptureController = require("../../controllers/user/deleteFavouriteScriptureController");
 
 // create router
 const router = express.Router();
@@ -25,7 +27,7 @@ const router = express.Router();
 router.get("/", isLoggedIn, getPersonalUserController);
 
 /**
- * @desc    - route for UPDATING/SAVING personal user
+ * @desc    - route for updating/saving personal user
  * @api     - /api/user
  * @access  - PRIVATE
  * @type    - POST
@@ -41,7 +43,7 @@ router.post("/", isLoggedIn, updatePersonalUserController);
 router.get("/:username", getUserController);
 
 /**
- * @desc    - route for UPDATING user
+ * @desc    - route for updating user
  * @api     - /api/user/:id
  * @access  - PRIVATE
  * @type    - POST
@@ -62,7 +64,7 @@ router.get(
 );
 
 /**
- * @desc    - route for DELETING any user
+ * @desc    - route for deleting any user
  * @api     - /api/user/:id
  * @access  - PRIVATE
  * @type    - DELETE
@@ -72,6 +74,26 @@ router.delete(
   isLoggedIn,
   isAdmin && isSuperAdmin,
   deleteUserController
+);
+
+/**
+ * @desc    - route for saving user favourite scripture
+ * @api     - /api/user/favourite-scripture/
+ * @access  - PRIVATE
+ * @type    - PUT
+ */
+router.put("/favourite-scripture", isLoggedIn, addFavouriteScriptureController);
+
+/**
+ * @desc    - route for deleting user favourite scripture
+ * @api     - /api/user/favourite-scripture/:id
+ * @access  - PRIVATE
+ * @type    - DELETE
+ */
+router.delete(
+  "/favourite-scripture/:id",
+  isLoggedIn,
+  deleteFavouriteScriptureController
 );
 
 // export router

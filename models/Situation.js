@@ -31,7 +31,7 @@ const SituationSchema = new Schema(
     },
     icon: {
       type: String,
-      required: [true, "Please select an icon"],
+      required: [true, "Please enter an icon"],
     },
     scriptures: [
       {

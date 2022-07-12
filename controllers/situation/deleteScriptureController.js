@@ -21,12 +21,10 @@ const deleteScriptureController = async (req, res) => {
 
         // check if scripture to be deleted exists
         if (scriptureIds.includes(req.params.scripture_id.toString())) {
-          // console.log("We are good");
           // get index of scripture to be deleted
           const indexOfScripture = scriptureIds.indexOf(
             req.params.scripture_id
           );
-          console.log(indexOfScripture);
 
           // delete scripture
           situation.scriptures.splice(indexOfScripture, 1);
@@ -44,7 +42,6 @@ const deleteScriptureController = async (req, res) => {
               );
             });
         } else {
-          // console.log("Bad");
           return res.status(404).json({
             ScriptureNotFoundError:
               "No scripture was found with id of " + req.params.scripture_id,

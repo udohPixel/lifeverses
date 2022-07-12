@@ -76,9 +76,9 @@ router.delete(
  * @desc    - route for adding new scripture
  * @api     - /api/situation/:situation_id/scripture
  * @access  - PRIVATE
- * @type    - POST
+ * @type    - PUT
  */
-router.post(
+router.put(
   "/:situation_id/scripture",
   isLoggedIn,
   isEditor && isAdmin && isSuperAdmin,

@@ -87,6 +87,21 @@ const UserSchema = new Schema(
         max: 50,
       },
     },
+    favouriteScriptures: [
+      {
+        situationTitle: {
+          type: String,
+        },
+        bibleTitle: {
+          type: String,
+          max: 50,
+        },
+        bibleVerse: {
+          type: String,
+          max: 50,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -15,7 +15,6 @@ const addScriptureController = async (req, res) => {
       if (situation) {
         // declare scriptureValues object
         const scriptureValues = {};
-        // scriptureValues.scriptures = {};
 
         // pass user-imputed values into scriptureValues object
         if (req.body.bibleTitle)
@@ -23,20 +22,25 @@ const addScriptureController = async (req, res) => {
         if (req.body.bibleVerse)
           scriptureValues.bibleVerse = req.body.bibleVerse;
 
-        // update situation
-        situation.scriptures.push(scriptureValues);
+        // update situation scripture
         situation
-          .save()
+          .updateOne({ $push: { scriptures: scriptureValues } })
           .then((situation) => {
-            res.status(200).json(situation);
+            return res.status(200).json(situation);
           })
           .catch((err) => {
-            console.log(err);
+            console.log(
+              "Error occurred in addScriptureController:- While updating scripture " +
+                err
+            );
           });
       }
     })
     .catch((err) => {
-      console.log(err);
+      console.log(
+        "Error occurred in addScriptureController:- While finding situation " +
+          err
+      );
     });
 };
 
