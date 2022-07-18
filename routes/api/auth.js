@@ -1,6 +1,12 @@
 // import required libraries
 const express = require("express");
 
+// import required middlewares
+const {
+  isLoginValidated,
+  isRegistrationValidated,
+} = require("../../middlewares/userValidator");
+
 // import required controllers
 const registrationController = require("../../controllers/auth/registrationController");
 const loginController = require("../../controllers/auth/loginController");
@@ -15,7 +21,7 @@ const router = express.Router();
  * @access  - PUBLIC
  * @type    - POST
  */
-router.post("/register", registrationController);
+router.post("/register", isRegistrationValidated, registrationController);
 
 /**
  * @desc    - route for login of users
@@ -23,7 +29,7 @@ router.post("/register", registrationController);
  * @access  - PUBLIC
  * @type    - POST
  */
-router.post("/login", loginController);
+router.post("/login", isLoginValidated, loginController);
 
 // export router
 module.exports = router;

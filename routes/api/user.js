@@ -3,6 +3,11 @@ const express = require("express");
 
 // import required middlewares
 const { isLoggedIn, isAdmin, isSuperAdmin } = require("../../middlewares/auth");
+const {
+  isUpdatePersonalUserValidated,
+  isUpdateUserValidated,
+  isAddToFavouriteValidated,
+} = require("../../middlewares/userValidator");
 
 // import required controllers
 const getPersonalUserController = require("../../controllers/user/getPersonalUserController");
@@ -11,8 +16,7 @@ const updateUserController = require("../../controllers/user/updateUserControlle
 const getUserController = require("../../controllers/user/getUserController");
 const getAllUsersController = require("../../controllers/user/getAllUsersController");
 const deleteUserController = require("../../controllers/user/deleteUserController");
-const addFavouriteScriptureController = require("../../controllers/user/addFavouriteScriptureController");
-const deleteFavouriteScriptureController = require("../../controllers/user/deleteFavouriteScriptureController");
+const addToFavouriteController = require("../../controllers/user/addToFavouriteController");
 
 // create router
 const router = express.Router();
@@ -32,7 +36,12 @@ router.get("/", isLoggedIn, getPersonalUserController);
  * @access  - PRIVATE
  * @type    - POST
  */
-router.post("/", isLoggedIn, updatePersonalUserController);
+router.post(
+  "/",
+  isLoggedIn,
+  isUpdatePersonalUserValidated,
+  updatePersonalUserController
+);
 
 /**
  * @desc    - route for fetching any user by username
@@ -48,7 +57,13 @@ router.get("/:username", getUserController);
  * @access  - PRIVATE
  * @type    - POST
  */
-router.post("/:id", isLoggedIn, isAdmin && isSuperAdmin, updateUserController);
+router.post(
+  "/:id",
+  isLoggedIn,
+  isAdmin && isSuperAdmin,
+  isUpdateUserValidated,
+  updateUserController
+);
 
 /**
  * @desc    - route for fetching all users by username
@@ -77,23 +92,16 @@ router.delete(
 );
 
 /**
- * @desc    - route for saving user favourite scripture
- * @api     - /api/user/favourite-scripture/
+ * @desc    - route for add/remove user favourite scripture
+ * @api     - /api/user/favourite/:id/scripture
  * @access  - PRIVATE
  * @type    - PUT
  */
-router.put("/favourite-scripture", isLoggedIn, addFavouriteScriptureController);
-
-/**
- * @desc    - route for deleting user favourite scripture
- * @api     - /api/user/favourite-scripture/:id
- * @access  - PRIVATE
- * @type    - DELETE
- */
-router.delete(
-  "/favourite-scripture/:id",
+router.put(
+  "/favourite/:id/scripture",
   isLoggedIn,
-  deleteFavouriteScriptureController
+  isAddToFavouriteValidated,
+  addToFavouriteController
 );
 
 // export router

@@ -9,17 +9,15 @@ const UserSchema = new Schema(
   {
     firstname: {
       type: String,
-      required: [true, "Please enter a first name"],
-      maxlength: 50,
+      required: true,
     },
     lastname: {
       type: String,
-      required: [true, "Please enter a last name"],
-      maxlength: 50,
+      required: true,
     },
     gender: {
       type: String,
-      required: [true, "Please select a gender"],
+      required: true,
       enum: {
         values: ["Male", "Female"],
         message: "{VALUE} is not a valid gender",
@@ -27,22 +25,17 @@ const UserSchema = new Schema(
     },
     username: {
       type: String,
-      required: [true, "Please enter a username"],
-      max: 50,
+      required: true,
       unique: true,
     },
     email: {
       type: String,
-      required: [true, "Please enter a valid email address"],
-      minlength: 5,
-      maxlength: 50,
+      required: true,
       unique: true,
     },
     password: {
       type: String,
-      required: [true, "Please enter a valid password"],
-      minlength: 5,
-      maxlength: 1024,
+      required: true,
     },
     profilePic: {
       type: String,
@@ -50,7 +43,6 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      required: [true, "Please select a role"],
       default: "User",
       enum: {
         values: ["User", "Editor", "Admin", "SuperAdmin"],
@@ -59,8 +51,6 @@ const UserSchema = new Schema(
     },
     isActive: {
       type: Boolean,
-      required: true,
-      default: true,
     },
     bio: {
       type: String,
@@ -68,40 +58,24 @@ const UserSchema = new Schema(
     socialLinks: {
       facebook: {
         type: String,
-        max: 50,
       },
       youtube: {
         type: String,
-        max: 50,
       },
       instagram: {
         type: String,
-        max: 50,
       },
-      linkedin: {
+      linkedIn: {
         type: String,
-        max: 50,
       },
       twitter: {
         type: String,
-        max: 50,
       },
     },
-    favouriteScriptures: [
-      {
-        situationTitle: {
-          type: String,
-        },
-        bibleTitle: {
-          type: String,
-          max: 50,
-        },
-        bibleVerse: {
-          type: String,
-          max: 50,
-        },
-      },
-    ],
+    favouriteScriptures: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );

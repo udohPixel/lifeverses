@@ -9,11 +9,12 @@ const SituationSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "Please enter a title"],
+      required: true,
+      unique: true,
     },
     colour: {
       type: String,
-      required: [true, "Please select a colour"],
+      required: true,
       enum: {
         values: [
           "bg-orange-1 color-orange",
@@ -31,14 +32,14 @@ const SituationSchema = new Schema(
     },
     icon: {
       type: String,
-      required: [true, "Please enter an icon"],
+      required: true,
     },
     scriptures: [
       {
-        bibleTitle: {
+        userId: {
           type: String,
         },
-        bibleVerse: {
+        scriptureId: {
           type: String,
         },
       },
