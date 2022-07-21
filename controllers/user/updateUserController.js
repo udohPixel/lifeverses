@@ -50,7 +50,7 @@ const updateUserController = async (req, res) => {
     // check if user already exits in dB
     if (!user) {
       return res.status(404).json({
-        UserNotFoundError: "No user was found with this id",
+        UserNotFoundError: "User does not exist",
       });
     }
 

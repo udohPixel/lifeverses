@@ -9,9 +9,7 @@ const getAllUsersController = async (req, res) => {
 
     // check if users exist
     if (!users) {
-      return res
-        .status(404)
-        .json({ UsersNotFoundError: "No users were found" });
+      return res.status(404).json({ UsersNotFoundError: "Users do not exist" });
     }
 
     return res.status(200).json(users);

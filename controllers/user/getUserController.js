@@ -9,9 +9,7 @@ const getUserController = async (req, res) => {
 
     // check if user exists with provided username
     if (!user) {
-      return res
-        .status(404)
-        .json({ UserNotFoundError: "No user was found with this username" });
+      return res.status(404).json({ UserNotFoundError: "User does not exist" });
     }
 
     return res.status(200).json(user);

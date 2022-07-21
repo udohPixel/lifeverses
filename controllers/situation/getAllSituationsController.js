@@ -10,7 +10,7 @@ const getAllSituationsController = async (req, res) => {
     // check if situations exist
     if (!situations) {
       return res.status(404).json({
-        SituationsNotFoundError: "No situations were found",
+        SituationsNotFoundError: "Situations does not exist",
       });
     }
 

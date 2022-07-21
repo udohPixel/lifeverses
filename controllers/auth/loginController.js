@@ -13,13 +13,13 @@ const loginController = async (req, res) => {
     const { email, password } = req.body;
 
     let user = await User.findOne({
-      email: email.toLowerCase().trim(),
+      email: email,
     }).exec();
 
     // check if email exist or not in dB
     if (!user) {
       return res.status(404).json({
-        EmailError: "No user was found with this email",
+        EmailError: "Invalid email or password",
       });
     }
 
@@ -28,7 +28,7 @@ const loginController = async (req, res) => {
 
     if (!isMatched) {
       return res.status(403).json({
-        PasswordError: "Password is not correct",
+        PasswordError: "Invalid email or password",
       });
     }
 

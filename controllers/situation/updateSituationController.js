@@ -13,7 +13,7 @@ const updateSituationController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFoundError: "No situation was found with this id",
+        SituationNotFoundError: "Situation does not exist",
       });
     }
 

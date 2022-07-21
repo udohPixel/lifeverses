@@ -17,17 +17,17 @@ const registrationController = async (req, res) => {
     // check if email exists or not in dB
     if (user) {
       return res.status(400).json({
-        EmailExistsError: "Email is already registered in the dB",
+        EmailExistsError: "Email has already been taken. Try another",
       });
     }
 
     // change profile picture if male or female
-    var theprofilepic;
+    var defaultProfilePic;
     if (req.body.gender == "Male") {
-      theprofilepic =
+      defaultProfilePic =
         "https://st4.depositphotos.com/3265223/21282/v/600/depositphotos_212821870-stock-illustration-default-avatar-photo-placeholder-profile.jpg";
     } else {
-      theprofilepic =
+      defaultProfilePic =
         "https://st4.depositphotos.com/3265223/21281/v/600/depositphotos_212811214-stock-illustration-profile-placeholder-default-avatar.jpg";
     }
 
@@ -39,10 +39,7 @@ const registrationController = async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      profilePic:
-        req.body.profilePic == "" || req.body.profilePic == null
-          ? theprofilepic
-          : req.body.profilePic,
+      profilePic: req.body.profilePic ?? defaultProfilePic,
     });
 
     // encrypt password

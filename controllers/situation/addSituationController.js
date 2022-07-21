@@ -13,7 +13,7 @@ const addSituationController = async (req, res) => {
     // check if situation exists
     if (situation) {
       return res.status(404).json({
-        TitleExistsError: "Situation found with the same title in dB",
+        TitleExistsError: "Situation does not exist",
       });
     }
 

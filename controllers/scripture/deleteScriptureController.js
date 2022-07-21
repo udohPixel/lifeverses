@@ -13,7 +13,7 @@ const deleteScriptureController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFoundError: "No situation was found with this id",
+        SituationNotFoundError: "Situation does not exist",
       });
     }
 
@@ -24,7 +24,7 @@ const deleteScriptureController = async (req, res) => {
     // check if scripture to be updated exists
     if (!scripture) {
       return res.status(404).json({
-        ScriptureNotFoundError: "No scripture was found with this id",
+        ScriptureNotFoundError: "Scripture does not exist",
       });
     }
 
@@ -36,7 +36,7 @@ const deleteScriptureController = async (req, res) => {
 
     if (!isCreator) {
       return res.status(403).json({
-        UnauthorisedUserError: "Forbidden to edit another user's scripture",
+        UnauthorisedUserError: "User is not authorised",
       });
     }
 
