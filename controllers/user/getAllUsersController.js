@@ -12,9 +12,9 @@ const getAllUsersController = async (req, res) => {
       return res
         .status(404)
         .json({ UsersNotFoundError: "No users were found" });
-    } else {
-      return res.status(200).json(users);
     }
+
+    return res.status(200).json(users);
   } catch (err) {
     return res.status(500).json({
       FetchAllError: "Error occurred while fetching all users: " + err?.message,

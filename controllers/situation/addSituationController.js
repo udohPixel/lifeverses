@@ -16,19 +16,18 @@ const addSituationController = async (req, res) => {
         TitleExistsError: "Situation found with the same title in dB",
       });
     }
-    if (!situation) {
-      // create a new instance of Situation to store the user-imputed values
-      const newSituation = new Situation({
-        title,
-        colour,
-        icon,
-      });
 
-      // save new situation to dB
-      situation = await newSituation.save();
+    // create a new instance of Situation to store the user-imputed values
+    const newSituation = new Situation({
+      title,
+      colour,
+      icon,
+    });
 
-      return res.status(201).json(situation);
-    }
+    // save new situation to dB
+    situation = await newSituation.save();
+
+    return res.status(201).json(situation);
   } catch (err) {
     return res.status(500).json({
       SaveError:

@@ -5,16 +5,16 @@ const Joi = require("joi");
 const scriptureValidatorSchema = {
   // add scripture validator schema
   addScripture: Joi.object({
-    bibleTitle: Joi.string().min(6).max(50),
+    bibleTitle: Joi.string().min(4).max(50),
     bibleChapter: Joi.number().min(1).max(119),
-    bibleVerses: Joi.number(),
+    bibleVerses: Joi.string(),
   }),
 
   // update scripture validator schema
   updateScripture: Joi.object({
-    bibleTitle: Joi.string().min(6).max(50),
+    bibleTitle: Joi.string().min(4).max(50),
     bibleChapter: Joi.number().min(1).max(119),
-    bibleVerses: Joi.number(),
+    bibleVerses: Joi.string(),
   }),
 };
 

@@ -13,12 +13,11 @@ const deleteSituationController = async (req, res) => {
         SituationNotFoundError: "No situation was found with this id",
       });
     }
-    if (situation) {
-      // delete situation
-      situation = await Situation.findOneAndRemove({ _id: req.params.id });
 
-      return res.status(200).json(situation);
-    }
+    // delete situation
+    situation = await Situation.findOneAndRemove({ _id: req.params.id });
+
+    return res.status(200).json(situation);
   } catch (err) {
     return res.status(500).json({
       DeleteError: "Error occurred while deleting situation: " + err?.message,

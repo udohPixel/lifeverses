@@ -16,19 +16,18 @@ const updateSituationController = async (req, res) => {
         SituationNotFoundError: "No situation was found with this id",
       });
     }
-    if (situation) {
-      // pass user-imputed fields into situationValues object
-      const situationValues = { title, colour, icon };
 
-      // update situation
-      situation = await Situation.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: situationValues },
-        { new: true }
-      );
+    // pass user-imputed fields into situationValues object
+    const situationValues = { title, colour, icon };
 
-      return res.status(200).json(situation);
-    }
+    // update situation
+    situation = await Situation.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: situationValues },
+      { new: true }
+    );
+
+    return res.status(200).json(situation);
   } catch (err) {
     return res.status(500).json({
       UpdateError: "Error occurred while updating situation: " + err?.message,

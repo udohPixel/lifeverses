@@ -12,13 +12,12 @@ const getUserController = async (req, res) => {
       return res
         .status(404)
         .json({ UserNotFoundError: "No user was found with this username" });
-    } else {
-      return res.status(200).json(user);
     }
+
+    return res.status(200).json(user);
   } catch (err) {
     return res.status(500).json({
-      FetchError:
-        "Error occurred while fetching user by username: " + err?.message,
+      FetchError: "Error occurred while fetching user: " + err?.message,
     });
   }
 };

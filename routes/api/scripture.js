@@ -50,7 +50,7 @@ router.post(
   "/:situation_id/scripture",
   isLoggedIn,
   isEditor && isAdmin && isSuperAdmin,
-  // isAddScriptureValidated,
+  isAddScriptureValidated,
   addScriptureController
 );
 
@@ -64,7 +64,7 @@ router.put(
   "/:situation_id/scripture/:scripture_id",
   isLoggedIn,
   isEditor && isAdmin && isSuperAdmin,
-  // isUpdateScriptureValidated,
+  isUpdateScriptureValidated,
   updateScriptureController
 );
 

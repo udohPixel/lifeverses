@@ -10,14 +10,14 @@ const deleteUserController = async (req, res) => {
     // check if user exists with provided id
     if (!user) {
       return res.status(404).json({
-        UserNotFoundError: "No user was found with id of " + req.params.id,
+        UserNotFoundError: "No user was found with this id",
       });
-    } else {
-      return res.status(200).json({ success: "User deleted successfully" });
     }
+
+    return res.status(200).json({ success: "User deleted successfully" });
   } catch (err) {
     return res.status(500).json({
-      DeleteError: "Error occurred while finding user " + err?.message,
+      DeleteError: "Error occurred while deleting user: " + err?.message,
     });
   }
 };
