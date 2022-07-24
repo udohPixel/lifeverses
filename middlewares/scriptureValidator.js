@@ -2,7 +2,7 @@
 const {
   addScripture,
   updateScripture,
-} = require("../utils/scriptureValidatorSchema");
+} = require("../validations/scriptureValidatorSchema");
 
 // is add scripture values validated controller
 const isAddScriptureValidated = async (req, res, next) => {

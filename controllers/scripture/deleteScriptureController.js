@@ -1,6 +1,7 @@
 // import required models
 const Situation = require("../../models/Situation");
 const Scripture = require("../../models/Scripture");
+const logger = require("../../logger/index");
 
 // delete scripture controller
 const deleteScriptureController = async (req, res) => {
@@ -13,7 +14,8 @@ const deleteScriptureController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFoundError: "Situation does not exist",
+        success: false,
+        message: "Situation does not exist",
       });
     }
 
@@ -24,7 +26,8 @@ const deleteScriptureController = async (req, res) => {
     // check if scripture to be updated exists
     if (!scripture) {
       return res.status(404).json({
-        ScriptureNotFoundError: "Scripture does not exist",
+        success: false,
+        message: "Scripture does not exist",
       });
     }
 
@@ -36,7 +39,8 @@ const deleteScriptureController = async (req, res) => {
 
     if (!isCreator) {
       return res.status(403).json({
-        UnauthorisedUserError: "User is not authorised",
+        success: false,
+        message: "You are not authorised",
       });
     }
 
@@ -45,10 +49,18 @@ const deleteScriptureController = async (req, res) => {
       _id: req.params.scripture_id,
     });
 
-    return res.status(200).json(scripture);
+    return res.status(200).json({
+      success: true,
+      message: "Scripture was deleted successfully",
+      data: scripture,
+    });
   } catch (err) {
+    logger.error("Error occurred while deleting scripture: " + err?.message, {
+      meta: delete_scripture,
+    });
     return res.status(500).json({
-      UpdateError: "Error occurred while updating scripture: " + err?.message,
+      success: false,
+      message: "Something went wrong while deleting scripture",
     });
   }
 };

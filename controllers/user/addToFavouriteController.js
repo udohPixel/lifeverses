@@ -1,5 +1,6 @@
 // import Scripture model
 const User = require("../../models/User");
+const logger = require("../../logger/index");
 
 // add to favourite controller
 const addToFavouriteController = async (req, res) => {
@@ -13,19 +14,32 @@ const addToFavouriteController = async (req, res) => {
         $push: { favouriteScriptures: req.body.scriptureId },
       });
 
-      res.status(200).json({ success: "Added scripture to favourite" });
+      res.status(200).json({
+        success: true,
+        message: "Scripture was added to favourite successfully",
+        data: user.favouriteScriptures,
+      });
     } else {
       await user.updateOne({
         $pull: { favouriteScriptures: req.body.scriptureId },
       });
 
-      res.status(200).json({ success: "Removed scripture from favourite" });
+      res.status(200).json({
+        success: true,
+        message: "Scripture was removed from favourite successfully",
+        data: user.favouriteScriptures,
+      });
     }
   } catch (err) {
+    logger.error(
+      "Error occurred while adding to/removing from favourite: " + err?.message,
+      {
+        meta: add_to_favourite,
+      }
+    );
     return res.status(500).json({
-      AddRemoveError:
-        "Error occurred while adding to/removing from favourite: " +
-        err?.message,
+      success: false,
+      message: "Something went wrong while adding to/removing from favourite",
     });
   }
 };

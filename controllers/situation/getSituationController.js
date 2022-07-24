@@ -1,5 +1,6 @@
 // import Situation model
 const Situation = require("../../models/Situation");
+const logger = require("../../logger/index");
 
 // fetch situation controller
 const getSituationController = async (req, res) => {
@@ -10,14 +11,22 @@ const getSituationController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFound: "Situation does not exist",
+        success: false,
+        message: "Situation does not exist",
       });
     }
 
-    return res.status(200).json(situation);
+    return res.status(200).json({
+      success: true,
+      message: "Situation found successfully",
+      data: situation,
+    });
   } catch (err) {
+    logger.error("Error occurred while fetching situation: " + err?.message, {
+      meta: get_situation,
+    });
     return res.status(500).json({
-      FetchError: "Error in fetching situation by id:" + err?.message,
+      FetchError: "Something went wrong while finding situation",
     });
   }
 };

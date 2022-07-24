@@ -1,5 +1,6 @@
 // import User model
 const User = require("../../models/User");
+const logger = require("../../logger/index");
 
 // update/save user controller
 const updateUserPersonalController = async (req, res) => {
@@ -46,7 +47,8 @@ const updateUserPersonalController = async (req, res) => {
     // check if user already exits in dB
     if (!user) {
       return res.status(404).json({
-        UserNotFoundError: "User does not exist",
+        success: false,
+        message: "User does not exist",
       });
     }
 
@@ -65,14 +67,16 @@ const updateUserPersonalController = async (req, res) => {
     // check if username already exists
     if (isExistingUsername) {
       return res.status(409).json({
-        UsernameExistsError: "Username has already been taken. Try another",
+        success: false,
+        message: "Username has already been taken. Try another",
       });
     }
 
     // check if username already exists
     if (isExistingEmail) {
       return res.status(409).json({
-        EmailExistsError: "Email has already been taken. Try another",
+        success: false,
+        message: "Email has already been taken. Try another",
       });
     }
 
@@ -83,10 +87,18 @@ const updateUserPersonalController = async (req, res) => {
       { new: true }
     );
 
-    return res.json(user);
+    return res.json({
+      success: true,
+      message: "Profile updated successfully",
+      data: user,
+    });
   } catch (err) {
+    logger.error("Error occurred while updating user: " + err?.message, {
+      meta: personal_user_update,
+    });
     return res.status(500).json({
-      UpdateError: "Error occurred while updating user: " + err?.message,
+      success: false,
+      message: "Something went wrong while updating user",
     });
   }
 };

@@ -5,7 +5,7 @@ const {
   updatePersonalUser,
   updateUser,
   addToFavourite,
-} = require("../utils/userValidationSchema");
+} = require("../validations/userValidationSchema");
 
 // is login values validated
 const isLoginValidated = async (req, res, next) => {

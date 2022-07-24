@@ -1,5 +1,6 @@
 // import User model
 const User = require("../../models/User");
+const logger = require("../../logger/index");
 
 // fetch all users controller
 const getAllUsersController = async (req, res) => {
@@ -9,13 +10,23 @@ const getAllUsersController = async (req, res) => {
 
     // check if users exist
     if (!users) {
-      return res.status(404).json({ UsersNotFoundError: "Users do not exist" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Users do not exist" });
     }
 
-    return res.status(200).json(users);
+    return res.status(200).json({
+      success: true,
+      message: "Users found successfully",
+      data: users,
+    });
   } catch (err) {
+    logger.error("Error occurred while fetching all users: " + err?.message, {
+      meta: get_all_users,
+    });
     return res.status(500).json({
-      FetchAllError: "Error occurred while fetching all users: " + err?.message,
+      success: false,
+      message: "Something went wrong while finding all users",
     });
   }
 };

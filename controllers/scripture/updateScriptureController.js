@@ -1,6 +1,7 @@
 // import required models
 const Situation = require("../../models/Situation");
 const Scripture = require("../../models/Scripture");
+const logger = require("../../logger/index");
 
 // update scripture controller
 const updateScriptureController = async (req, res) => {
@@ -16,7 +17,8 @@ const updateScriptureController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFoundError: "Situation does not exist",
+        success: false,
+        message: "Situation does not exist",
       });
     }
 
@@ -27,7 +29,8 @@ const updateScriptureController = async (req, res) => {
     // check if scripture to be updated exists
     if (!scripture) {
       return res.status(404).json({
-        ScriptureNotFoundError: "Scripture does not exist",
+        success: false,
+        message: "Scripture does not exist",
       });
     }
 
@@ -39,7 +42,8 @@ const updateScriptureController = async (req, res) => {
 
     if (!isCreator) {
       return res.status(403).json({
-        UnauthorisedUserError: "User is not authorised",
+        success: false,
+        message: "You are not authorised",
       });
     }
 
@@ -73,10 +77,17 @@ const updateScriptureController = async (req, res) => {
       { new: true }
     );
 
-    return res.status(200).json(scripture);
+    return res.status(200).json({
+      success: true,
+      message: "Scripture updated successfully",
+      data: scripture,
+    });
   } catch (err) {
+    logger.error("Error occurred while updating scripture: " + err?.message, {
+      meta: update_scripture,
+    });
     return res.status(500).json({
-      UpdateError: "Error occurred while updating scripture: " + err?.message,
+      UpdateError: "Something went wrong while updating scripture",
     });
   }
 };

@@ -2,6 +2,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const key = require("../../settings/config");
+const logger = require("../../logger/index");
 
 // import User model
 const User = require("../../models/User");
@@ -19,7 +20,8 @@ const loginController = async (req, res) => {
     // check if email exist or not in dB
     if (!user) {
       return res.status(404).json({
-        EmailError: "Invalid email or password",
+        success: false,
+        message: "Invalid email or password",
       });
     }
 
@@ -28,7 +30,8 @@ const loginController = async (req, res) => {
 
     if (!isMatched) {
       return res.status(403).json({
-        PasswordError: "Invalid email or password",
+        success: false,
+        message: "Invalid email or password",
       });
     }
 
@@ -49,17 +52,26 @@ const loginController = async (req, res) => {
       (err, token) => {
         if (err) {
           res.json({
-            TokenError: "Error occurred while signing token: " + err?.message,
+            success: false,
+            message: "Something went wrong while logging in",
           });
         }
         if (token) {
-          res.json({ success: true, token: "Bearer " + token });
+          res.json({
+            success: true,
+            message: "Logged in successfully",
+            token: "Bearer " + token,
+          });
         }
       }
     );
   } catch (err) {
+    logger.error("Error occurred while logging in: " + err?.message, {
+      meta: login,
+    });
     return res.status(500).json({
-      LoginError: "Error occurred while logging in: " + err?.message,
+      success: false,
+      message: "Something went wrong while logging in",
     });
   }
 };

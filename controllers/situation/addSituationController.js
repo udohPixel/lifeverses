@@ -1,5 +1,6 @@
 // import Situation model
 const Situation = require("../../models/Situation");
+const logger = require("../../logger/index");
 
 // add situation controller
 const addSituationController = async (req, res) => {
@@ -13,7 +14,8 @@ const addSituationController = async (req, res) => {
     // check if situation exists
     if (situation) {
       return res.status(404).json({
-        TitleExistsError: "Situation does not exist",
+        success: false,
+        message: "Situation does not exist",
       });
     }
 
@@ -27,11 +29,18 @@ const addSituationController = async (req, res) => {
     // save new situation to dB
     situation = await newSituation.save();
 
-    return res.status(201).json(situation);
+    return res.status(201).json({
+      success: true,
+      message: "Situation saved successfully",
+      data: situation,
+    });
   } catch (err) {
+    logger.error("Error occurred while saving situation: " + err?.message, {
+      meta: add_situation,
+    });
     return res.status(500).json({
-      SaveError:
-        "Error occurred in while saving new situation: " + err?.message,
+      success: false,
+      message: "Something went wrong while saving new situation",
     });
   }
 };

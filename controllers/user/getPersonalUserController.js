@@ -1,5 +1,6 @@
 // import User model
 const User = require("../../models/User");
+const logger = require("../../logger/index");
 
 // fetch user controller
 const getPersonalUserController = async (req, res) => {
@@ -9,13 +10,24 @@ const getPersonalUserController = async (req, res) => {
 
     // check if user exists
     if (!user) {
-      return res.status(404).json({ UserNotFoundError: "User does not exist" });
+      return res.status(404).json({
+        success: false,
+        message: "User does not exist",
+      });
     }
 
-    return res.status(200).json(user);
+    return res.status(200).json({
+      success: true,
+      message: "User found successfully",
+      data: user,
+    });
   } catch (err) {
+    logger.error("Error occurred while fetching user: " + err?.message, {
+      meta: get_personal_user,
+    });
     return res.status(500).json({
-      FetchError: "Error occurred while fetching user: " + err?.message,
+      success: false,
+      message: "Something went wrong while finding user",
     });
   }
 };

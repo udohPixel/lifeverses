@@ -1,6 +1,7 @@
 // import required libraries
 const config = require("../../settings/config");
 const mongoose = require("mongoose");
+const logger = require("../../logger/index");
 
 // dbSetup module
 const dbSetup = () => {
@@ -12,10 +13,10 @@ const dbSetup = () => {
   mongoose
     .connect(db, connectionParams)
     .then(() => {
-      console.log("MongoDB connected successfully");
+      logger.info("MongoDB connected successfully");
     })
     .catch((err) => {
-      console.log("Error occurred in app:- Database connection failed: " + err);
+      logger.error("MongoDB connection error: " + err?.message);
     });
 };
 

@@ -1,5 +1,6 @@
 // import Situation model
 const Situation = require("../../models/Situation");
+const logger = require("../../logger/index");
 
 // delete situation controller
 const deleteSituationController = async (req, res) => {
@@ -10,17 +11,26 @@ const deleteSituationController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFoundError: "Situation does not exist",
+        success: false,
+        message: "Situation does not exist",
       });
     }
 
     // delete situation
     situation = await Situation.findOneAndRemove({ _id: req.params.id });
 
-    return res.status(200).json(situation);
+    return res.status(200).json({
+      success: true,
+      message: "Situation deleted successfully",
+      data: situation,
+    });
   } catch (err) {
+    logger.error("Error occurred while deleting situation: " + err?.message, {
+      meta: delete_situation,
+    });
     return res.status(500).json({
-      DeleteError: "Error occurred while deleting situation: " + err?.message,
+      success: false,
+      message: "Something went wrong while deleting situation",
     });
   }
 };

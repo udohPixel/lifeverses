@@ -1,5 +1,6 @@
 // import required libraries
 const express = require("express");
+const logger = require("./logger/index");
 
 // create express app and set port
 const app = express();
@@ -18,5 +19,5 @@ app.use(routes);
 
 // listener setup
 app.listen(PORT, () => {
-  console.log(`Server is running at ${PORT}...`);
+  logger.info(`Server is running at ${PORT}...`);
 });

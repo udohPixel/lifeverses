@@ -2,7 +2,7 @@
 const {
   addSituation,
   updateSituation,
-} = require("../utils/situationValidatorSchema");
+} = require("../validations/situationValidatorSchema");
 
 // is add situation values validated controller
 const isAddSituationValidated = async (req, res, next) => {

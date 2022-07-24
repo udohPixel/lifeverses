@@ -1,5 +1,6 @@
 // import Scripture model
 const Scripture = require("../../models/Scripture");
+const logger = require("../../logger/index");
 
 // add new scripture controller
 const addScriptureController = async (req, res) => {
@@ -31,10 +32,19 @@ const addScriptureController = async (req, res) => {
     // update scripture scripture
     scripture = await newScripture.save();
 
-    return res.status(200).json(scripture);
+    return res.status(200).json({
+      success: true,
+      message: "Scripture added successfully",
+      data: scripture,
+    });
   } catch (err) {
+    logger.error("Error occurred while adding new scripture: " + err?.message, {
+      meta: add_scripture,
+    });
     return res.status(500).json({
-      SaveError: "Error occurred while adding new scripture: " + err?.message,
+      success: false,
+      message:
+        "Something went wrong while adding new scripture: " + err?.message,
     });
   }
 };

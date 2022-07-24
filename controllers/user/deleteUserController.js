@@ -1,5 +1,6 @@
 // import User model
 const User = require("../../models/User");
+const logger = require("../../logger/index");
 
 // delete user controller
 const deleteUserController = async (req, res) => {
@@ -10,14 +11,23 @@ const deleteUserController = async (req, res) => {
     // check if user exists with provided id
     if (!user) {
       return res.status(404).json({
-        UserNotFoundError: "User does not exist",
+        success: false,
+        message: "User does not exist",
       });
     }
 
-    return res.status(200).json({ DeleteSuccess: "User deleted successfully" });
+    return res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+      data: user,
+    });
   } catch (err) {
+    logger.error("Error occurred while deleting user: " + err?.message, {
+      meta: delete_user,
+    });
     return res.status(500).json({
-      DeleteError: "Error occurred while deleting user: " + err?.message,
+      success: false,
+      message: "Something went wrong while deleting user",
     });
   }
 };

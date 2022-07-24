@@ -1,5 +1,6 @@
 // import Situation model
 const Situation = require("../../models/Situation");
+const logger = require("../../logger/index");
 
 // update situation controller
 const updateSituationController = async (req, res) => {
@@ -13,7 +14,8 @@ const updateSituationController = async (req, res) => {
     // check if situation exists
     if (!situation) {
       return res.status(404).json({
-        SituationNotFoundError: "Situation does not exist",
+        success: false,
+        message: "Situation does not exist",
       });
     }
 
@@ -27,10 +29,18 @@ const updateSituationController = async (req, res) => {
       { new: true }
     );
 
-    return res.status(200).json(situation);
+    return res.status(200).json({
+      success: true,
+      message: "Situation updated successfully",
+      data: situation,
+    });
   } catch (err) {
+    logger.error("Error occurred while updating situation: " + err?.message, {
+      meta: update_situation,
+    });
     return res.status(500).json({
-      UpdateError: "Error occurred while updating situation: " + err?.message,
+      success: false,
+      message: "Something went wrong while updating situation",
     });
   }
 };
