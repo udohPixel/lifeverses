@@ -12,7 +12,7 @@ const addSituationController = async (req, res) => {
     let situation = await Situation.findOne({ title }).exec();
 
     // check if situation exists
-    if (situation) {
+    if (!situation) {
       return res.status(404).json({
         success: false,
         message: "Situation does not exist",

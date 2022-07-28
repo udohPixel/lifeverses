@@ -52,14 +52,22 @@ const updateUserPersonalController = async (req, res) => {
       });
     }
 
-    // fetch user by username except current user from dB
-    let isExistingUsername = await User.findOne({ username: username })
+    // fetch user by email except current user from dB
+    let isExistingEmail = await User.findOne({ email: email })
       .where("_id")
       .ne(req.user.id)
       .exec();
 
-    // fetch user by email except current user from dB
-    let isExistingEmail = await User.findOne({ email: email })
+    // check if username already exists
+    if (isExistingEmail) {
+      return res.status(409).json({
+        success: false,
+        message: "Email has already been taken. Try another",
+      });
+    }
+
+    // fetch user by username except current user from dB
+    let isExistingUsername = await User.findOne({ username: username })
       .where("_id")
       .ne(req.user.id)
       .exec();
@@ -69,14 +77,6 @@ const updateUserPersonalController = async (req, res) => {
       return res.status(409).json({
         success: false,
         message: "Username has already been taken. Try another",
-      });
-    }
-
-    // check if username already exists
-    if (isExistingEmail) {
-      return res.status(409).json({
-        success: false,
-        message: "Email has already been taken. Try another",
       });
     }
 
