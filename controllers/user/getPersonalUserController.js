@@ -1,23 +1,35 @@
 // import User model
 const User = require("../../models/User");
+const logger = require("../../logger/index");
 
 // fetch user controller
 const getPersonalUserController = async (req, res) => {
-  // fetch user by id from dB
-  await User.findOne({ _id: req.user.id })
-    .then((user) => {
-      // check if user exists
-      if (!user) {
-        return res
-          .status(404)
-          .json({ UserNotFoundError: "No user was found with this id" });
-      } else {
-        return res.status(200).json(user);
-      }
-    })
-    .catch((err) => {
-      console.log("Error occurred in user:- While finding user " + err);
+  try {
+    // fetch user by id from dB
+    let user = await User.findOne({ id: req.user.id }).exec();
+
+    // check if user exists
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User does not exist",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User found successfully",
+      data: user,
     });
+  } catch (err) {
+    logger.error("Error occurred while fetching user: " + err?.message, {
+      meta: get_personal_user,
+    });
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while finding user",
+    });
+  }
 };
 
 // export controller

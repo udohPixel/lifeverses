@@ -10,8 +10,9 @@ const isEditor = async (req, res, next) => {
   if (userRole == "Editor") {
     await next();
   } else {
-    return res.status(403).json({
-      UnauthorisedUserError: "User is not authorised",
+    res.status(403).json({
+      success: false,
+      message: "You are not authorised",
     });
   }
 };
@@ -22,8 +23,9 @@ const isAdmin = async (req, res, next) => {
   if (userRole == "Admin") {
     await next();
   } else {
-    return res.status(403).json({
-      UnauthorisedUserError: "User is not authorised",
+    res.status(403).json({
+      success: false,
+      message: "You are not authorised",
     });
   }
 };
@@ -34,8 +36,9 @@ const isSuperAdmin = async (req, res, next) => {
   if (userRole == "SuperAdmin") {
     await next();
   } else {
-    return res.status(403).json({
-      UnauthorisedUserError: "User is not authorised",
+    res.status(403).json({
+      success: false,
+      message: "You are not authorised",
     });
   }
 };

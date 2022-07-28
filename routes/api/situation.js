@@ -2,12 +2,11 @@
 const express = require("express");
 
 // import required middlewares
+const { isLoggedIn, isAdmin, isSuperAdmin } = require("../../middlewares/auth");
 const {
-  isLoggedIn,
-  isEditor,
-  isAdmin,
-  isSuperAdmin,
-} = require("../../middlewares/auth");
+  isAddSituationValidated,
+  isUpdateSituationValidated,
+} = require("../../middlewares/situationValidator");
 
 // import required controllers
 const getSituationController = require("../../controllers/situation/getSituationController");
@@ -15,8 +14,6 @@ const getAllSituationsController = require("../../controllers/situation/getAllSi
 const addSituationController = require("../../controllers/situation/addSituationController");
 const updateSituationController = require("../../controllers/situation/updateSituationController");
 const deleteSituationController = require("../../controllers/situation/deleteSituationController");
-const addScriptureController = require("../../controllers/situation/addScriptureController");
-const deleteScriptureController = require("../../controllers/situation/deleteScriptureController");
 
 // create router
 const router = express.Router();
@@ -44,18 +41,25 @@ router.get("/find/all", getAllSituationsController);
  * @access  - PRIVATE
  * @type    - POST
  */
-router.post("/", isLoggedIn, isAdmin && isSuperAdmin, addSituationController);
+router.post(
+  "/",
+  isLoggedIn,
+  isAdmin && isSuperAdmin,
+  isAddSituationValidated,
+  addSituationController
+);
 
 /**
  * @desc    - route for updating situation
  * @api     - /api/situation/:id
  * @access  - PRIVATE
- * @type    - POST
+ * @type    - PUT
  */
-router.post(
+router.put(
   "/:id",
   isLoggedIn,
   isAdmin && isSuperAdmin,
+  isUpdateSituationValidated,
   updateSituationController
 );
 
@@ -70,32 +74,6 @@ router.delete(
   isLoggedIn,
   isAdmin && isSuperAdmin,
   deleteSituationController
-);
-
-/**
- * @desc    - route for adding new scripture
- * @api     - /api/situation/:situation_id/scripture
- * @access  - PRIVATE
- * @type    - PUT
- */
-router.put(
-  "/:situation_id/scripture",
-  isLoggedIn,
-  isEditor && isAdmin && isSuperAdmin,
-  addScriptureController
-);
-
-/**
- * @desc    - route for deleting scripture
- * @api     - /api/situation//:situation_id/scripture/:scripture_id
- * @access  - PRIVATE
- * @type    - DELETE
- */
-router.delete(
-  "/:situation_id/scripture/:scripture_id",
-  isLoggedIn,
-  isAdmin && isSuperAdmin,
-  deleteScriptureController
 );
 
 // export router

@@ -1,49 +1,48 @@
 // import Situation model
 const Situation = require("../../models/Situation");
+const logger = require("../../logger/index");
 
 // update situation controller
 const updateSituationController = async (req, res) => {
-  // declare situationValues
-  const situationValues = {};
+  try {
+    // object destructuring assignment
+    const { title, colour, icon } = req.body;
 
-  // pass user-imputed fields into situationValues object
-  if (req.body.title) situationValues.title = req.body.title;
-  if (req.body.colour) situationValues.colour = req.body.colour;
-  if (req.body.icon) situationValues.icon = req.body.icon;
+    // fetch situation by id from dB
+    let situation = await Situation.findOne({ _id: req.params.id }).exec();
 
-  // fetch situation by id from dB
-  await Situation.findOne({ _id: req.params.id })
-    .then((situation) => {
-      // check if situation exists in dB
-      if (!situation) {
-        return res.status(404).json({
-          SituationNotFoundError: "No situation was found with this id",
-        });
-      }
-      if (situation) {
-        // update situation
-        Situation.findOneAndUpdate(
-          { _id: req.params.id },
-          { $set: situationValues },
-          { new: true }
-        )
-          .then((situation) => {
-            return res.json(situation);
-          })
-          .catch((err) => {
-            console.log(
-              "Error occured in Situaation update:- While updating situation" +
-                err
-            );
-          });
-      }
-    })
-    .catch((err) => {
-      console.log(
-        "Error occurred in Situation update:- While fetching situation by id" +
-          err
-      );
+    // check if situation exists
+    if (!situation) {
+      return res.status(404).json({
+        success: false,
+        message: "Situation does not exist",
+      });
+    }
+
+    // pass user-imputed fields into situationValues object
+    const situationValues = { title, colour, icon };
+
+    // update situation
+    situation = await Situation.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: situationValues },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Situation updated successfully",
+      data: situation,
     });
+  } catch (err) {
+    logger.error("Error occurred while updating situation: " + err?.message, {
+      meta: update_situation,
+    });
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while updating situation",
+    });
+  }
 };
 
 // export controller

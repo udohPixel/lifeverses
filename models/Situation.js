@@ -9,36 +9,34 @@ const SituationSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "Please enter a title"],
+      required: true,
+      unique: true,
     },
     colour: {
       type: String,
-      required: [true, "Please select a colour"],
-      enum: {
-        values: [
-          "bg-orange-1 color-orange",
-          "bg-red-1 color-red",
-          "bg-pink-1 color-pink",
-          "bg-purple-1 color-purple",
-          "bg-yellow-1 color-yellow",
-          "bg-blue-1 color-blue",
-          "bg-snow text-dark",
-          "bg-green-1 color-green",
-          "bg-cyan-1 color-cyan",
-        ],
-        message: "{VALUE} is not a valid colour",
-      },
+      required: true,
+      enum: [
+        "bg-orange-1 color-orange",
+        "bg-red-1 color-red",
+        "bg-pink-1 color-pink",
+        "bg-purple-1 color-purple",
+        "bg-yellow-1 color-yellow",
+        "bg-blue-1 color-blue",
+        "bg-snow text-dark",
+        "bg-green-1 color-green",
+        "bg-cyan-1 color-cyan",
+      ],
     },
     icon: {
       type: String,
-      required: [true, "Please enter an icon"],
+      required: true,
     },
     scriptures: [
       {
-        bibleTitle: {
+        userId: {
           type: String,
         },
-        bibleVerse: {
+        scriptureId: {
           type: String,
         },
       },
