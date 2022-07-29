@@ -39,6 +39,7 @@ const UserSchema = new Schema(
     },
     profilePic: {
       type: String,
+      required: false,
       // default: "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg",
     },
     role: {
@@ -51,25 +52,32 @@ const UserSchema = new Schema(
     },
     isActive: {
       type: Boolean,
+      default: false,
     },
     bio: {
       type: String,
+      required: false,
     },
     socialLinks: {
       facebook: {
         type: String,
+        required: false,
       },
       youtube: {
         type: String,
+        required: false,
       },
       instagram: {
         type: String,
+        required: false,
       },
       linkedIn: {
         type: String,
+        required: false,
       },
       twitter: {
         type: String,
+        required: false,
       },
     },
     favouriteScriptures: {

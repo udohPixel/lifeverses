@@ -8,13 +8,6 @@ const getAllUsersController = async (req, res) => {
     // fetch all users from dB
     let users = await User.find().exec();
 
-    // check if users exist
-    if (!users) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Users do not exist" });
-    }
-
     return res.status(200).json({
       success: true,
       message: "Users found successfully",

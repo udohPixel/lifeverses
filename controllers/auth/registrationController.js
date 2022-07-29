@@ -24,11 +24,6 @@ const registrationController = async (req, res) => {
       email: email,
     }).exec();
 
-    // fetch user by username from dB
-    let isExistingUsername = await User.findOne({
-      username: username,
-    }).exec();
-
     // check if email exists or not in dB
     if (isExistingEmail) {
       return res.status(400).json({
@@ -36,6 +31,11 @@ const registrationController = async (req, res) => {
         message: "Email has already been taken. Try another",
       });
     }
+
+    // fetch user by username from dB
+    let isExistingUsername = await User.findOne({
+      username: username,
+    }).exec();
 
     if (isExistingUsername) {
       return res.status(400).json({

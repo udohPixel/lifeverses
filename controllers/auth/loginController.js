@@ -26,7 +26,7 @@ const loginController = async (req, res) => {
     }
 
     // check if user-imputed password matches password in dB
-    let isMatched = bcrypt.compare(password, user.password);
+    let isMatched = await bcrypt.compare(password, user.password);
 
     if (!isMatched) {
       return res.status(403).json({
@@ -66,9 +66,7 @@ const loginController = async (req, res) => {
       }
     );
   } catch (err) {
-    logger.error("Error occurred while logging in: " + err?.message, {
-      meta: login,
-    });
+    logger.error("Error occurred while logging in: " + err?.message);
     return res.status(500).json({
       success: false,
       message: "Something went wrong while logging in",
