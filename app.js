@@ -1,6 +1,7 @@
 // import required libraries
 const express = require("express");
 const logger = require("./logger/index");
+const apiResponse = require("./common/ApiResponse");
 
 // create express app and set port
 const app = express();
@@ -16,6 +17,14 @@ dbSetup();
 
 const routes = require("./providers/routes/index");
 app.use(routes);
+
+app.use((err, req, res, next) => {
+  if (err) {
+    return apiResponse.errorObject(res, err);
+  } else {
+    return apiResponse.errorObject(res, err, 404);
+  }
+});
 
 // listener setup
 app.listen(PORT, () => {

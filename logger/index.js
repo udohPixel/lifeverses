@@ -2,8 +2,8 @@
 const config = require("../settings/config");
 
 // import required loggers
-const developmentLogger = require("./developmentLogger");
-const productionLogger = require("./productionLogger");
+const developmentLogger = require("./development.logger");
+const productionLogger = require("./production.logger");
 
 let logger = null; // default
 
