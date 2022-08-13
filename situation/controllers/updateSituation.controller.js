@@ -8,8 +8,15 @@ const updateSituationCtrl = async (req, res) => {
     // object destructuring assignment
     const { title, colour, icon } = req.body;
 
+    let situationId = req.params.id;
+
     // update situation service
-    const situation = await updateSituationService(req, title, colour, icon);
+    const situation = await updateSituationService(
+      situationId,
+      title,
+      colour,
+      icon
+    );
 
     return apiResponse.success(
       res,

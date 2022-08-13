@@ -8,11 +8,22 @@ const updateScriptureCtrl = async (req, res) => {
     // object destructuring assignment
     const { bibleTitle, bibleChapter } = req.body;
 
+    // get other data
+    let theRole = req.user.role;
+    let theUserId = req.user.id;
+    let situationId = req.params.situation_id;
+    let scriptureId = req.params.scripture_id;
+    let bibleVerses = req.body.bibleVerses.split(",");
+
     // update scripture service
     const scripture = await updateScriptureService(
-      req,
+      theRole,
+      theUserId,
+      situationId,
+      scriptureId,
       bibleTitle,
-      bibleChapter
+      bibleChapter,
+      bibleVerses
     );
 
     return apiResponse.success(

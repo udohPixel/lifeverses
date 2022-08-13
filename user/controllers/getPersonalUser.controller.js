@@ -5,8 +5,10 @@ const getPersonalUserService = require("../services/getPersonalUser.service.");
 // get personal user controller
 const getPersonalUserCtrl = async (req, res) => {
   try {
+    let userId = req.user.id;
+
     // get personal user service
-    const user = await getPersonalUserService(req);
+    const user = await getPersonalUserService(userId);
 
     return apiResponse.success(res, "User found successfully", user);
   } catch (error) {

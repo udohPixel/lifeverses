@@ -4,7 +4,7 @@ const { combine, timestamp, errors, json } = format;
 
 // create logger function
 const productionLogger = () => {
-  const logger = createLogger({
+  return createLogger({
     level: "info",
     format: combine(timestamp(), errors({ stack: true }), json()),
     defaultMeta: { service: "user-service" },
@@ -17,8 +17,6 @@ const productionLogger = () => {
       new transports.File({ filename: "combined.log" }),
     ],
   });
-
-  return logger;
 };
 
 // export developmentLogger

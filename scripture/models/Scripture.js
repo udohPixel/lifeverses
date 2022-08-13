@@ -93,12 +93,10 @@ const ScriptureSchema = new Schema(
     bibleChapter: {
       type: Number,
       enum: [Array.from({ length: 119 }, (_, i) => i + 1)],
-      required: true,
     },
     bibleVerses: {
       type: [String],
       // enum: [Array.from({ length: 176 }, (_, i) => i + 1)],
-      required: true,
     },
   },
   { timestamps: true }

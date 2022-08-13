@@ -4,9 +4,8 @@ const express = require("express");
 // import required middlewares
 const {
   isLoggedIn,
-  isEditor,
-  isAdmin,
-  isSuperAdmin,
+  isTheAdminOrSuperAdmin,
+  isTheEditorOrMerchantOrAdminOrSuperAdmin,
 } = require("../../../user/middlewares/auth");
 const {
   isAddScriptureValidated,
@@ -49,7 +48,7 @@ router.get("/find/all", getAllScriptures);
 router.post(
   "/:situation_id/scripture",
   isLoggedIn,
-  isEditor && isAdmin && isSuperAdmin,
+  isTheEditorOrMerchantOrAdminOrSuperAdmin,
   isAddScriptureValidated,
   addScripture
 );
@@ -63,7 +62,7 @@ router.post(
 router.put(
   "/:situation_id/scripture/:scripture_id",
   isLoggedIn,
-  isEditor && isAdmin && isSuperAdmin,
+  isTheEditorOrMerchantOrAdminOrSuperAdmin,
   isUpdateScriptureValidated,
   updateScripture
 );
@@ -77,7 +76,7 @@ router.put(
 router.delete(
   "/:situation_id/scripture/:scripture_id",
   isLoggedIn,
-  isAdmin && isSuperAdmin,
+  isTheAdminOrSuperAdmin,
   deleteScripture
 );
 

@@ -2,12 +2,21 @@
 const Situation = require("../../situation/models/Situation");
 const Scripture = require("../models/Scripture");
 const ApplicationException = require("../../common/ApplicationException");
+const { isEditor, isAdmin, isSuperAdmin } = require("../../common/helpers");
 
 // update scripture service
-const updateScriptureService = async (req, bibleTitle, bibleChapter) => {
+const updateScriptureService = async (
+  theRole,
+  theUserId,
+  situationId,
+  scriptureId,
+  bibleTitle,
+  bibleChapter,
+  bibleVerses
+) => {
   // fetch situation by id from dB
   let situation = await Situation.findOne({
-    _id: req.params.situation_id,
+    _id: situationId,
   }).exec();
 
   // check if situation exists
@@ -16,7 +25,7 @@ const updateScriptureService = async (req, bibleTitle, bibleChapter) => {
   }
 
   let scripture = await Scripture.findOne({
-    _id: req.params.scripture_id,
+    _id: scriptureId,
   }).exec();
 
   // check if scripture to be updated exists
@@ -25,26 +34,24 @@ const updateScriptureService = async (req, bibleTitle, bibleChapter) => {
   }
 
   //check if currently logged in editor is creator of scripture
+  let creatorId = scripture.userId;
+
   let isCreator =
-    req.user.id == scripture.userId ||
-    req.user.role == "Admin" ||
-    req.user.role == "SuperAdmin";
+    theUserId === creatorId || isAdmin(theRole) || isSuperAdmin(theRole);
 
   if (!isCreator) {
-    throw new ApplicationException("You are not authorised", 403);
+    throw new ApplicationException("Unauthorised", 401);
   }
 
   // get other data
   let userId;
-  let situationId = req.params.situation_id;
-  let bibleVerses = req.body.bibleVerses.split(",");
 
   // check if user is editor, admin or super admin
   // to allow anonymous edit of scripture by admin or super admin
-  if (req.user.role == "Editor") {
-    userId = req.user.id;
+  if (isEditor(theRole)) {
+    userId = theUserId;
   }
-  if (req.user.role == "Admin" || req.user.role == "SuperAdmin") {
+  if (isAdmin(theRole) || isSuperAdmin(theRole)) {
     userId = scripture.userId;
   }
 
@@ -59,7 +66,7 @@ const updateScriptureService = async (req, bibleTitle, bibleChapter) => {
 
   // update scripture with scriptureValues from user
   scripture = await Scripture.findOneAndUpdate(
-    { id: req.params.scripture_id },
+    { _id: scriptureId },
     { $set: scriptureValues },
     { new: true }
   );

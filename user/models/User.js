@@ -9,25 +9,20 @@ const UserSchema = new Schema(
   {
     firstname: {
       type: String,
-      required: true,
     },
     lastname: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
-      required: true,
-      values: ["Male", "Female"],
+      enum: ["Male", "Female"],
     },
     username: {
       type: String,
-      required: true,
       unique: true,
     },
     email: {
       type: String,
-      required: true,
       unique: true,
     },
     password: {
@@ -36,42 +31,54 @@ const UserSchema = new Schema(
     },
     profilePic: {
       type: String,
-      required: false,
       // default: "https://st3.depositphotos.com/4111759/13425/v/600/depositphotos_134255710-stock-illustration-avatar-vector-male-profile-gray.jpg",
+    },
+    careerField: {
+      type: String,
+      enum: [
+        "Education and Training",
+        "Ministering, Counselling, Clergy",
+        "Business Management and Administration",
+        "Arts, Audio/Video Technology and Communications",
+        "Finance",
+        "Government and Public Administration",
+        "Health Science",
+        "Hospitality and Tourism",
+        "Human Services",
+        "Information Technology",
+        "Law, Public Safety, Corrections and Security",
+        "Manufacturing",
+        "Marketing, Sales and Service",
+        "Science, Technology, Engineering and Mathematics",
+        "Transportation, Distribution and Logistics",
+      ],
     },
     role: {
       type: String,
       default: "User",
-      values: ["User", "Editor", "Admin", "SuperAdmin"],
+      enum: ["User", "Editor", "Merchant", "Admin", "SuperAdmin"],
     },
     isActive: {
       type: Boolean,
-      default: false,
     },
     bio: {
       type: String,
-      required: false,
     },
     socialLinks: {
       facebook: {
         type: String,
-        required: false,
       },
       youtube: {
         type: String,
-        required: false,
       },
       instagram: {
         type: String,
-        required: false,
       },
       linkedIn: {
         type: String,
-        required: false,
       },
       twitter: {
         type: String,
-        required: false,
       },
     },
     favouriteScriptures: {

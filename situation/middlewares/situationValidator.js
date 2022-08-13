@@ -1,4 +1,6 @@
-// import required utils
+// import required modules
+const apiResponse = require("../../common/ApiResponse");
+
 const {
   addSituation,
   updateSituation,
@@ -11,10 +13,7 @@ const isAddSituationValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (situationValidator.error) {
-    res.json({
-      success: false,
-      message: situationValidator.error?.message,
-    });
+    apiResponse.error(res, situationValidator.error?.message);
   } else {
     next();
   }
@@ -27,10 +26,7 @@ const isUpdateSituationValidated = async (req, res, next) => {
 
   // check if user-updated values had errors
   if (situationValidator.error) {
-    res.json({
-      success: false,
-      message: situationValidator.error?.message,
-    });
+    apiResponse.error(res, situationValidator.error?.message);
   } else {
     next();
   }

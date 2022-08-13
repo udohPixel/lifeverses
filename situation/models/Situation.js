@@ -9,12 +9,10 @@ const SituationSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
       unique: true,
     },
     colour: {
       type: String,
-      required: true,
       enum: [
         "bg-orange-1 color-orange",
         "bg-red-1 color-red",
@@ -29,18 +27,7 @@ const SituationSchema = new Schema(
     },
     icon: {
       type: String,
-      required: true,
     },
-    scriptures: [
-      {
-        userId: {
-          type: String,
-        },
-        scriptureId: {
-          type: String,
-        },
-      },
-    ],
   },
   { timestamps: true }
 );

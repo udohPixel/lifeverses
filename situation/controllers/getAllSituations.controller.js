@@ -2,11 +2,16 @@
 const apiResponse = require("../../common/ApiResponse");
 const getAllSituationsService = require("../services/getAllSituations.service");
 
-// fetch all situations controller
+// get all situations controller
 const getAllSituationsCtrl = async (_req, res) => {
   try {
     // get all situation service
     const situations = await getAllSituationsService();
+
+    // check if situation is empty
+    if (!situations.length) {
+      return apiResponse.error(res, "No situation", situations);
+    }
 
     return apiResponse.success(
       res,

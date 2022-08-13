@@ -5,8 +5,19 @@ const deleteScriptureService = require("../services/deleteScripture.service");
 // delete scripture controller
 const deleteScriptureCtrl = async (req, res) => {
   try {
+    // get other data
+    let theRole = req.user.role;
+    let theUserId = req.user.id;
+    let situationId = req.params.situation_id;
+    let scriptureId = req.params.scripture_id;
+
     // delete scripture service
-    const scripture = await deleteScriptureService(req);
+    const scripture = await deleteScriptureService(
+      theRole,
+      theUserId,
+      situationId,
+      scriptureId
+    );
 
     return apiResponse.success(
       res,

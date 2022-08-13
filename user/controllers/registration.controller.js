@@ -6,7 +6,7 @@ const registrationService = require("../services/registration.service");
 const registrationCtrl = async (req, res) => {
   try {
     // object destructuring assignment
-    const {
+    const userInfo = ({
       firstname,
       lastname,
       gender,
@@ -14,18 +14,11 @@ const registrationCtrl = async (req, res) => {
       email,
       password,
       profilePic,
-    } = req.body;
+      careerField,
+    } = req.body);
 
     // registration service
-    const user = await registrationService(
-      firstname,
-      lastname,
-      gender,
-      username,
-      email,
-      password,
-      profilePic
-    );
+    const user = await registrationService(userInfo);
 
     return apiResponse.success(res, "Registration successful", user, 201);
   } catch (error) {

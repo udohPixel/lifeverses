@@ -18,7 +18,7 @@ dbSetup();
 const routes = require("./providers/routes/index");
 app.use(routes);
 
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   if (err) {
     return apiResponse.errorObject(res, err);
   } else {

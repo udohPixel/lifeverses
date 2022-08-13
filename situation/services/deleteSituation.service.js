@@ -2,9 +2,9 @@
 const Situation = require("../models/Situation");
 const ApplicationException = require("../../common/ApplicationException");
 
-const deleteSituationService = async (req) => {
+const deleteSituationService = async (situationId) => {
   // fetch situation by id from dB
-  let situation = await Situation.findOne({ _id: req.params.id }).exec();
+  let situation = await Situation.findOne({ _id: situationId }).exec();
 
   // check if situation exists
   if (!situation) {
@@ -12,7 +12,7 @@ const deleteSituationService = async (req) => {
   }
 
   // delete situation
-  situation = await Situation.findOneAndRemove({ _id: req.params.id });
+  situation = await Situation.findOneAndRemove({ _id: situationId });
 
   return situation;
 };

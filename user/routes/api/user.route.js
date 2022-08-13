@@ -2,7 +2,10 @@
 const express = require("express");
 
 // import required middlewares
-const { isLoggedIn, isAdmin, isSuperAdmin } = require("../../middlewares/auth");
+const {
+  isLoggedIn,
+  isTheAdminOrSuperAdmin,
+} = require("../../middlewares/auth");
 const {
   isUpdatePersonalUserValidated,
   isUpdateUserValidated,
@@ -55,7 +58,7 @@ router.get("/:username", getUser);
 router.post(
   "/:id",
   isLoggedIn,
-  isAdmin && isSuperAdmin,
+  isTheAdminOrSuperAdmin,
   isUpdateUserValidated,
   updateUser
 );
@@ -66,7 +69,7 @@ router.post(
  * @access  - PRIVATE
  * @type    - GET
  */
-router.get("/find/all", isLoggedIn, isAdmin && isSuperAdmin, getAllUsers);
+router.get("/find/all", isLoggedIn, isTheAdminOrSuperAdmin, getAllUsers);
 
 /**
  * @desc    - route for deleting any user
@@ -74,16 +77,16 @@ router.get("/find/all", isLoggedIn, isAdmin && isSuperAdmin, getAllUsers);
  * @access  - PRIVATE
  * @type    - DELETE
  */
-router.delete("/:id", isLoggedIn, isAdmin && isSuperAdmin, deleteUser);
+router.delete("/:id", isLoggedIn, isTheAdminOrSuperAdmin, deleteUser);
 
 /**
  * @desc    - route for add/remove user favourite scripture
- * @api     - /api/user/favourite/:id/scripture
+ * @api     - /api/user/favourite-scripture
  * @access  - PRIVATE
  * @type    - PUT
  */
 router.put(
-  "/favourite/:id/scripture",
+  "/favourite-scripture",
   isLoggedIn,
   isAddToFavouriteValidated,
   addToFavourite

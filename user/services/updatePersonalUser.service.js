@@ -3,23 +3,26 @@ const User = require("../models/User");
 const ApplicationException = require("../../common/ApplicationException");
 
 // update personal user service
-const updatePersonalUserService = async (
-  req,
-  firstname,
-  lastname,
-  gender,
-  username,
-  email,
-  profilePic,
-  bio,
-  facebook,
-  youtube,
-  instagram,
-  linkedIn,
-  twitter
-) => {
+const updatePersonalUserService = async (userId, userInfo) => {
+  // object destructuring assignment
+  const {
+    firstname,
+    lastname,
+    gender,
+    username,
+    email,
+    profilePic,
+    careerField,
+    bio,
+    facebook,
+    youtube,
+    instagram,
+    linkedIn,
+    twitter,
+  } = userInfo;
+
   // fetch user by id from dB
-  let user = await User.findOne({ _id: req.user.id }).exec();
+  let user = await User.findOne({ _id: userId }).exec();
 
   const socialLinks = {
     facebook,
@@ -37,6 +40,7 @@ const updatePersonalUserService = async (
     username,
     email,
     profilePic,
+    careerField,
     bio,
     socialLinks,
   };
@@ -49,7 +53,7 @@ const updatePersonalUserService = async (
   // fetch user by email except current user from dB
   let isExistingEmail = await User.findOne({ email: email })
     .where("_id")
-    .ne(req.user.id)
+    .ne(userId)
     .exec();
 
   // check if username already exists
@@ -63,7 +67,7 @@ const updatePersonalUserService = async (
   // fetch user by username except current user from dB
   let isExistingUsername = await User.findOne({ username: username })
     .where("_id")
-    .ne(req.user.id)
+    .ne(userId)
     .exec();
 
   // check if username already exists
@@ -76,7 +80,7 @@ const updatePersonalUserService = async (
 
   // update user
   user = await User.findOneAndUpdate(
-    { _id: req.user.id },
+    { _id: userId },
     { $set: userValues },
     { new: true }
   );

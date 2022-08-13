@@ -1,34 +1,46 @@
 // import required modules
 const User = require("../models/User");
 const apiResponse = require("../../common/ApiResponse");
+const { isFavouriteAdded } = require("../helpers/checkers");
+const {
+  addToFavourite,
+  removeFromFavourite,
+} = require("../services/addToFavourite.service");
 
 // add to favourite controller
 const addToFavouriteCtrl = async (req, res) => {
   try {
-    // get user by id
-    let user = await User.findOne({ _id: req.params.id }).exec();
+    let userId = req.user.id;
+    let scriptureId = req.body.scriptureId;
+
+    let isFavouriteAddedCheck = await isFavouriteAdded(userId, scriptureId);
+
+    // console.log(isFavouriteAddedCheck);
 
     // check if scripture had already been addeded to favourite
-    if (!user.favouriteScriptures.includes(req.body.scriptureId)) {
-      await user.updateOne({
-        $push: { favouriteScriptures: req.body.scriptureId },
-      });
+    if (isFavouriteAddedCheck === false) {
+      // add to favourite microservice
+      const favouriteScriptures = await addToFavourite(userId, scriptureId);
 
       return apiResponse.success(
         res,
         "Scripture was added to favourite successfully",
-        user.favouriteScriptures,
+        favouriteScriptures,
         201
       );
-    } else {
-      await user.updateOne({
-        $pull: { favouriteScriptures: req.body.scriptureId },
-      });
+    }
+
+    if (isFavouriteAddedCheck === true) {
+      // add to favourite microservice
+      const favouriteScriptures = await removeFromFavourite(
+        userId,
+        scriptureId
+      );
 
       return apiResponse.success(
         res,
         "Scripture was removed from favourite successfully",
-        user.favouriteScriptures,
+        favouriteScriptures,
         200
       );
     }

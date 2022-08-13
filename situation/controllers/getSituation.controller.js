@@ -5,8 +5,10 @@ const getSituationService = require("../services/getSituation.service");
 // get situation controller
 const getSituationCtrl = async (req, res) => {
   try {
+    let situationId = req.params.id;
+
     // get situation service
-    const situation = await getSituationService(req);
+    const situation = await getSituationService(situationId);
 
     return apiResponse.success(res, "Situation found successfully", situation);
   } catch (error) {

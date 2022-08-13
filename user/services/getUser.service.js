@@ -3,9 +3,9 @@ const User = require("../models/User");
 const ApplicationException = require("../../common/ApplicationException");
 
 // get user service
-const getUserService = async (req) => {
+const getUserService = async (theUsername) => {
   // fetch user by username from dB
-  let user = await User.findOne({ username: req.params.username }).exec();
+  let user = await User.findOne({ username: theUsername }).exec();
 
   // check if user exists with provided username
   if (!user) {

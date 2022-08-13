@@ -1,4 +1,5 @@
-// import required utils
+// import required modules
+const apiResponse = require("../../common/ApiResponse");
 const {
   addScripture,
   updateScripture,
@@ -11,10 +12,7 @@ const isAddScriptureValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (scriptureValidator.error) {
-    res.json({
-      success: false,
-      message: scriptureValidator.error?.message,
-    });
+    apiResponse.error(res, scriptureValidator.error?.message);
   } else {
     next();
   }
@@ -27,10 +25,7 @@ const isUpdateScriptureValidated = async (req, res, next) => {
 
   // check if user-updated values had errors
   if (scriptureValidator.error) {
-    res.json({
-      success: false,
-      message: scriptureValidator.error?.message,
-    });
+    apiResponse.error(res, scriptureValidator.error?.message);
   } else {
     next();
   }

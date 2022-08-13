@@ -5,8 +5,10 @@ const deleteUserService = require("../services/deleteUser.service");
 // delete user controller
 const deleteUserCtrl = async (req, res) => {
   try {
+    let userId = req.params.id;
+
     // delete user service
-    const user = await deleteUserService(req);
+    const user = await deleteUserService(userId);
 
     return apiResponse.success(res, "User deleted successfully", user);
   } catch (error) {

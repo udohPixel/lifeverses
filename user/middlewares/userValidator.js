@@ -1,4 +1,6 @@
-// import required utils
+// import required modules
+const apiResponse = require("../../common/ApiResponse");
+
 const {
   login,
   registration,
@@ -14,10 +16,7 @@ const isLoginValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (userValidator.error) {
-    res.json({
-      success: false,
-      message: userValidator.error?.message,
-    });
+    apiResponse.error(res, userValidator.error?.message);
   } else {
     next();
   }
@@ -30,10 +29,7 @@ const isRegistrationValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (userValidator.error) {
-    res.json({
-      success: false,
-      message: userValidator.error?.message,
-    });
+    apiResponse.error(res, userValidator.error?.message);
   } else {
     next();
   }
@@ -46,10 +42,7 @@ const isUpdatePersonalUserValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (userValidator.error) {
-    res.json({
-      success: false,
-      message: userValidator.error?.message,
-    });
+    apiResponse.error(res, userValidator.error?.message);
   } else {
     next();
   }
@@ -62,10 +55,7 @@ const isUpdateUserValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (userValidator.error) {
-    res.json({
-      success: false,
-      message: userValidator.error?.message,
-    });
+    apiResponse.error(res, userValidator.error?.message);
   } else {
     next();
   }
@@ -78,10 +68,7 @@ const isAddToFavouriteValidated = async (req, res, next) => {
 
   // check if user-imputed values had errors
   if (favouriteScriptureValidator.error) {
-    res.json({
-      success: false,
-      message: favouriteScriptureValidator.error?.message,
-    });
+    apiResponse.error(res, userValidator.error?.message);
   } else {
     next();
   }

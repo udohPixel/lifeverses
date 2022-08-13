@@ -5,8 +5,10 @@ const deleteSituationService = require("../services/deleteSituation.service");
 // delete situation controller
 const deleteSituationCtrl = async (req, res) => {
   try {
+    let situationId = req.params.id;
+
     // delete situation service
-    const situation = await deleteSituationService(req);
+    const situation = await deleteSituationService(situationId);
 
     return apiResponse.success(
       res,

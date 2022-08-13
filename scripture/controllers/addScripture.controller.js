@@ -8,7 +8,19 @@ const addScriptureCtrl = async (req, res) => {
     // object destructuring assignment
     const { bibleTitle, bibleChapter } = req.body;
 
-    const scripture = await addScriptureService(req, bibleTitle, bibleChapter);
+    // get other data
+    let userId = req.user.id;
+    let situationId = req.params.situation_id;
+    let bibleVerses = req.body.bibleVerses.split(",");
+
+    // add scripture service
+    const scripture = await addScriptureService(
+      userId,
+      situationId,
+      bibleTitle,
+      bibleChapter,
+      bibleVerses
+    );
 
     return apiResponse.success(
       res,

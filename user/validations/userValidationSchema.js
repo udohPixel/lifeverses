@@ -13,8 +13,7 @@ const userValidatorSchema = {
       .trim(true)
       .required(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{6,100}$"))
-      .trim(true)
+      .pattern(/^[a-zA-Z0-9]{6,100}$/)
       .required(),
   }),
 
@@ -34,10 +33,28 @@ const userValidatorSchema = {
       .trim(true)
       .required(),
     password: Joi.string()
-      .pattern(new RegExp("^[a-zA-Z0-9]{6,100}$"))
-      .trim(true)
+      .pattern(/^[a-zA-Z0-9]{6,100}$/)
       .required(),
-    profilePic: Joi.string().trim(true),
+    profilePic: Joi.string().trim(true).allow(""),
+    careerField: Joi.string()
+      .valid(
+        "Education and Training",
+        "Ministering, Counselling, Clergy",
+        "Business Management and Administration",
+        "Arts, Audio/Video Technology and Communications",
+        "Finance",
+        "Government and Public Administration",
+        "Health Science",
+        "Hospitality and Tourism",
+        "Human Services",
+        "Information Technology",
+        "Law, Public Safety, Corrections and Security",
+        "Manufacturing",
+        "Marketing, Sales and Service",
+        "Science, Technology, Engineering and Mathematics",
+        "Transportation, Distribution and Logistics"
+      )
+      .required(),
   }),
 
   // update personal user validator schema
@@ -55,13 +72,32 @@ const userValidatorSchema = {
       })
       .trim(true)
       .required(),
-    profilePic: Joi.string().trim(true),
-    bio: Joi.string().min(10).max(5000),
-    facebook: Joi.string().min(3).max(50).trim(true).trim(true),
-    youtube: Joi.string().min(3).max(50).trim(true),
-    instagram: Joi.string().min(3).max(50).trim(true),
-    linkedIn: Joi.string().min(3).max(50).trim(true),
-    twitter: Joi.string().min(3).max(50).trim(true),
+    profilePic: Joi.string().allow(""),
+    careerField: Joi.string()
+      .valid(
+        "Education and Training",
+        "Ministering, Counselling, Clergy",
+        "Business Management and Administration",
+        "Arts, Audio/Video Technology and Communications",
+        "Finance",
+        "Government and Public Administration",
+        "Health Science",
+        "Hospitality and Tourism",
+        "Human Services",
+        "Information Technology",
+        "Law, Public Safety, Corrections and Security",
+        "Manufacturing",
+        "Marketing, Sales and Service",
+        "Science, Technology, Engineering and Mathematics",
+        "Transportation, Distribution and Logistics"
+      )
+      .required(),
+    bio: Joi.string().min(10).max(5000).allow(""),
+    facebook: Joi.string().min(3).max(50).trim(true).allow(""),
+    youtube: Joi.string().min(3).max(50).trim(true).allow(""),
+    instagram: Joi.string().min(3).max(50).trim(true).allow(""),
+    linkedIn: Joi.string().min(3).max(50).trim(true).allow(""),
+    twitter: Joi.string().min(3).max(50).trim(true).allow(""),
   }),
 
   // update user validator schema
@@ -79,18 +115,36 @@ const userValidatorSchema = {
       })
       .trim(true)
       .required(),
-    profilePic: Joi.string().trim(true),
+    profilePic: Joi.string().allow(""),
+    careerField: Joi.string()
+      .valid(
+        "Education and Training",
+        "Ministering, Counselling, Clergy",
+        "Business Management and Administration",
+        "Arts, Audio/Video Technology and Communications",
+        "Finance",
+        "Government and Public Administration",
+        "Health Science",
+        "Hospitality and Tourism",
+        "Human Services",
+        "Information Technology",
+        "Law, Public Safety, Corrections and Security",
+        "Manufacturing",
+        "Marketing, Sales and Service",
+        "Science, Technology, Engineering and Mathematics",
+        "Transportation, Distribution and Logistics"
+      )
+      .required(),
     role: Joi.string()
-      .valid("User", "Editor", "Admin", "SuperAdmin")
-      .default("User")
-      .trim(true),
-    isActive: Joi.boolean().valid(true).default(true),
+      .valid("User", "Editor", "Merchant", "Admin", "SuperAdmin")
+      .default("User"),
+    isActive: Joi.boolean().required(),
     bio: Joi.string().min(10).max(5000),
-    facebook: Joi.string().min(3).max(50).trim(true).trim(true),
-    youtube: Joi.string().min(3).max(50).trim(true),
-    instagram: Joi.string().min(3).max(50).trim(true),
-    linkedIn: Joi.string().min(3).max(50).trim(true),
-    twitter: Joi.string().min(3).max(50).trim(true),
+    facebook: Joi.string().min(3).max(50).trim(true).allow(""),
+    youtube: Joi.string().min(3).max(50).trim(true).allow(""),
+    instagram: Joi.string().min(3).max(50).trim(true).allow(""),
+    linkedIn: Joi.string().min(3).max(50).trim(true).allow(""),
+    twitter: Joi.string().min(3).max(50).trim(true).allow(""),
   }),
 
   // add to favourite validator schema

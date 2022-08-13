@@ -6,13 +6,14 @@ const updateUserService = require("../services/updateUser.service");
 const updateUserCtrl = async (req, res) => {
   try {
     // object destructuring assignment
-    const {
+    const userInfo = ({
       firstname,
       lastname,
       gender,
       username,
       email,
       profilePic,
+      careerField,
       role,
       isActive,
       bio,
@@ -21,26 +22,13 @@ const updateUserCtrl = async (req, res) => {
       instagram,
       linkedIn,
       twitter,
-    } = req.body;
+    } = req.body);
+
+    let userId = req.params.id;
+    let currentUserId = req.user.id;
 
     // update user service
-    const user = await updateUserService(
-      req,
-      firstname,
-      lastname,
-      gender,
-      username,
-      email,
-      profilePic,
-      role,
-      isActive,
-      bio,
-      facebook,
-      youtube,
-      instagram,
-      linkedIn,
-      twitter
-    );
+    const user = await updateUserService(userId, currentUserId, userInfo);
 
     return apiResponse.success(res, "User updated successfully", user);
   } catch (error) {

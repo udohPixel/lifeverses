@@ -3,13 +3,14 @@ const { createLogger, format, transports } = require("winston");
 const { combine, colorize, timestamp, errors, printf } = format;
 
 // define custom error formatter functions
-const loggerFormat = printf(({ level, stack, message, timestamp }) => {
-  return `${timestamp} ${level}: ${stack || message}`;
+const loggerFormat = printf(({ timestamp, level, stack, message, meta }) => {
+  let showMeta = level.includes("error") ? `: ${meta}` : ` `;
+  return `${timestamp} ${level}: ${stack || message}${showMeta}`;
 });
 
 // create logger function
 const developmentLogger = () => {
-  const logger = createLogger({
+  return createLogger({
     level: "debug",
     format: combine(
       colorize(),
@@ -24,8 +25,6 @@ const developmentLogger = () => {
       new transports.Console(),
     ],
   });
-
-  return logger;
 };
 
 // export developmentLogger

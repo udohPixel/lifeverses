@@ -4,8 +4,7 @@ const express = require("express");
 // import required middlewares
 const {
   isLoggedIn,
-  isAdmin,
-  isSuperAdmin,
+  isTheAdminOrSuperAdmin,
 } = require("../../../user/middlewares/auth");
 const {
   isAddSituationValidated,
@@ -13,11 +12,11 @@ const {
 } = require("../../middlewares/situationValidator");
 
 // import required controllers
-const getSituationCtrl = require("../../controllers/getSituation.controller");
-const getAllSituationsCtrl = require("../../controllers/getAllSituations.controller");
-const addSituationCtrl = require("../../controllers/addSituation.controller");
-const updateSituationCtrl = require("../../controllers/updateSituation.controller");
-const deleteSituationCtrl = require("../../controllers/deleteSituation.controller");
+const getSituation = require("../../controllers/getSituation.controller");
+const getAllSituations = require("../../controllers/getAllSituations.controller");
+const addSituation = require("../../controllers/addSituation.controller");
+const updateSituation = require("../../controllers/updateSituation.controller");
+const deleteSituation = require("../../controllers/deleteSituation.controller");
 
 // create router
 const router = express.Router();
@@ -29,7 +28,7 @@ const router = express.Router();
  * @access  - PUBLIC
  * @type    - GET
  */
-router.get("/:id", getSituationCtrl);
+router.get("/:id", getSituation);
 
 /**
  * @desc    - route for fetching all situations
@@ -37,7 +36,7 @@ router.get("/:id", getSituationCtrl);
  * @access  - PUBLIC
  * @type    - GET
  */
-router.get("/find/all", getAllSituationsCtrl);
+router.get("/find/all", getAllSituations);
 
 /**
  * @desc    - route for adding new situation
@@ -48,9 +47,9 @@ router.get("/find/all", getAllSituationsCtrl);
 router.post(
   "/",
   isLoggedIn,
-  isAdmin && isSuperAdmin,
+  isTheAdminOrSuperAdmin,
   isAddSituationValidated,
-  addSituationCtrl
+  addSituation
 );
 
 /**
@@ -62,9 +61,9 @@ router.post(
 router.put(
   "/:id",
   isLoggedIn,
-  isAdmin && isSuperAdmin,
+  isTheAdminOrSuperAdmin,
   isUpdateSituationValidated,
-  updateSituationCtrl
+  updateSituation
 );
 
 /**
@@ -73,7 +72,7 @@ router.put(
  * @access  - PRIVATE
  * @type    - DELETE
  */
-router.delete("/:id", isLoggedIn, isAdmin && isSuperAdmin, deleteSituationCtrl);
+router.delete("/:id", isLoggedIn, isTheAdminOrSuperAdmin, deleteSituation);
 
 // export router
 module.exports = router;

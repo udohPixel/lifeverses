@@ -3,40 +3,23 @@ const apiResponse = require("../../common/ApiResponse");
 const updatePersonalUserService = require("../services/updatePersonalUser.service");
 
 // update/save user controller
-const updateUserPersonalCtrl = async (req, res) => {
+const updatePersonalUserCtrl = async (req, res) => {
   try {
     // object destructuring assignment
-    const {
+    const userInfo = ({
       firstname,
       lastname,
       gender,
       username,
       email,
       profilePic,
-      bio,
-      facebook,
-      youtube,
-      instagram,
-      linkedIn,
-      twitter,
-    } = req.body;
+      careerField,
+    } = req.body);
+
+    let userId = req.user.id;
 
     // update personal user service
-    const user = await updatePersonalUserService(
-      req,
-      firstname,
-      lastname,
-      gender,
-      username,
-      email,
-      profilePic,
-      bio,
-      facebook,
-      youtube,
-      instagram,
-      linkedIn,
-      twitter
-    );
+    const user = await updatePersonalUserService(userId, userInfo);
 
     return apiResponse.success(res, "Profile updated successfully", user);
   } catch (error) {
@@ -45,4 +28,4 @@ const updateUserPersonalCtrl = async (req, res) => {
 };
 
 // export controller
-module.exports = updateUserPersonalCtrl;
+module.exports = updatePersonalUserCtrl;

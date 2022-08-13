@@ -2,22 +2,25 @@
 const Situation = require("../../situation/models/Situation");
 const Scripture = require("../models/Scripture");
 const ApplicationException = require("../../common/ApplicationException");
+const { isAdmin, isSuperAdmin } = require("../../common/helpers");
 
 // delete scripture service
-const deleteScriptureService = async (req) => {
+const deleteScriptureService = async (
+  theRole,
+  theUserId,
+  situationId,
+  scriptureId
+) => {
   // fetch situation by id from dB
-  let situation = await Situation.findOne({
-    _id: req.params.situation_id,
-  }).exec();
+  let situation = await Situation.findOne({ _id: situationId }).exec();
 
   // check if situation exists
   if (!situation) {
     throw new ApplicationException("Situation does not exist", 404);
   }
 
-  let scripture = await Scripture.findOne({
-    _id: req.params.scripture_id,
-  }).exec();
+  // fetch scripture by id from dB
+  let scripture = await Scripture.findOne({ _id: scriptureId }).exec();
 
   // check if scripture to be updated exists
   if (!scripture) {
@@ -25,19 +28,17 @@ const deleteScriptureService = async (req) => {
   }
 
   //check if currently logged in editor is creator of scripture
+  let creatorId = scripture.userId;
+
   let isCreator =
-    req.user.id == scripture.userId ||
-    req.user.role == "Admin" ||
-    req.user.role == "SuperAdmin";
+    theUserId === creatorId || isAdmin(theRole) || isSuperAdmin(theRole);
 
   if (!isCreator) {
-    throw new ApplicationException("You are not authorised", 403);
+    throw new ApplicationException("Unauthorised", 401);
   }
 
   // delete scripture
-  scripture = await Scripture.findOneAndRemove({
-    _id: req.params.scripture_id,
-  });
+  scripture = await Scripture.findOneAndRemove({ _id: scriptureId });
 
   return scripture;
 };
