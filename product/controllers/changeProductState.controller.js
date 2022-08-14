@@ -5,13 +5,15 @@ const changeProductStateService = require("../services/changeProductState.servic
 // change item state controller
 const changeItemStateCtrl = async (req, res) => {
   try {
+    let productId = req.params.id;
+
     // change item state service
-    const itemState = changeProductStateService(req);
+    const productState = await changeProductStateService(productId);
 
     return apiResponse.success(
       res,
       "Product state changed successfully",
-      itemState
+      productState
     );
   } catch (error) {
     return apiResponse.errorObject(res, error, null, "change_item_state");

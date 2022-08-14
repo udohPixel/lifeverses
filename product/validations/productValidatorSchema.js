@@ -1,5 +1,6 @@
-// import require libraries
+// import require modules
 const Joi = require("joi");
+const validatorConfig = require("../../settings/validator.config");
 
 // product validator schema
 const productValidatorSchema = {
@@ -12,17 +13,7 @@ const productValidatorSchema = {
     publicationDate: Joi.string().required(),
     isbn: Joi.string().min(10).max(13).required(),
     category: Joi.string()
-      .valid(
-        "Devotional",
-        "Christian Life",
-        "Bible Study",
-        "Ministry and Evangelism",
-        "Music and Hymns",
-        "History & Biography",
-        "Christian Education",
-        "Children Books",
-        "Young Adult"
-      )
+      .valid(...validatorConfig.PRODUCT_CATEGORY_ARRAY)
       .required(),
     overview: Joi.string().min(3).max(150).required(),
     description: Joi.string().max(4000).allow(""),
@@ -43,17 +34,7 @@ const productValidatorSchema = {
     publicationDate: Joi.string().required(),
     isbn: Joi.string().min(10).max(13).required(),
     category: Joi.string()
-      .valid(
-        "Devotional",
-        "Christian Life",
-        "Bible Study",
-        "Ministry and Evangelism",
-        "Music and Hymns",
-        "History & Biography",
-        "Christian Education",
-        "Children Books",
-        "Young Adult"
-      )
+      .valid(...validatorConfig.PRODUCT_CATEGORY_ARRAY)
       .required(),
     overview: Joi.string().min(3).max(150).required(),
     description: Joi.string().max(4000).allow(""),
@@ -78,11 +59,6 @@ const productValidatorSchema = {
     reviewTitle: Joi.string().min(2).max(50).required(),
     reviewRating: Joi.number(),
     comment: Joi.string().min(2).max(250).required(),
-  }),
-
-  // product state validator schema
-  changeProductState: Joi.object({
-    isActive: Joi.boolean().required(),
   }),
 };
 

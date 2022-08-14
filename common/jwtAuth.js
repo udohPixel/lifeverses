@@ -3,7 +3,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
-const key = require("../settings/config");
+const key = require("../settings/settings.config");
 
 // authenticate the user by jwt strategy
 let opts = {};

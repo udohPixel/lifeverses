@@ -33,20 +33,8 @@ const addProductService = async (userId, productInfo) => {
   // create a new instance of Product to store the user-imputed values
   const newProduct = new Product({
     userId,
-    title,
-    aboutAuthor,
-    authors,
-    pages,
+    ...productInfo,
     publicationDate: new Date(publicationDate),
-    isbn,
-    category,
-    overview,
-    description,
-    price,
-    discount,
-    coverPic,
-    previewPages,
-    stock,
   });
 
   // save new product object to dB

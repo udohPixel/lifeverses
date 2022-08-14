@@ -1,5 +1,6 @@
-// import required libraries
+// import required modules
 const mongoose = require("mongoose");
+const validatorConfig = require("../../settings/validator.config");
 
 // create schema object
 const Schema = mongoose.Schema;
@@ -36,17 +37,7 @@ const ProductSchema = new Schema(
     },
     category: {
       type: String,
-      enum: [
-        "Devotional",
-        "Christian Life",
-        "Bible Study",
-        "Ministry and Evangelism",
-        "Music and Hymns",
-        "History & Biography",
-        "Christian Education",
-        "Children Books",
-        "Young Adult",
-      ],
+      enum: [...validatorConfig.PRODUCT_CATEGORY_ARRAY],
     },
     overview: {
       type: String,

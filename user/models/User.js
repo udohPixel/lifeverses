@@ -1,5 +1,6 @@
-// import required libraries
+// import required modules
 const mongoose = require("mongoose");
+const validatorConfig = require("../../settings/validator.config");
 
 // create schema object
 const Schema = mongoose.Schema;
@@ -35,28 +36,12 @@ const UserSchema = new Schema(
     },
     careerField: {
       type: String,
-      enum: [
-        "Education and Training",
-        "Ministering, Counselling, Clergy",
-        "Business Management and Administration",
-        "Arts, Audio/Video Technology and Communications",
-        "Finance",
-        "Government and Public Administration",
-        "Health Science",
-        "Hospitality and Tourism",
-        "Human Services",
-        "Information Technology",
-        "Law, Public Safety, Corrections and Security",
-        "Manufacturing",
-        "Marketing, Sales and Service",
-        "Science, Technology, Engineering and Mathematics",
-        "Transportation, Distribution and Logistics",
-      ],
+      enum: [...validatorConfig.CAREER_FIELD_ARRAY],
     },
     role: {
       type: String,
       default: "User",
-      enum: ["User", "Editor", "Merchant", "Admin", "SuperAdmin"],
+      enum: [...validatorConfig.USER_ROLE_ARRAY],
     },
     isActive: {
       type: Boolean,

@@ -10,7 +10,6 @@ const {
 const {
   isAddProductValidated,
   isUpdateProductValidated,
-  isProductStateValidated,
 } = require("../../middlewares/productValidator");
 
 // import required controllers
@@ -86,7 +85,6 @@ router.delete("/:id", isLoggedIn, isTheAdminOrSuperAdmin, deleteProduct);
 router.put(
   "/:id/activate",
   isLoggedIn,
-  isProductStateValidated,
   isTheAdminOrSuperAdmin,
   changeItemState
 );

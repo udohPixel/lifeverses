@@ -34,10 +34,8 @@ const updateScriptureService = async (
   }
 
   //check if currently logged in editor is creator of scripture
-  let creatorId = scripture.userId;
-
   let isCreator =
-    theUserId === creatorId || isAdmin(theRole) || isSuperAdmin(theRole);
+    theUserId === scripture.userId || isAdmin(theRole) || isSuperAdmin(theRole);
 
   if (!isCreator) {
     throw new ApplicationException("Unauthorised", 401);

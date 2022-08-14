@@ -20,20 +20,15 @@ const helperService = {
   },
 
   isAdminOrSuperAdmin: (role) => {
-    return role === "Admin" || role === "SuperAdmin";
+    return ["Admin", "SuperAdmin"].includes(role);
   },
 
   isMerchantOrAdminOrSuperAdmin: (role) => {
-    return role === "Merchant" || role === "Admin" || role === "SuperAdmin";
+    return ["Merchant", "Admin", "SuperAdmin"].includes(role);
   },
 
   isEditorOrMerchantOrAdminOrSuperAdmin: (role) => {
-    return (
-      role === "Editor" ||
-      role === "Merchant" ||
-      role === "Admin" ||
-      role === "SuperAdmin"
-    );
+    return ["Editor", "Merchant", "Admin", "SuperAdmin"].includes(role);
   },
 };
 

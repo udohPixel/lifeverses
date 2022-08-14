@@ -1,5 +1,6 @@
-// import required libraries
+// import required modules
 const mongoose = require("mongoose");
+const validatorConfig = require("../../settings/validator.config");
 
 // create schema object
 const Schema = mongoose.Schema;
@@ -13,17 +14,7 @@ const SituationSchema = new Schema(
     },
     colour: {
       type: String,
-      enum: [
-        "bg-orange-1 color-orange",
-        "bg-red-1 color-red",
-        "bg-pink-1 color-pink",
-        "bg-purple-1 color-purple",
-        "bg-yellow-1 color-yellow",
-        "bg-blue-1 color-blue",
-        "bg-snow text-dark",
-        "bg-green-1 color-green",
-        "bg-cyan-1 color-cyan",
-      ],
+      enum: [...validatorConfig.SITUATION_COLOUR_ARRAY],
     },
     icon: {
       type: String,

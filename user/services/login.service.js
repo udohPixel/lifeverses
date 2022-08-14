@@ -1,7 +1,7 @@
 // import required libraries
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const key = require("../../settings/config");
+const key = require("../../settings/settings.config");
 
 // import required modules
 const User = require("../models/User");

@@ -1,5 +1,5 @@
 // import required libraries
-const config = require("../../settings/config");
+const config = require("../../settings/settings.config");
 const mongoose = require("mongoose");
 const logger = require("../../logger/index");
 

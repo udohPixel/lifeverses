@@ -53,14 +53,8 @@ const registrationService = async (userInfo) => {
 
   // create a new instance of User to store the user-imputed values
   const newUser = new User({
-    firstname,
-    lastname,
-    gender,
-    username,
-    email,
-    password,
+    ...userInfo,
     profilePic: profilePic ?? defaultProfilePic,
-    careerField,
   });
 
   // encrypt password

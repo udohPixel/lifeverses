@@ -1,5 +1,5 @@
 // import required libraries
-const config = require("../settings/config");
+const config = require("../settings/settings.config");
 
 // import required loggers
 const developmentLogger = require("./development.logger");

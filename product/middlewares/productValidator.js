@@ -4,7 +4,6 @@ const apiResponse = require("../../common/ApiResponse");
 const {
   addProduct,
   updateProduct,
-  changeProductState,
 } = require("../validations/productValidatorSchema");
 
 // is add product values validated controller
@@ -33,22 +32,8 @@ const isUpdateProductValidated = async (req, res, next) => {
   }
 };
 
-// is product state values validated method
-const isProductStateValidated = async (req, res, next) => {
-  // validate user-updated values
-  const productStateValidator = await changeProductState.validate(req.body);
-
-  // check if user-updated values had errors
-  if (productStateValidator.error) {
-    apiResponse.error(res, productStateValidator.error?.message);
-  } else {
-    next();
-  }
-};
-
 // export is add product validated
 module.exports = {
   isAddProductValidated,
   isUpdateProductValidated,
-  isProductStateValidated,
 };

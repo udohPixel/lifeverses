@@ -15,8 +15,6 @@ const addToFavouriteCtrl = async (req, res) => {
 
     let isFavouriteAddedCheck = await isFavouriteAdded(userId, scriptureId);
 
-    // console.log(isFavouriteAddedCheck);
-
     // check if scripture had already been addeded to favourite
     if (isFavouriteAddedCheck === false) {
       // add to favourite microservice

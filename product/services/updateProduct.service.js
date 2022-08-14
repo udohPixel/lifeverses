@@ -37,10 +37,8 @@ const updateProductService = async (
   }
 
   //check if currently logged in editor is creator of product
-  let creatorId = product.userId;
-
   let isCreator =
-    theUserId === creatorId || isAdmin(theRole) || isSuperAdmin(theRole);
+    theUserId === product.userId || isAdmin(theRole) || isSuperAdmin(theRole);
 
   if (!isCreator) {
     throw new ApplicationException("Unauthorised", 401);
@@ -61,20 +59,8 @@ const updateProductService = async (
   // create a new instance of Product to store the user-imputed values
   const productValues = {
     userId,
-    title,
-    aboutAuthor,
-    authors,
-    pages,
-    publicationDate,
-    isbn,
-    category,
-    overview,
-    description,
-    price,
-    discount,
-    coverPic,
-    previewPages,
-    stock,
+    ...productInfo,
+    publicationDate: new Date(publicationDate),
   };
 
   // update product with productValues from product

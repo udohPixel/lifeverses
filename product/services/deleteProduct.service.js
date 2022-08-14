@@ -14,10 +14,8 @@ const updateProductService = async (theRole, theUserId, productId) => {
   }
 
   //check if currently logged in editor is creator of product
-  const creatorId = product.userId;
-
   let isCreator =
-    theUserId === creatorId || isAdmin(theRole) || isSuperAdmin(theRole);
+    theUserId === product.userId || isAdmin(theRole) || isSuperAdmin(theRole);
 
   if (!isCreator) {
     throw new ApplicationException("Unauthorised", 401);

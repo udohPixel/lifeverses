@@ -1,5 +1,6 @@
-// import require libraries
+// import require modules
 const Joi = require("joi");
+const validatorConfig = require("../../settings/validator.config");
 
 // user validation schema
 const userValidatorSchema = {
@@ -37,23 +38,7 @@ const userValidatorSchema = {
       .required(),
     profilePic: Joi.string().trim(true).allow(""),
     careerField: Joi.string()
-      .valid(
-        "Education and Training",
-        "Ministering, Counselling, Clergy",
-        "Business Management and Administration",
-        "Arts, Audio/Video Technology and Communications",
-        "Finance",
-        "Government and Public Administration",
-        "Health Science",
-        "Hospitality and Tourism",
-        "Human Services",
-        "Information Technology",
-        "Law, Public Safety, Corrections and Security",
-        "Manufacturing",
-        "Marketing, Sales and Service",
-        "Science, Technology, Engineering and Mathematics",
-        "Transportation, Distribution and Logistics"
-      )
+      .valid(...validatorConfig.CAREER_FIELD_ARRAY)
       .required(),
   }),
 
@@ -74,23 +59,7 @@ const userValidatorSchema = {
       .required(),
     profilePic: Joi.string().allow(""),
     careerField: Joi.string()
-      .valid(
-        "Education and Training",
-        "Ministering, Counselling, Clergy",
-        "Business Management and Administration",
-        "Arts, Audio/Video Technology and Communications",
-        "Finance",
-        "Government and Public Administration",
-        "Health Science",
-        "Hospitality and Tourism",
-        "Human Services",
-        "Information Technology",
-        "Law, Public Safety, Corrections and Security",
-        "Manufacturing",
-        "Marketing, Sales and Service",
-        "Science, Technology, Engineering and Mathematics",
-        "Transportation, Distribution and Logistics"
-      )
+      .valid(...validatorConfig.CAREER_FIELD_ARRAY)
       .required(),
     bio: Joi.string().min(10).max(5000).allow(""),
     facebook: Joi.string().min(3).max(50).trim(true).allow(""),
@@ -117,26 +86,10 @@ const userValidatorSchema = {
       .required(),
     profilePic: Joi.string().allow(""),
     careerField: Joi.string()
-      .valid(
-        "Education and Training",
-        "Ministering, Counselling, Clergy",
-        "Business Management and Administration",
-        "Arts, Audio/Video Technology and Communications",
-        "Finance",
-        "Government and Public Administration",
-        "Health Science",
-        "Hospitality and Tourism",
-        "Human Services",
-        "Information Technology",
-        "Law, Public Safety, Corrections and Security",
-        "Manufacturing",
-        "Marketing, Sales and Service",
-        "Science, Technology, Engineering and Mathematics",
-        "Transportation, Distribution and Logistics"
-      )
+      .valid(...validatorConfig.CAREER_FIELD_ARRAY)
       .required(),
     role: Joi.string()
-      .valid("User", "Editor", "Merchant", "Admin", "SuperAdmin")
+      .valid(...validatorConfig.USER_ROLE_ARRAY)
       .default("User"),
     isActive: Joi.boolean().required(),
     bio: Joi.string().min(10).max(5000),

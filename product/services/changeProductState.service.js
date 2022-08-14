@@ -1,37 +1,20 @@
 // import required modules
 const Product = require("../models/Product");
+const ApplicationException = require("../../common/ApplicationException");
 
-// change item state service
-const changeItemStateService = async (req) => {
+// change product state service
+const changeProductStateService = async (productId) => {
   // fetch current item state
-  let itemState = await Product.findOne({ _id: req.params.id }).exec();
+  let product = await Product.findOne({ _id: productId }).exec();
 
-  if (itemState.isActive === false) {
-    let active = true;
+  if (!product) throw new ApplicationException("Product does not exist", 404);
 
-    let itemStateValue = { isActive: active };
+  product.isActive = !product.isActive;
 
-    itemState = await Product.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: itemStateValue },
-      { new: true }
-    );
+  await product.save();
 
-    return itemState;
-  } else {
-    let active = false;
-
-    let itemStateValue = { isActive: active };
-
-    itemState = await Product.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: itemStateValue },
-      { new: true }
-    );
-
-    return itemState;
-  }
+  return product.isActive;
 };
 
 // export service
-module.exports = changeItemStateService;
+module.exports = changeProductStateService;
