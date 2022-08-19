@@ -3,10 +3,11 @@ const express = require("express");
 const passport = require("passport");
 
 // import required routes
-const auth = require("../../routes/api/auth");
-const user = require("../../routes/api/user");
-const situation = require("../../routes/api/situation");
-const scripture = require("../../routes/api/scripture");
+const auth = require("../../user/routes/api/auth.route");
+const user = require("../../user/routes/api/user.route");
+const situation = require("../../situation/routes/api/situation.route");
+const scripture = require("../../scripture/routes/api/scripture.route");
+const product = require("../../product/routes/api/product.route");
 
 // create express router
 const router = express.Router();
@@ -15,12 +16,13 @@ const router = express.Router();
 router.use(passport.initialize());
 
 // passport authentication strategy
-require("../../utils/jwtAuth")(passport);
+require("../../common/jwtAuth")(passport);
 
 // api routes setup
 router.use("/api/auth", auth);
 router.use("/api/user", user);
 router.use("/api/situation", situation);
 router.use("/api/scripture", scripture);
+router.use("/api/product", product);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 // import required libraries
-const config = require("../../settings/config");
+const config = require("../../settings/settings.config");
 const mongoose = require("mongoose");
 const logger = require("../../logger/index");
 
@@ -15,8 +15,13 @@ const dbSetup = () => {
     .then(() => {
       logger.info("MongoDB connected successfully");
     })
-    .catch((err) => {
-      logger.error("MongoDB connection error: " + err?.message);
+    .catch((error) => {
+      let meta = "database";
+
+      logger.error("MongoDB connection error: " + error.message, {
+        ...error,
+        meta,
+      });
     });
 };
 
