@@ -11,9 +11,12 @@ const addSituationService = async (title, colour, icon) => {
     throw new ApplicationException("Situation already exist. Try another", 400);
   }
 
+  let slug = title.replace(/\s+/g, "-").toLowerCase();
+
   // create a new instance of Situation to store the user-imputed values
   const newSituation = new Situation({
     title,
+    slug,
     colour,
     icon,
   });

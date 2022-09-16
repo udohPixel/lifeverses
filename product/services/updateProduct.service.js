@@ -46,6 +46,7 @@ const updateProductService = async (
 
   // get other data
   let userId;
+  let slug = title.replace(/\s+/g, "-").toLowerCase() + "-" + isbn;
 
   // check if user is editor, admin or super admin
   // to allow anonymous edit of product by admin or super admin
@@ -59,8 +60,9 @@ const updateProductService = async (
   // create a new instance of Product to store the user-imputed values
   const productValues = {
     userId,
+    slug,
     ...productInfo,
-    publicationDate: new Date(publicationDate),
+    // publicationDate: new Date(publicationDate),
   };
 
   // update product with productValues from product

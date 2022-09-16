@@ -11,7 +11,7 @@ const updateScriptureCtrl = async (req, res) => {
     // get other data
     let theRole = req.user.role;
     let theUserId = req.user.id;
-    let situationId = req.params.situation_id;
+    let theSituationId = req.params.situation_id;
     let scriptureId = req.params.scripture_id;
     let bibleVerses = req.body.bibleVerses.split(",");
 
@@ -19,7 +19,7 @@ const updateScriptureCtrl = async (req, res) => {
     const scripture = await updateScriptureService(
       theRole,
       theUserId,
-      situationId,
+      theSituationId,
       scriptureId,
       bibleTitle,
       bibleChapter,

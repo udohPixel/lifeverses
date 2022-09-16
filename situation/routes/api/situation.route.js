@@ -13,6 +13,7 @@ const {
 
 // import required controllers
 const getSituation = require("../../controllers/getSituation.controller");
+const getSituationBySlug = require("../../controllers/getSituationBySlug.controller");
 const getAllSituations = require("../../controllers/getAllSituations.controller");
 const addSituation = require("../../controllers/addSituation.controller");
 const updateSituation = require("../../controllers/updateSituation.controller");
@@ -29,6 +30,14 @@ const router = express.Router();
  * @type    - GET
  */
 router.get("/:id", getSituation);
+
+/**
+ * @desc    - route for fetching situation by slug
+ * @api     - /api/situation/:slug/situation
+ * @access  - PUBLIC
+ * @type    - GET
+ */
+router.get("/:slug/situation", getSituationBySlug);
 
 /**
  * @desc    - route for fetching all situations

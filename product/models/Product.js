@@ -20,6 +20,10 @@ const ProductSchema = new Schema(
       type: String,
       unique: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
     aboutAuthor: {
       type: String,
     },
@@ -30,7 +34,7 @@ const ProductSchema = new Schema(
       type: Number,
     },
     publicationDate: {
-      type: String,
+      type: Date,
     },
     isbn: {
       type: String,
@@ -75,6 +79,13 @@ const ProductSchema = new Schema(
     },
     reviews: [
       {
+        productId: {
+          type: String,
+        },
+        isActive: {
+          type: Boolean,
+          default: true,
+        },
         reviewerId: {
           type: String,
         },

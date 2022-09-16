@@ -15,7 +15,6 @@ const updateUserCtrl = async (req, res) => {
       profilePic,
       careerField,
       role,
-      isActive,
       bio,
       facebook,
       youtube,

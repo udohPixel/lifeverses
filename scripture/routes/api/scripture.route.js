@@ -14,7 +14,9 @@ const {
 
 // import required controllers
 const getScripture = require("../../controllers/getScripture.controller");
+const getScriptureBySlug = require("../../controllers/getScriptureBySlug.controller");
 const getAllScriptures = require("../../controllers/getAllScriptures.controller");
+const getAllPersonalScriptures = require("../../controllers/getAllPersonalScriptures.controller");
 const addScripture = require("../../controllers/addScripture.controller");
 const updateScripture = require("../../controllers/updateScripture.controller");
 const deleteScripture = require("../../controllers/deleteScripture.controller");
@@ -32,12 +34,33 @@ const router = express.Router();
 router.get("/:id", getScripture);
 
 /**
+ * @desc    - route for fetching scripture by slug
+ * @api     - /api/scripture/:situation_slug/:slug
+ * @access  - PUBLIC
+ * @type    - GET
+ */
+router.get("/:situation_slug/:slug", getScriptureBySlug);
+
+/**
  * @desc    - route for fetching all scriptures
  * @api     - /api/scripture/find/all
  * @access  - PUBLIC
  * @type    - GET
  */
 router.get("/find/all", getAllScriptures);
+
+/**
+ * @desc    - route for fetching all personal scriptures
+ * @api     - /api/scripture/find/user
+ * @access  - PRIVATE
+ * @type    - GET
+ */
+router.get(
+  "/find/user",
+  isLoggedIn,
+  isTheEditorOrMerchantOrAdminOrSuperAdmin,
+  getAllPersonalScriptures
+);
 
 /**
  * @desc    - route for adding new scripture

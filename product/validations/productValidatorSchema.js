@@ -47,15 +47,6 @@ const productValidatorSchema = {
 
   // add product review validator schema
   addProductReview: Joi.object({
-    reviewerId: Joi.string().required(),
-    reviewTitle: Joi.string().min(2).max(50).required(),
-    reviewRating: Joi.number(),
-    comment: Joi.string().min(2).max(250).required(),
-  }),
-
-  // update product review validator schema
-  updateProductReview: Joi.object({
-    reviewerId: Joi.string().required(),
     reviewTitle: Joi.string().min(2).max(50).required(),
     reviewRating: Joi.number(),
     comment: Joi.string().min(2).max(250).required(),

@@ -22,7 +22,7 @@ const addProductService = async (userId, productInfo) => {
     stock,
   } = productInfo;
 
-  // fetch product by id
+  // fetch product by title
   let product = await Product.findOne({ title }).exec();
 
   // check if title exists or not in dB
@@ -30,11 +30,14 @@ const addProductService = async (userId, productInfo) => {
     throw new ApplicationException("Title has already been taken. Try another");
   }
 
+  let slug = title.replace(/\s+/g, "-").toLowerCase() + "-" + isbn;
+
   // create a new instance of Product to store the user-imputed values
   const newProduct = new Product({
     userId,
+    slug,
     ...productInfo,
-    publicationDate: new Date(publicationDate),
+    // publicationDate: new Date(publicationDate),
   });
 
   // save new product object to dB

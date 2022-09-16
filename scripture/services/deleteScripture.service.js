@@ -8,11 +8,11 @@ const { isAdmin, isSuperAdmin } = require("../../common/helpers");
 const deleteScriptureService = async (
   theRole,
   theUserId,
-  situationId,
+  theSituationId,
   scriptureId
 ) => {
   // fetch situation by id from dB
-  let situation = await Situation.findOne({ _id: situationId }).exec();
+  let situation = await Situation.findOne({ _id: theSituationId }).exec();
 
   // check if situation exists
   if (!situation) {
@@ -20,7 +20,10 @@ const deleteScriptureService = async (
   }
 
   // fetch scripture by id from dB
-  let scripture = await Scripture.findOne({ _id: scriptureId }).exec();
+  let scripture = await Scripture.findOne({
+    _id: scriptureId,
+    situationId: theSituationId,
+  }).exec();
 
   // check if scripture to be updated exists
   if (!scripture) {

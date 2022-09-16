@@ -1,6 +1,6 @@
 // import required modules
-const bcrypt = require("bcryptjs");
 const ApplicationException = require("../../common/ApplicationException");
+const { hashPassword } = require("../helpers/checkers");
 
 // import User model
 const User = require("../models/User");
@@ -21,7 +21,7 @@ const registrationService = async (userInfo) => {
 
   // fetch user by email from dB
   let isExistingEmail = await User.findOne({
-    email: email,
+    email: email.toLowerCase(),
   }).exec();
 
   // check if email exists or not in dB
@@ -31,7 +31,7 @@ const registrationService = async (userInfo) => {
 
   // fetch user by username from dB
   let isExistingUsername = await User.findOne({
-    username: username,
+    username: username.toLowerCase(),
   }).exec();
 
   // check if username exists or not in dB
@@ -57,29 +57,8 @@ const registrationService = async (userInfo) => {
     profilePic: profilePic ?? defaultProfilePic,
   });
 
-  // encrypt password
-  // generate salt
-  let salt = await bcrypt.genSalt(10);
-
-  // check if salt was generated
-  if (!salt) {
-    throw new ApplicationException(
-      "Unexpected error occurred while processing your request"
-    );
-  }
-
-  // generate hash
-  let hash = await bcrypt.hash(newUser.password, salt);
-
-  // check if password was hashed
-  if (!hash) {
-    throw new ApplicationException(
-      "Unexpected error occurred while processing your request"
-    );
-  }
-
   // store hashed password in new user object
-  newUser.password = hash;
+  newUser.password = await hashPassword(newUser.password);
 
   // save new user object in DB
   let user;

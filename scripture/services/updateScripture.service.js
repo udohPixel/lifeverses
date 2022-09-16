@@ -8,24 +8,24 @@ const { isEditor, isAdmin, isSuperAdmin } = require("../../common/helpers");
 const updateScriptureService = async (
   theRole,
   theUserId,
-  situationId,
+  theSituationId,
   scriptureId,
   bibleTitle,
   bibleChapter,
   bibleVerses
 ) => {
   // fetch situation by id from dB
-  let situation = await Situation.findOne({
-    _id: situationId,
-  }).exec();
+  let situation = await Situation.findOne({ _id: theSituationId }).exec();
 
   // check if situation exists
   if (!situation) {
     throw new ApplicationException("Situation does not exist", 404);
   }
 
+  // fetch scripture by id from dB
   let scripture = await Scripture.findOne({
     _id: scriptureId,
+    situationId: theSituationId,
   }).exec();
 
   // check if scripture to be updated exists
@@ -53,10 +53,22 @@ const updateScriptureService = async (
     userId = scripture.userId;
   }
 
+  let theBibleVerses =
+    bibleVerses.length > 1
+      ? bibleVerses[0] + "-" + bibleVerses[bibleVerses.length - 1]
+      : bibleVerses[0];
+
+  let slug =
+    bibleTitle.replace(/\s+/g, "-").toLowerCase() +
+    bibleChapter +
+    "-" +
+    theBibleVerses;
+
   // pass user-imputed values into scriptureValues object
   const scriptureValues = {
     userId,
-    situationId,
+    slug,
+    situationId: theSituationId,
     bibleTitle,
     bibleChapter,
     bibleVerses,

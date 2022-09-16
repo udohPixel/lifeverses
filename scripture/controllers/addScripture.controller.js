@@ -10,13 +10,13 @@ const addScriptureCtrl = async (req, res) => {
 
     // get other data
     let userId = req.user.id;
-    let situationId = req.params.situation_id;
+    let theSituationId = req.params.situation_id;
     let bibleVerses = req.body.bibleVerses.split(",");
 
     // add scripture service
     const scripture = await addScriptureService(
       userId,
-      situationId,
+      theSituationId,
       bibleTitle,
       bibleChapter,
       bibleVerses

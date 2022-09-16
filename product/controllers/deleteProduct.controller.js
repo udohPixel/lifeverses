@@ -8,7 +8,7 @@ const deleteProductCtrl = async (req, res) => {
     // get other data
     let theRole = req.user.role;
     let theUserId = req.user.id;
-    let productId = req.params.product_id;
+    let productId = req.params.id;
 
     // delete product service
     const product = await deleteProductService(theRole, theUserId, productId);

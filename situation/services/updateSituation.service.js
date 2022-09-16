@@ -12,8 +12,10 @@ const updateSituationService = async (situationId, title, colour, icon) => {
     throw new ApplicationException("Situation does not exist", 404);
   }
 
+  let slug = title.replace(/\s+/g, "-").toLowerCase();
+
   // pass user-imputed fields into situationValues object
-  const situationValues = { title, colour, icon };
+  const situationValues = { title, slug, colour, icon };
 
   // update situation
   situation = await Situation.findOneAndUpdate(
