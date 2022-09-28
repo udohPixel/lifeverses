@@ -53,16 +53,7 @@ const updateScriptureService = async (
     userId = scripture.userId;
   }
 
-  let theBibleVerses =
-    bibleVerses.length > 1
-      ? bibleVerses[0] + "-" + bibleVerses[bibleVerses.length - 1]
-      : bibleVerses[0];
-
-  let slug =
-    bibleTitle.replace(/\s+/g, "-").toLowerCase() +
-    bibleChapter +
-    "-" +
-    theBibleVerses;
+  let slug = scriptureSlug(bibleVerses, bibleTitle, bibleChapter);
 
   // pass user-imputed values into scriptureValues object
   const scriptureValues = {

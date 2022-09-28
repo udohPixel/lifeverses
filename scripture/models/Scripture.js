@@ -13,9 +13,11 @@ const ScriptureSchema = new Schema(
     },
     slug: {
       type: String,
+      index: true,
     },
     situationId: {
       type: String,
+      index: true,
     },
     bibleVersion: {
       type: String,

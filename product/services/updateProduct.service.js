@@ -1,7 +1,12 @@
 // import required modules
 const Product = require("../models/Product");
 const ApplicationException = require("../../common/ApplicationException");
-const { isEditor, isAdmin, isSuperAdmin } = require("../../common/helpers");
+const {
+  isEditor,
+  isAdmin,
+  isSuperAdmin,
+  titleToSlug,
+} = require("../../common/helpers");
 
 // update product service
 const updateProductService = async (
@@ -46,7 +51,7 @@ const updateProductService = async (
 
   // get other data
   let userId;
-  let slug = title.replace(/\s+/g, "-").toLowerCase() + "-" + isbn;
+  let slug = titleToSlug(title) + "-" + isbn;
 
   // check if user is editor, admin or super admin
   // to allow anonymous edit of product by admin or super admin

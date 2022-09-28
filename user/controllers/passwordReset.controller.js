@@ -8,20 +8,12 @@ const passwordResetCtrl = async (req, res) => {
     // get all required params
     let token = req.params.token;
 
-    let { password, confirmPassword } = req.body;
+    let { password } = req.body;
 
     // reset password service
-    const thePassword = await passwordResetService(
-      token,
-      password,
-      confirmPassword
-    );
+    const thePassword = await passwordResetService(token, password);
 
-    return apiResponse.success(
-      res,
-      "Password was reset successfully",
-      thePassword
-    );
+    return apiResponse.success(res, "Password was reset successfully");
   } catch (error) {
     return apiResponse.errorObject(res, error, null, "reset-password");
   }

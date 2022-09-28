@@ -6,7 +6,7 @@ const updatePersonalPasswordService = require("../services/updatePersonalPasswor
 const updatePersonalPasswordCtrl = async (req, res) => {
   try {
     // object destructuring assignment
-    const { oldPassword, password, confirmPassword } = req.body;
+    const { oldPassword, password } = req.body;
 
     let userId = req.user.id;
 
@@ -14,8 +14,7 @@ const updatePersonalPasswordCtrl = async (req, res) => {
     const thePassword = await updatePersonalPasswordService(
       userId,
       oldPassword,
-      password,
-      confirmPassword
+      password
     );
 
     return apiResponse.success(

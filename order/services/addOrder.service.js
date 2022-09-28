@@ -11,11 +11,9 @@ const addOrderService = async (
 ) => {
   // calculate products price
   let productsPrice = 0;
-  let productsDiscountedPrice = 0;
   orderProducts.forEach((product) => {
-    productsDiscountedPrice = product.price - product.discount;
-    productsPrice += productsDiscountedPrice;
-    productsPrice = productsPrice * product.quantity;
+    const productsDiscountedPrice = product.price - product.discount;
+    productsPrice += productsDiscountedPrice * product.quantity;
   });
 
   // calculate totalPrice

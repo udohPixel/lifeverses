@@ -14,6 +14,8 @@ const userValidatorSchema = {
       .trim(true)
       .required(),
     password: Joi.string()
+      .min(8)
+      .max(15)
       .pattern(/^[a-zA-Z0-9]{6,100}$/)
       .required(),
   }),
@@ -34,6 +36,8 @@ const userValidatorSchema = {
       .trim(true)
       .required(),
     password: Joi.string()
+      .min(8)
+      .max(15)
       .pattern(/^[a-zA-Z0-9]{6,100}$/)
       .required(),
     profilePic: Joi.string().trim(true).allow(""),
@@ -72,14 +76,21 @@ const userValidatorSchema = {
   // update personal password validator schema
   updatePersonalPassword: Joi.object({
     oldPassword: Joi.string()
+      .min(8)
+      .max(15)
       .pattern(/^[a-zA-Z0-9]{6,100}$/)
       .required(),
     password: Joi.string()
+      .min(8)
+      .max(15)
       .pattern(/^[a-zA-Z0-9]{6,100}$/)
-      .required(),
-    confirmPassword: Joi.string()
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
-      .required(),
+      .required()
+      .label("Password"),
+    confirmPassword: Joi.any()
+      .equal(Joi.ref("password"))
+      .required()
+      .label("Confirm password")
+      .options({ messages: { "any.only": "{{#label}} does not match" } }),
   }),
 
   // update user validator schema
@@ -133,11 +144,16 @@ const userValidatorSchema = {
   // password reset validator schema
   passwordReset: Joi.object({
     password: Joi.string()
+      .min(8)
+      .max(15)
       .pattern(/^[a-zA-Z0-9]{6,100}$/)
-      .required(),
-    confirmPassword: Joi.string()
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
-      .required(),
+      .required()
+      .label("Password"),
+    confirmPassword: Joi.any()
+      .equal(Joi.ref("password"))
+      .required()
+      .label("Confirm password")
+      .options({ messages: { "any.only": "{{#label}} does not match" } }),
   }),
 };
 

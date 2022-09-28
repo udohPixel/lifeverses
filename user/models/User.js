@@ -70,12 +70,6 @@ const UserSchema = new Schema(
       type: Array,
       default: [],
     },
-    passwordResetToken: {
-      type: String,
-    },
-    passwordResetTime: {
-      type: Date,
-    },
   },
   { timestamps: true }
 );

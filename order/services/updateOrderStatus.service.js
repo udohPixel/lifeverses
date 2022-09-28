@@ -15,17 +15,15 @@ const updateOrderStatusService = async (orderId, theOrderStatus) => {
 
   // set shipment date and reduce product's stock
   if (theOrderStatus === "Shipped") {
-    let prod;
-
     order.shippedAt = Date.now();
 
     // update product's stock
-    order.orderProducts.forEach(async (product) => {
-      prod = await Product.findOne({ _id: product.productId }).exec();
+    for (const product of order.orderProducts) {
+      const prod = await Product.findOne({ _id: product.productId }).exec();
       prod.stock -= product.quantity;
 
       await prod.save();
-    });
+    }
   }
 
   // set delivery date

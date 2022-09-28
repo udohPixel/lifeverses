@@ -3,7 +3,7 @@ const userFilters = require("../helpers/UserFilters");
 const User = require("../models/User");
 
 // get all users service
-const getAllUsersService = (queryStr) => {
+const getAllUsersService = async (queryStr) => {
   // fetch users
   let query = User.find()
     .where("role")

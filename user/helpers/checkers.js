@@ -1,5 +1,6 @@
 // import required modules
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const ApplicationException = require("../../common/ApplicationException");
 const User = require("../models/User");
 
@@ -36,6 +37,13 @@ const checkerService = {
     }
 
     return hash;
+  },
+
+  // generate random
+  randomHash: (token) => {
+    token = token || crypto.randomBytes(20).toString("hex");
+
+    return crypto.createHash("sha512").update(token).digest("hex");
   },
 };
 

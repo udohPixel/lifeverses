@@ -1,6 +1,7 @@
 // import required modules
 const Product = require("../models/Product");
 const ApplicationException = require("../../common/ApplicationException");
+const { titleToSlug } = require("../../common/helpers");
 
 // add product service
 const addProductService = async (userId, productInfo) => {
@@ -30,7 +31,7 @@ const addProductService = async (userId, productInfo) => {
     throw new ApplicationException("Title has already been taken. Try another");
   }
 
-  let slug = title.replace(/\s+/g, "-").toLowerCase() + "-" + isbn;
+  let slug = titleToSlug(title) + "-" + isbn;
 
   // create a new instance of Product to store the user-imputed values
   const newProduct = new Product({

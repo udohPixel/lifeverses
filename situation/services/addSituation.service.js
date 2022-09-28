@@ -1,6 +1,7 @@
 // import required modules
 const Situation = require("../models/Situation");
 const ApplicationException = require("../../common/ApplicationException");
+const { titleToSlug } = require("../../common/helpers");
 
 const addSituationService = async (title, colour, icon) => {
   // fetch situation by title from dB
@@ -11,7 +12,7 @@ const addSituationService = async (title, colour, icon) => {
     throw new ApplicationException("Situation already exist. Try another", 400);
   }
 
-  let slug = title.replace(/\s+/g, "-").toLowerCase();
+  let slug = titleToSlug(title);
 
   // create a new instance of Situation to store the user-imputed values
   const newSituation = new Situation({

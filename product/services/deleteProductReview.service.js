@@ -2,7 +2,7 @@
 const Product = require("../models/Product");
 const ApplicationException = require("../../common/ApplicationException");
 
-// add/update product review service
+// delete product review service
 const deleteProductReviewService = async (productId, reviewId) => {
   // fetch product by id
   let product = await Product.findOne({ _id: productId }).exec();
@@ -12,21 +12,20 @@ const deleteProductReviewService = async (productId, reviewId) => {
     throw new ApplicationException("Product does not exist", 404);
   }
 
-  // fetch reviewer ids
+  // fetch review ids
   let reviewIds = product.reviews.map((review) => {
-    return review._id.toString();
+    return review.id;
   });
 
-  // check if current reviewerId exists in reviewerIds
-  // if yes, user review already exists: update existing review
-  let isReviewed = reviewIds.includes(reviewId);
+  // get index of review to be deleted
+  let indexOfReview = reviewIds.indexOf(reviewId);
 
-  if (!isReviewed) {
+  // check if review to be deleted exist
+  if (indexOfReview < 0) {
     throw new ApplicationException("Review does not exist", 404);
   }
 
   // remove review with specific index
-  let indexOfReview = reviewIds.indexOf(reviewId);
   product.reviews.splice(indexOfReview, 1);
 
   // update total reviews

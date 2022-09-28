@@ -6,12 +6,7 @@ const bcrypt = require("bcryptjs");
 const { hashPassword } = require("../helpers/checkers");
 
 // update personal user service
-const updatePersonalPasswordService = async (
-  userId,
-  oldPassword,
-  password,
-  confirmPassword
-) => {
+const updatePersonalPasswordService = async (userId, oldPassword, password) => {
   // fetch user by id from dB
   let user = await User.findOne({ _id: userId }).exec();
 
@@ -25,11 +20,6 @@ const updatePersonalPasswordService = async (
 
   if (!isMatched) {
     throw new ApplicationException("Invalid password", 400);
-  }
-
-  // check if user-imputed passwords match
-  if (password !== confirmPassword) {
-    throw new ApplicationException("Passwords do not match", 400);
   }
 
   // hash password

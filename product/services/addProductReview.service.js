@@ -23,13 +23,12 @@ const addProductReviewService = async (
     return review.reviewerId;
   });
 
-  // check if current reviewerId exists in reviewerIds
-  // if yes, user review already exists: update existing review
-  let isReviewed = reviewerIds.includes(reviewerId);
+  // get index of review to be updated
+  let indexOfReview = reviewerIds.indexOf(reviewerId);
 
   // new review object
   const reviewValues = {
-    productId: product._id.toString(),
+    productId: product.id,
     reviewerId,
     reviewTitle,
     reviewRating: Number(reviewRating),
@@ -38,10 +37,8 @@ const addProductReviewService = async (
 
   let totalRatingsArray;
 
-  if (isReviewed) {
-    // get index of review to be updated
-    let indexOfReview = reviewerIds.indexOf(reviewerId);
-
+  // check if review to be added exist
+  if (indexOfReview < 0) {
     // push updated review object into product reviews
     product.reviews[indexOfReview] = reviewValues;
 

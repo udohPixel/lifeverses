@@ -2,26 +2,16 @@
 class OrderFilters {
   // order filter function
   filterItems(query, queryStr) {
-    let theKeyword = {};
-
-    theKeyword.$or = [{ _id: { $regex: queryStr.keyword, $options: "i" } }];
-
-    let theOrderStatus =
-      queryStr.orderStatus && queryStr.orderStatus.split(",");
-
     let queryObject = {};
 
-    if (queryStr.keyword && queryStr.orderStatus) {
-      queryObject = {
-        ...theKeyword,
-        orderStatus: theOrderStatus,
-      };
-    } else if (queryStr.keyword) {
-      queryObject = { ...theKeyword };
-    } else if (queryStr.orderStatus) {
-      queryObject = { orderStatus: theOrderStatus };
-    } else {
-      queryObject = {};
+    // find by keyword
+    if (queryStr.keyword) {
+      queryObject.$or = [{ _id: { $regex: queryStr.keyword, $options: "i" } }];
+    }
+
+    // find by orderStatus
+    if (queryStr.orderStatus) {
+      queryObject.orderStatus = String(queryStr.orderStatus).split(",");
     }
 
     // find by keyword or orderStatus

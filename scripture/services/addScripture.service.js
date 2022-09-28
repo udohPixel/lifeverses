@@ -1,5 +1,6 @@
 // import required modules
 const ApplicationException = require("../../common/ApplicationException");
+const { scriptureSlug } = require("../helpers/checkers");
 const Scripture = require("../models/Scripture");
 
 // add scripture service
@@ -10,16 +11,7 @@ const addScriptureService = async (
   bibleChapter,
   bibleVerses
 ) => {
-  let theBibleVerses =
-    bibleVerses.length > 1
-      ? bibleVerses[0] + "-" + bibleVerses[bibleVerses.length - 1]
-      : bibleVerses[0];
-
-  let theSlug =
-    bibleTitle.replace(/\s+/g, "-").toLowerCase() +
-    bibleChapter +
-    "-" +
-    theBibleVerses;
+  let theSlug = scriptureSlug(bibleVerses, bibleTitle, bibleChapter);
 
   // fetch scripture by id from dB
   let scripture = await Scripture.findOne({
