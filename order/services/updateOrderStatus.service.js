@@ -18,12 +18,14 @@ const updateOrderStatusService = async (orderId, theOrderStatus) => {
     order.shippedAt = Date.now();
 
     // update product's stock
-    for (const product of order.orderProducts) {
-      const prod = await Product.findOne({ _id: product.productId }).exec();
-      prod.stock -= product.quantity;
+    const queries = order.orderProducts.map((product) => {
+      return Product.findOneAndUpdate(
+        { _id: p.productId },
+        { $inc: { stock: -p.quantity } }
+      ).exec();
+    });
 
-      await prod.save();
-    }
+    await Promise.all(queries);
   }
 
   // set delivery date
