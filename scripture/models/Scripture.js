@@ -11,8 +11,13 @@ const ScriptureSchema = new Schema(
     userId: {
       type: String,
     },
+    slug: {
+      type: String,
+      index: true,
+    },
     situationId: {
       type: String,
+      index: true,
     },
     bibleVersion: {
       type: String,
@@ -30,7 +35,6 @@ const ScriptureSchema = new Schema(
     },
     bibleVerses: {
       type: [String],
-      // enum: [Array.from({ length: 176 }, (_, i) => i + 1)],
     },
   },
   { timestamps: true }

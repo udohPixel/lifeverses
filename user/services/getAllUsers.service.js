@@ -1,10 +1,18 @@
 // import required modules
+const userFilters = require("../helpers/UserFilters");
 const User = require("../models/User");
 
 // get all users service
-const getAllUsersService = () => {
-  // fetch all users from dB
-  return User.find().exec();
+const getAllUsersService = async (queryStr) => {
+  // fetch users
+  let query = User.find()
+    .where("role")
+    .ne("SuperAdmin")
+    .select("-role")
+    .select("-password");
+
+  // filter users
+  return userFilters.filterItems(query, queryStr);
 };
 
 // export service

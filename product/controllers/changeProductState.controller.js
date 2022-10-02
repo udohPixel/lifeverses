@@ -2,12 +2,12 @@
 const apiResponse = require("../../common/ApiResponse");
 const changeProductStateService = require("../services/changeProductState.service");
 
-// change item state controller
-const changeItemStateCtrl = async (req, res) => {
+// change product state controller
+const changeProductStateCtrl = async (req, res) => {
   try {
     let productId = req.params.id;
 
-    // change item state service
+    // change product state service
     const productState = await changeProductStateService(productId);
 
     return apiResponse.success(
@@ -16,9 +16,9 @@ const changeItemStateCtrl = async (req, res) => {
       productState
     );
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "change_item_state");
+    return apiResponse.errorObject(res, error, null, "change_product_state");
   }
 };
 
 // export controller
-module.exports = changeItemStateCtrl;
+module.exports = changeProductStateCtrl;

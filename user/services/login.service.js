@@ -1,16 +1,19 @@
 // import required libraries
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const key = require("../../settings/settings.config");
 
 // import required modules
 const User = require("../models/User");
 const ApplicationException = require("../../common/ApplicationException");
+const {
+  APP_PRIVATE_KEY,
+  APP_LOGIN_TOKEN_EXPIRATION,
+} = require("../../settings/settings.config");
 
 // login service
 const loginService = async (email, password) => {
   let user = await User.findOne({
-    email: email,
+    email: email.toLowerCase(),
   }).exec();
 
   // check if email exist or not in dB
@@ -37,7 +40,9 @@ const loginService = async (email, password) => {
   };
 
   // generate token
-  let token = jwt.sign(payload, key.APP_PRIVATE_KEY, { expiresIn: 3600 });
+  let token = jwt.sign(payload, APP_PRIVATE_KEY, {
+    expiresIn: APP_LOGIN_TOKEN_EXPIRATION,
+  });
 
   return token;
 };

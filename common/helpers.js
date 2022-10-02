@@ -30,6 +30,11 @@ const helperService = {
   isEditorOrMerchantOrAdminOrSuperAdmin: (role) => {
     return ["Editor", "Merchant", "Admin", "SuperAdmin"].includes(role);
   },
+
+  // convert title to slug
+  titleToSlug: (title) => {
+    return title.replace(/\s+/g, "-").toLowerCase();
+  },
 };
 
 // export helper

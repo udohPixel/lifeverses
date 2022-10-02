@@ -3,10 +3,12 @@ const apiResponse = require("../../common/ApiResponse");
 const getAllProductsService = require("../services/getAllProducts.service");
 
 // get all products controller
-const getAllProductsCtrl = async (_req, res) => {
+const getAllProductsCtrl = async (req, res) => {
   try {
+    let queryStr = req.query;
+
     // get all products service
-    const products = await getAllProductsService();
+    const products = await getAllProductsService(queryStr);
 
     return apiResponse.success(res, "Products found successfully", products);
   } catch (error) {

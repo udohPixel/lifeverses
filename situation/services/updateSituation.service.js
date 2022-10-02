@@ -1,6 +1,7 @@
 // import required modules
 const Situation = require("../models/Situation");
 const ApplicationException = require("../../common/ApplicationException");
+const { titleToSlug } = require("../../common/helpers");
 
 // update situation service
 const updateSituationService = async (situationId, title, colour, icon) => {
@@ -12,8 +13,10 @@ const updateSituationService = async (situationId, title, colour, icon) => {
     throw new ApplicationException("Situation does not exist", 404);
   }
 
+  let slug = titleToSlug(title);
+
   // pass user-imputed fields into situationValues object
-  const situationValues = { title, colour, icon };
+  const situationValues = { title, slug, colour, icon };
 
   // update situation
   situation = await Situation.findOneAndUpdate(

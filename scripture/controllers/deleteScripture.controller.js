@@ -8,14 +8,14 @@ const deleteScriptureCtrl = async (req, res) => {
     // get other data
     let theRole = req.user.role;
     let theUserId = req.user.id;
-    let situationId = req.params.situation_id;
+    let theSituationId = req.params.situation_id;
     let scriptureId = req.params.scripture_id;
 
     // delete scripture service
     const scripture = await deleteScriptureService(
       theRole,
       theUserId,
-      situationId,
+      theSituationId,
       scriptureId
     );
 

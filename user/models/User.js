@@ -28,7 +28,6 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     profilePic: {
       type: String,
@@ -45,6 +44,7 @@ const UserSchema = new Schema(
     },
     isActive: {
       type: Boolean,
+      default: false,
     },
     bio: {
       type: String,

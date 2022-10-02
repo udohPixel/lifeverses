@@ -51,7 +51,7 @@ const updatePersonalUserService = async (userId, userInfo) => {
   }
 
   // fetch user by email except current user from dB
-  let isExistingEmail = await User.findOne({ email: email })
+  let isExistingEmail = await User.findOne({ email: email.toLowerCase() })
     .where("_id")
     .ne(userId)
     .exec();
@@ -65,7 +65,9 @@ const updatePersonalUserService = async (userId, userInfo) => {
   }
 
   // fetch user by username except current user from dB
-  let isExistingUsername = await User.findOne({ username: username })
+  let isExistingUsername = await User.findOne({
+    username: username.toLowerCase(),
+  })
     .where("_id")
     .ne(userId)
     .exec();

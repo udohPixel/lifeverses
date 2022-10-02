@@ -12,6 +12,10 @@ const SituationSchema = new Schema(
       type: String,
       unique: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+    },
     colour: {
       type: String,
       enum: [...validatorConfig.SITUATION_COLOUR_ARRAY],
