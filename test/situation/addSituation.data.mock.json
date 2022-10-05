@@ -1,0 +1,12 @@
+{
+  "validData": {
+    "title": "Satisfactory",
+    "colour": "bg-orange-1 color-orange",
+    "icon": "ri-face-3-love"
+  },
+  "invalidData": {
+    "title": "Thank you God",
+    "colour": "bg-red-1 color-red",
+    "icon": "ri-face-2-thanks"
+  }
+}

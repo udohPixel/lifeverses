@@ -1,0 +1,22 @@
+{
+  "superAdminData": {
+    "email": "udohndem@gmail.com",
+    "password": "udoh12345"
+  },
+  "adminData": {
+    "email": "udohndem@gmail.com",
+    "password": "udoh12345"
+  },
+  "marchantData": {
+    "email": "udoh4eva@yahoo.com",
+    "password": "udoma1234"
+  },
+  "editorData": {
+    "email": "johndoe@gmail.com",
+    "password": "john1234"
+  },
+  "userData": {
+    "email": "lagbaja@gmail.com",
+    "password": "lagbaja1234"
+  }
+}

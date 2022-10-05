@@ -25,7 +25,7 @@ const userValidatorSchema = {
     firstname: Joi.string().min(2).max(50).trim(true).required(),
     lastname: Joi.string().min(2).max(50).trim(true).required(),
     gender: Joi.string().valid("Male", "Female").required(),
-    username: Joi.string().alphanum().min(3).max(50).trim(true).required(),
+    username: Joi.string().min(3).max(50).trim(true).required(),
     email: Joi.string()
       .lowercase()
       .min(6)
@@ -51,7 +51,7 @@ const userValidatorSchema = {
     firstname: Joi.string().min(2).max(50).trim(true).required(),
     lastname: Joi.string().min(2).max(50).trim(true).required(),
     gender: Joi.string().valid("Male", "Female").required(),
-    username: Joi.string().alphanum().min(3).max(50).trim(true).required(),
+    username: Joi.string().min(3).max(50).trim(true).required(),
     email: Joi.string()
       .lowercase()
       .min(6)
@@ -98,7 +98,7 @@ const userValidatorSchema = {
     firstname: Joi.string().min(2).max(50).trim(true).required(),
     lastname: Joi.string().min(2).max(50).trim(true).required(),
     gender: Joi.string().valid("Male", "Female").required(),
-    username: Joi.string().alphanum().min(3).max(50).trim(true).required(),
+    username: Joi.string().min(3).max(50).trim(true).required(),
     email: Joi.string()
       .lowercase()
       .min(6)

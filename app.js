@@ -30,3 +30,6 @@ app.use((err, _req, res, _next) => {
 app.listen(PORT, () => {
   logger.info(`Server is running at ${PORT}...`);
 });
+
+// export app
+module.exports = app;

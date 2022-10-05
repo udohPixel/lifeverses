@@ -1,0 +1,11 @@
+{
+  "validData": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "gender": "Male",
+    "username": "myusername",
+    "email": "udoh4eva@gmail.com",
+    "password": "thepassword",
+    "careerField": "Education and Training"
+  }
+}

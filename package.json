@@ -4,7 +4,8 @@
   "description": "bible verses for life situations",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "mocha test/**/*.test.js --timeout 20000"
   },
   "keywords": [
     "bible",
@@ -38,5 +39,11 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
+    "sinon": "^14.0.1"
   }
 }
