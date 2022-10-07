@@ -9,26 +9,18 @@ const expect = chai.expect;
 // use chai http
 chai.use(chaiHttp);
 
-// import situation and login mock data
-const loginData = require("../helpers/helper.login.data.mock.json");
+// import situation and auth token data
+const authToken = require("../helpers/helper.auth.token.mock.json");
 
 // delete situation by id test
 describe("DELETE SITUATION BY ID TEST", () => {
   describe("NEGATIVE TEST", () => {
     it("should not delete situation by id successfully", async () => {
-      // log the user in and get auth token
-      const adminData = { ...loginData.adminData };
-      const loginResponse = await chai
-        .request(server)
-        .post("/api/auth/login")
-        .send(adminData);
-      const token = loginResponse.body.data;
-
       const response = await chai
         .request(server)
         .delete("/api/situation/633db86f089c816efb899b59")
         .set({
-          Authorization: token,
+          Authorization: authToken.token,
         });
 
       // console.log(response);

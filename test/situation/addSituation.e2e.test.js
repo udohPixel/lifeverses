@@ -9,9 +9,9 @@ const expect = chai.expect;
 // use chai http
 chai.use(chaiHttp);
 
-// import situation and login mock data
+// import situation mock data and auth token data
 const situationData = require("./addSituation.data.mock.json");
-const loginData = require("../helpers/helper.login.data.mock.json");
+const authToken = require("../helpers/helper.auth.token.mock.json");
 
 // add situation test
 describe("ADD NEW SITUATION TEST", () => {
@@ -22,19 +22,11 @@ describe("ADD NEW SITUATION TEST", () => {
       // check for uniqueness of title
       data.title = Date.now() + "_" + data.title;
 
-      // log the user in and get auth token
-      const adminData = { ...loginData.adminData };
-      const loginResponse = await chai
-        .request(server)
-        .post("/api/auth/login")
-        .send(adminData);
-      const token = loginResponse.body.data;
-
       const response = await chai
         .request(server)
         .post("/api/situation")
         .set({
-          Authorization: token,
+          Authorization: authToken.token,
         })
         .send(data);
 
@@ -63,19 +55,11 @@ describe("ADD NEW SITUATION TEST", () => {
     it("should not create situation successfully", async () => {
       const data = { ...situationData.invalidData };
 
-      // log the user in and get auth token
-      const adminData = { ...loginData.adminData };
-      const loginResponse = await chai
-        .request(server)
-        .post("/api/auth/login")
-        .send(adminData);
-      const token = loginResponse.body.data;
-
       const response = await chai
         .request(server)
         .post("/api/situation")
         .set({
-          Authorization: token,
+          Authorization: authToken.token,
         })
         .send(data);
 

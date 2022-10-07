@@ -38,5 +38,25 @@ describe("USER LOGIN SERVICE TEST", () => {
     });
   });
 
-  //   describe("NEGATIVE TEST", () => {});
+  describe("NEGATIVE TEST", () => {
+    it("should not log the user in successfully", async () => {
+      const data = { ...loginData.invalidData };
+
+      const response = await chai
+        .request(server)
+        .post("/api/auth/login")
+        .send(data);
+
+      console.log(response);
+      expect(response).to.be.an("object");
+      expect(response).to.have.status(400);
+      expect(response).to.have.property("body");
+      expect(response.body).to.be.an("object");
+      expect(response.body).to.have.property("success", false);
+      expect(response.body).to.have.property(
+        "message",
+        "Invalid email or password"
+      );
+    });
+  });
 });

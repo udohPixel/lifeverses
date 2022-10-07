@@ -52,5 +52,70 @@ describe("USER REGISTRATION SERVICE TEST", () => {
     });
   });
 
-  //   describe("NEGATIVE TEST", () => {});
+  describe("NEGATIVE TEST", () => {
+    it("should return false when another user exists with same email", async () => {
+      const data = { ...regData.invalidEmailData };
+
+      // check for uniqueness of username
+      data.username = Date.now() + "_" + data.username;
+
+      const response = await chai
+        .request(server)
+        .post("/api/auth/register")
+        .send(data);
+
+      // console.log(response);
+      expect(response).to.be.an("object");
+      expect(response).to.have.status(400);
+      expect(response).to.have.property("body");
+      expect(response.body).to.be.an("object");
+      expect(response.body).to.have.property("success", false);
+      expect(response.body).to.have.property(
+        "message",
+        "Email has already been taken. Try another"
+      );
+    });
+
+    it("should return false when another user exists with same username", async () => {
+      const data = { ...regData.invalidUsernameData };
+
+      // check for uniqueness of email
+      data.email = Date.now() + "_" + data.email;
+
+      const response = await chai
+        .request(server)
+        .post("/api/auth/register")
+        .send(data);
+
+      // console.log(response);
+      expect(response).to.be.an("object");
+      expect(response).to.have.status(400);
+      expect(response).to.have.property("body");
+      expect(response.body).to.be.an("object");
+      expect(response.body).to.have.property("success", false);
+      expect(response.body).to.have.property(
+        "message",
+        "Username has already been taken. Try another"
+      );
+    });
+
+    it("should return false when password does not contain a minimum of eight characters, at least one letter, one number and one special character", async () => {
+      const data = { ...regData.invalidPasswordData };
+
+      const response = await chai
+        .request(server)
+        .post("/api/auth/register")
+        .send(data);
+
+      // console.log(response);
+      expect(response).to.be.an("object");
+      expect(response).to.have.status(500);
+      expect(response).to.have.property("body");
+      expect(response.body).to.be.an("object");
+      expect(response.body).to.have.property("success", false);
+      expect(response.body)
+        .to.have.property("message")
+        .contains("fails to match the required pattern");
+    });
+  });
 });

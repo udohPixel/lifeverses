@@ -3,5 +3,10 @@
     "title": "Joy",
     "colour": "bg-blue-1 color-blue",
     "icon": "ri-face-3-laughter"
+  },
+  "invalidData": {
+    "title": "Joyful",
+    "colour": "bg-blue-1 color-blue",
+    "icon": "ri-face-3-joy"
   }
 }
