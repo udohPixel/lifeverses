@@ -5,7 +5,7 @@ const ApplicationException = require("../../common/ApplicationException");
 // get situation service
 const getSituationBySlugService = async (theSlug) => {
   // fetch situation by slug from dB
-  let situation = await Situation.findOne({ slug: theSlug }).exec();
+  let situation = await Situation.findOne({ slug: theSlug });
 
   // check if situation exists
   if (!situation) {

@@ -1,7 +1,7 @@
 {
   "validData": {
     "email": "udohndem@gmail.com",
-    "password": "udoh&1234"
+    "password": "udoh@1234"
   },
   "invalidData": {
     "email": "umohndem@gmail.com",

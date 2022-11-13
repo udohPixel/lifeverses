@@ -1,7 +1,7 @@
 // import required modules
 const chai = require("chai");
-const server = require("../../app");
 const chaiHttp = require("chai-http");
+const sinon = require("sinon");
 
 // assertions
 const expect = chai.expect;
@@ -9,73 +9,121 @@ const expect = chai.expect;
 // use chai http
 chai.use(chaiHttp);
 
-// import situation mock data and auth token data
+// import other libraries
 const situationData = require("./updateSituation.data.mock.json");
-const authToken = require("../helpers/helper.auth.token.mock.json");
+const Situation = require("../../situation/models/Situation");
+const updateSituationCtrl = require("../../situation/controllers/updateSituation.controller");
+const { titleToSlug } = require("../../common/helpers");
 
 // update situation test
-describe("UPDATE SITUATION TEST", () => {
+describe("UPDATE SITUATION E2E TEST", () => {
   describe("POSITIVE TEST", () => {
-    it("should update the situation successfully", async () => {
-      const data = { ...situationData.validData };
+    const inputData = { ...situationData.validData };
 
-      // check for uniqueness of title
-      data.title = Date.now() + "_" + data.title;
+    const foundData = {
+      "id": "636b9d4e4f562bab327b1643",
+      "title": "Thank you God",
+      "slug": "thank-you-god",
+      "colour": "bg-green-1 color-green",
+      "icon": "ri-love-and-thanks",
+      "createdAt": "2022-11-09T12:30:06.312Z",
+      "updatedAt": "2022-11-09T12:30:06.312Z",
+    };
 
-      const response = await chai
-        .request(server)
-        .put("/api/situation/633d4b7cd19361f7785760f4")
-        .set({
-          Authorization: authToken.token,
-        })
-        .send(data);
+    const stubData = {
+      "id": inputData.situationId,
+      "title": inputData.title,
+      "slug": titleToSlug(inputData.title),
+      "colour": inputData.colour,
+      "icon": inputData.icon,
+      "createdAt": "2022-11-09T12:30:06.312Z",
+      "updatedAt": "2022-12-05T12:30:06.312Z",
+    }
 
-      // console.log(response);
-      expect(response).to.be.an("object");
-      expect(response).to.have.status(200);
-      expect(response).to.have.property("body");
-      expect(response.body).to.be.an("object");
-      expect(response.body).to.have.property("success", true);
-      expect(response.body).to.have.property(
-        "message",
-        "Situation updated successfully"
-      );
-      expect(response.body).to.have.property("data");
-      expect(response.body.data).to.be.an("object");
-      expect(response.body.data).to.have.property("title", data.title);
-      expect(response.body.data).to.have.property(
-        "colour",
-        "bg-blue-1 color-blue"
-      );
-      expect(response.body.data).to.have.property("icon", "ri-face-3-laughter");
+    let status, json, res;
+
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
+
+    afterEach(() => {
+      Situation.findOne.restore();
+      Situation.findOneAndUpdate.restore();
+    });
+
+    it("should update a situation successfully", async () => {
+      const req = {
+        body: {
+          "situationId": inputData.situationId,
+          "title": inputData.title,
+          "colour": inputData.colour,
+          "icon": inputData.icon,
+        },
+        params: {
+          "id": inputData.situationId,
+        }
+      };
+
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+      const stubUpdate = sinon.stub(Situation, "findOneAndUpdate").returns(stubData);
+
+      await updateSituationCtrl(req, res);
+
+      expect(stubFind.calledOnce).to.be.true;
+      expect(stubUpdate.calledOnce).to.be.true;
+      expect(status.calledOnce).to.be.true;
+      expect(status.args[0][0]).to.equal(200);
+      expect(json.calledOnce).to.be.true;
+      expect(json.args[0][0].success).to.equal(true);
+      expect(json.args[0][0].message).to.equal("Situation updated successfully");
+      expect(json.args[0][0].data).to.equal(stubData);
     });
   });
 
   describe("NEGATIVE TEST", () => {
-    it("should not update the situation successfully", async () => {
-      const data = { ...situationData.invalidData };
+    const inputData = { ...situationData.invalidData };
 
-      // check for uniqueness of title
-      data.title = Date.now() + "_" + data.title;
+    const foundData = null;
 
-      const response = await chai
-        .request(server)
-        .put("/api/situation/999999999939999999999999")
-        .set({
-          Authorization: authToken.token,
-        })
-        .send(data);
+    let status, json, res;
 
-      // console.log(response);
-      expect(response).to.be.an("object");
-      expect(response).to.have.status(404);
-      expect(response).to.have.property("body");
-      expect(response.body).to.be.an("object");
-      expect(response.body).to.have.property("success", false);
-      expect(response.body).to.have.property(
-        "message",
-        "Situation does not exist"
-      );
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
+
+    afterEach(() => {
+      Situation.findOne.restore();
+    })
+
+    it("should not update a situation successfully when situation is not found by id", async () => {
+      const req = {
+        body: {
+          "situationId": inputData.situationId,
+          "title": inputData.title,
+          "colour": inputData.colour,
+          "icon": inputData.icon,
+        },
+        params: {
+          "id": inputData.situationId,
+        }
+      };
+
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+
+      await updateSituationCtrl(req, res);
+
+      expect(status.calledOnce).to.be.true;
+      expect(status.args[0][0]).to.equal(404);
+      expect(json.calledOnce).to.be.true;
+      expect(json.args[0][0].success).to.equal(false);
+      expect(json.args[0][0].message).to.equal("Situation does not exist");
     });
   });
+
 });

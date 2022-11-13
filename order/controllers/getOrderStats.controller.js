@@ -3,7 +3,7 @@ const apiResponse = require("../../common/ApiResponse");
 const getOrderStatsService = require("../services/getOrderStats.service");
 
 // get order statistics controller
-const getOrderStatsCtrl = async (_req, res) => {
+const getOrderStatsCtrl = async (res) => {
   try {
     // get order statistics service
     const stats = await getOrderStatsService();

@@ -3,7 +3,7 @@ const apiResponse = require("../../common/ApiResponse");
 const getAllCartsService = require("../services/getAllCarts.service");
 
 // get all carts controller
-const getAllCartsCtrl = async (_req, res) => {
+const getAllCartsCtrl = async (res) => {
   try {
     // get all cart service
     const carts = await getAllCartsService();

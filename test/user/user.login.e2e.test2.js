@@ -47,7 +47,7 @@ describe("USER LOGIN SERVICE TEST", () => {
         .post("/api/auth/login")
         .send(data);
 
-      console.log(response);
+      // console.log(response);
       expect(response).to.be.an("object");
       expect(response).to.have.status(400);
       expect(response).to.have.property("body");

@@ -4,7 +4,7 @@ const ApplicationException = require("../../common/ApplicationException");
 
 const deleteSituationService = async (situationId) => {
   // fetch situation by id from dB
-  let situation = await Situation.findOne({ _id: situationId }).exec();
+  let situation = await Situation.findOne({ _id: situationId });
 
   // check if situation exists
   if (!situation) {

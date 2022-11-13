@@ -1,12 +1,12 @@
 {
   "validData": {
-    "title": "Satisfactory",
-    "colour": "bg-orange-1 color-orange",
-    "icon": "ri-face-3-love"
+    "title": "Thank you God",
+    "colour": "bg-green-1 color-green",
+    "icon": "ri-love-and-thanks"
   },
   "invalidData": {
     "title": "Thank you God",
     "colour": "bg-red-1 color-red",
-    "icon": "ri-face-2-thanks"
+    "icon": "ri-face-2-love"
   }
 }

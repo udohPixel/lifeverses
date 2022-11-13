@@ -1,7 +1,7 @@
 // import required modules
 const chai = require("chai");
-const server = require("../../app");
 const chaiHttp = require("chai-http");
+const sinon = require("sinon");
 
 // assertions
 const expect = chai.expect;
@@ -9,62 +9,101 @@ const expect = chai.expect;
 // use chai http
 chai.use(chaiHttp);
 
-// get situation by id test
-describe("GET SITUATION BY ID TEST", () => {
-  describe("POSITIVE TEST", () => {
-    it("should get situation by id successfully", async () => {
-      const response = await chai
-        .request(server)
-        .get("/api/situation/633d483daf9f7a7df23100be");
+// import other libraries
+const situationData = require("./getSituation.data.mock.json");
+const Situation = require("../../situation/models/Situation");
+const getSituationCtrl = require("../../situation/controllers/getSituation.controller");
 
-      // console.log(response);
-      expect(response).to.be.an("object");
-      expect(response).to.have.status(200);
-      expect(response).to.have.property("body");
-      expect(response.body).to.be.an("object");
-      expect(response.body).to.have.property("success", true);
-      expect(response.body).to.have.property(
-        "message",
-        "Situation found successfully"
-      );
-      expect(response.body).to.have.property("data");
-      expect(response.body.data).to.be.an("object");
-      expect(response.body.data).to.have.property(
-        "_id",
-        "633d483daf9f7a7df23100be"
-      );
-      expect(response.body.data).to.have.property(
-        "title",
-        "1664960573753_Satisfactory"
-      );
-      expect(response.body.data).to.have.property(
-        "slug",
-        "1664960573753_satisfactory"
-      );
-      expect(response.body.data).to.have.property(
-        "colour",
-        "bg-orange-1 color-orange"
-      );
-      expect(response.body.data).to.have.property("icon", "ri-face-3-love");
+// get situation by id test
+describe("GET SITUATION BY ID E2E TEST", () => {
+  describe("POSITIVE TEST", () => {
+    const inputData = { ...situationData.validData };
+
+    const foundData = {
+      "id": "636b9d4e4f562bab327b1643",
+      "title": "Thank you God",
+      "slug": "thank-you-god",
+      "colour": "bg-green-1 color-green",
+      "icon": "ri-love-and-thanks",
+      "createdAt": "2022-11-09T12:30:06.312Z",
+      "updatedAt": "2022-11-09T12:30:06.312Z",
+    };
+
+    let status, json, res;
+
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
+
+    afterEach(() => {
+      Situation.findOne.restore();
+    });
+
+    it("should get situation by id successfully", async () => {
+      const req = {
+        body: {
+          "situationId": inputData.situationId,
+        },
+        params: {
+          "id": inputData.situationId,
+        }
+      };
+
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+
+      await getSituationCtrl(req, res);
+
+      expect(stubFind.calledOnce).to.be.true;
+      expect(status.calledOnce).to.be.true;
+      expect(status.args[0][0]).to.equal(200);
+      expect(json.calledOnce).to.be.true;
+      expect(json.args[0][0].success).to.equal(true);
+      expect(json.args[0][0].message).to.equal("Situation found successfully");
+      expect(json.args[0][0].data).to.equal(foundData);
     });
   });
 
   describe("NEGATIVE TEST", () => {
-    it("should not get situation by id successfully", async () => {
-      const response = await chai
-        .request(server)
-        .get("/api/situation/999999999999999999999912");
+    const inputData = { ...situationData.invalidData };
 
-      // console.log(response);
-      expect(response).to.be.an("object");
-      expect(response).to.have.status(404);
-      expect(response).to.have.property("body");
-      expect(response.body).to.be.an("object");
-      expect(response.body).to.have.property("success", false);
-      expect(response.body).to.have.property(
-        "message",
-        "Situation does not exist"
-      );
+    const foundData = null;
+
+    let status, json, res;
+
+    beforeEach(() => {
+      status = sinon.stub();
+      json = sinon.spy();
+      res = { json, status };
+      status.returns(res);
+    });
+
+    afterEach(() => {
+      Situation.findOne.restore();
+    });
+
+    it("should not get situation by id successfully", async () => {
+      const req = {
+        body: {
+          "situationId": inputData.situationId,
+        },
+        params: {
+          "id": inputData.situationId,
+        }
+      };
+
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+
+      await getSituationCtrl(req, res);
+
+      expect(status.calledOnce).to.be.true;
+      expect(status.args[0][0]).to.equal(404);
+      expect(json.calledOnce).to.be.true;
+      expect(json.args[0][0].success).to.equal(false);
+      expect(json.args[0][0].message).to.equal("Situation does not exist");
     });
   });
+
 });
