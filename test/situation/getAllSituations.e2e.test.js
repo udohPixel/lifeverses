@@ -51,7 +51,8 @@ describe("GET ALL SITUATIONS E2E TEST", () => {
     beforeEach(() => {
       status = sinon.stub();
       json = sinon.spy();
-      res = { json, status };
+      _req = {},
+        res = { json, status };
       status.returns(res);
     });
 
@@ -60,9 +61,12 @@ describe("GET ALL SITUATIONS E2E TEST", () => {
     });
 
     it("should get all situations successfully", async () => {
-      const stubFind = sinon.stub(Situation, "find").returns(foundData);
+      const foundDataExec = {
+        exec: () => { return foundData }
+      };
+      const stubFind = sinon.stub(Situation, "find").returns(foundDataExec);
 
-      await getAllSituationsCtrl(res);
+      await getAllSituationsCtrl(_req, res);
 
       expect(stubFind.calledOnce).to.be.true;
       expect(status.calledOnce).to.be.true;

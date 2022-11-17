@@ -38,12 +38,15 @@ describe("ADD NEW SITUATION UNIT TEST", () => {
   })
 
   it("should create a situation successfully", async () => {
-    const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+    const foundDataExec = {
+      exec: async () => { return foundData }
+    };
+    const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
+
     const stubCreate = sinon.stub(Situation, "create").returns(stubData);
 
     const response = await addSituationService(inputData.title, inputData.colour, inputData.icon);
 
-    // console.log(response);
     expect(stubFind.calledOnce).to.be.true;
     expect(stubCreate.calledOnce).to.be.true;
     expect(response).to.be.an("object");

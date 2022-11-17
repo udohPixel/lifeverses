@@ -51,7 +51,10 @@ describe("GET ALL SITUATIONS UNIT TEST", () => {
   });
 
   it("should get all situations successfully", async () => {
-    const stubFind = sinon.stub(Situation, "find").returns(foundData);
+    const foundDataExec = {
+      exec: () => { return foundData }
+    };
+    const stubFind = sinon.stub(Situation, "find").returns(foundDataExec);
 
     const response = await getAllSituationsService();
 

@@ -5,7 +5,7 @@ const { titleToSlug } = require("../../common/helpers");
 
 const addSituationService = async (title, colour, icon) => {
   // fetch situation by title from dB
-  let situation = await Situation.findOne({ title });
+  let situation = await Situation.findOne({ title }).exec();
 
   // check if situation exists
   if (situation) {

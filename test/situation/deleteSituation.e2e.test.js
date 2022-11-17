@@ -63,7 +63,10 @@ describe("DELETE SITUATION E2E TEST", () => {
         }
       };
 
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+      const foundDataExec = {
+        exec: async () => { return foundData }
+      };
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
       const stubDelete = sinon.stub(Situation, "findOneAndRemove").returns(stubData);
 
       await deleteSituationCtrl(req, res);
@@ -107,7 +110,10 @@ describe("DELETE SITUATION E2E TEST", () => {
         }
       };
 
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+      const foundDataExec = {
+        exec: async () => { return foundData }
+      };
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
 
       await deleteSituationCtrl(req, res);
 

@@ -5,7 +5,7 @@ const ApplicationException = require("../../common/ApplicationException");
 // get situation service
 const getSituationService = async (situationId) => {
   // fetch situation by id from dB
-  let situation = await Situation.findOne({ _id: situationId });
+  let situation = await Situation.findOne({ _id: situationId }).exec();
 
   // check if situation exists
   if (!situation) {

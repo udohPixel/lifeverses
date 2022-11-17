@@ -45,13 +45,19 @@ describe("UPDATE SITUATION UNIT TEST", () => {
   });
 
   it("should update a situation successfully", async () => {
-    const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+    const foundDataExec = {
+      exec: async () => { return foundData }
+    };
+    const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
     const stubUpdate = sinon.stub(Situation, "findOneAndUpdate").returns(stubData);
 
     const response = await updateSituationService(inputData.situationId, inputData.title, inputData.colour, inputData.icon);
 
     expect(stubFind.calledOnce).to.be.true;
     expect(stubUpdate.calledOnce).to.be.true;
+    const stubUpdateCallArg = stubFind.getCalls()[0].args[0];
+    expect(stubUpdateCallArg).to.be.an('object');
+    expect(stubUpdateCallArg._id).to.eq(inputData.situationId);
     expect(response).to.be.an("object");
     expect(response).to.have.property("id", stubData.id);
     expect(response).to.have.property("title", stubData.title);

@@ -44,13 +44,19 @@ describe("DELETE SITUATION UNIT TEST", () => {
   });
 
   it("should delete a situation successfully", async () => {
-    const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+    const foundDataExec = {
+      exec: async () => { return foundData }
+    };
+    const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
     const stubDelete = sinon.stub(Situation, "findOneAndRemove").returns(stubData);
 
     const response = await deleteSituationService(inputData.situationId);
 
     expect(stubFind.calledOnce).to.be.true;
     expect(stubDelete.calledOnce).to.be.true;
+    const stubDeleteCallArg = stubDelete.getCalls()[0].args[0];
+    expect(stubDeleteCallArg).to.be.an('object');
+    expect(stubDeleteCallArg._id).to.eq(inputData.situationId);
     expect(response).to.be.an("object");
     expect(response).to.have.property("id", stubData.id);
     expect(response).to.have.property("title", stubData.title);

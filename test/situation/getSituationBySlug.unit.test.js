@@ -33,12 +33,17 @@ describe("GET SITUATION BY SLUG UNIT TEST", () => {
   });
 
   it("should get situation by slug successfully", async () => {
-    const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+    const foundDataExec = {
+      exec: async () => { return foundData }
+    };
+    const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
 
     const response = await getSituationService(inputData.slug);
 
-    // console.log(response);
     expect(stubFind.calledOnce).to.be.true;
+    const stubFindCallArg = stubFind.getCalls()[0].args[0];
+    expect(stubFindCallArg).to.be.an('object');
+    expect(stubFindCallArg.slug).to.eq(inputData.slug);
     expect(response).to.be.an("object");
     expect(response).to.have.property("id", foundData.id);
     expect(response).to.have.property("title", foundData.title);

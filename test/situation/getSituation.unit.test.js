@@ -33,12 +33,17 @@ describe("GET SITUATION BY ID UNIT TEST", () => {
   });
 
   it("should get situation by id successfully", async () => {
-    const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+    const foundDataExec = {
+      exec: async () => { return foundData }
+    };
+    const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
 
     const response = await getSituationService(inputData.situationId);
 
-    // console.log(response);
     expect(stubFind.calledOnce).to.be.true;
+    const stubFindCallArg = stubFind.getCalls()[0].args[0];
+    expect(stubFindCallArg).to.be.an('object');
+    expect(stubFindCallArg._id).to.eq(inputData.situationId);
     expect(response).to.be.an("object");
     expect(response).to.have.property("id", foundData.id);
     expect(response).to.have.property("title", foundData.title);

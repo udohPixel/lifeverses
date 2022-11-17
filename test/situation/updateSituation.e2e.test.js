@@ -67,7 +67,10 @@ describe("UPDATE SITUATION E2E TEST", () => {
         }
       };
 
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+      const foundDataExec = {
+        exec: async () => { return foundData }
+      };
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
       const stubUpdate = sinon.stub(Situation, "findOneAndUpdate").returns(stubData);
 
       await updateSituationCtrl(req, res);
@@ -114,7 +117,10 @@ describe("UPDATE SITUATION E2E TEST", () => {
         }
       };
 
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundData);
+      const foundDataExec = {
+        exec: async () => { return foundData }
+      };
+      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
 
       await updateSituationCtrl(req, res);
 

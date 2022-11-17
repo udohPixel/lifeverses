@@ -3,7 +3,7 @@ const apiResponse = require("../../common/ApiResponse");
 const getAllSituationsService = require("../services/getAllSituations.service");
 
 // get all situations controller
-const getAllSituationsCtrl = async (res) => {
+const getAllSituationsCtrl = async (_req, res) => {
   try {
     // get all situation service
     const situations = await getAllSituationsService();
