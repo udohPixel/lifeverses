@@ -15,8 +15,10 @@ const userValidatorSchema = {
       .required(),
     password: Joi.string()
       .min(8)
-      .max(15)
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
+      .max(32)
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,32}$/
+      )
       .required(),
   }),
 
@@ -25,7 +27,7 @@ const userValidatorSchema = {
     firstname: Joi.string().min(2).max(50).trim(true).required(),
     lastname: Joi.string().min(2).max(50).trim(true).required(),
     gender: Joi.string().valid("Male", "Female").required(),
-    username: Joi.string().alphanum().min(3).max(50).trim(true).required(),
+    username: Joi.string().min(3).max(50).trim(true).required(),
     email: Joi.string()
       .lowercase()
       .min(6)
@@ -37,8 +39,10 @@ const userValidatorSchema = {
       .required(),
     password: Joi.string()
       .min(8)
-      .max(15)
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
+      .max(32)
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,32}$/
+      )
       .required(),
     profilePic: Joi.string().trim(true).allow(""),
     careerField: Joi.string()
@@ -51,7 +55,7 @@ const userValidatorSchema = {
     firstname: Joi.string().min(2).max(50).trim(true).required(),
     lastname: Joi.string().min(2).max(50).trim(true).required(),
     gender: Joi.string().valid("Male", "Female").required(),
-    username: Joi.string().alphanum().min(3).max(50).trim(true).required(),
+    username: Joi.string().min(3).max(50).trim(true).required(),
     email: Joi.string()
       .lowercase()
       .min(6)
@@ -77,13 +81,17 @@ const userValidatorSchema = {
   updatePersonalPassword: Joi.object({
     oldPassword: Joi.string()
       .min(8)
-      .max(15)
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
+      .max(32)
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,32}$/
+      )
       .required(),
     password: Joi.string()
       .min(8)
-      .max(15)
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
+      .max(32)
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,32}$/
+      )
       .required()
       .label("Password"),
     confirmPassword: Joi.any()
@@ -98,7 +106,7 @@ const userValidatorSchema = {
     firstname: Joi.string().min(2).max(50).trim(true).required(),
     lastname: Joi.string().min(2).max(50).trim(true).required(),
     gender: Joi.string().valid("Male", "Female").required(),
-    username: Joi.string().alphanum().min(3).max(50).trim(true).required(),
+    username: Joi.string().min(3).max(50).trim(true).required(),
     email: Joi.string()
       .lowercase()
       .min(6)
@@ -145,8 +153,10 @@ const userValidatorSchema = {
   passwordReset: Joi.object({
     password: Joi.string()
       .min(8)
-      .max(15)
-      .pattern(/^[a-zA-Z0-9]{6,100}$/)
+      .max(32)
+      .pattern(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,32}$/
+      )
       .required()
       .label("Password"),
     confirmPassword: Joi.any()

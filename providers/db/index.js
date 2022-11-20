@@ -4,25 +4,25 @@ const mongoose = require("mongoose");
 const logger = require("../../logger/index");
 
 // dbSetup module
-const dbSetup = () => {
-  const db = config.APP_DB;
-  const connectionParams = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
-  mongoose
-    .connect(db, connectionParams)
-    .then(() => {
-      logger.info("MongoDB connected successfully");
-    })
-    .catch((error) => {
-      let meta = "database";
+const dbSetup = async () => {
+  try {
+    const db = config.APP_DB;
+    const connectionParams = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    };
 
-      logger.error("MongoDB connection error: " + error.message, {
-        ...error,
-        meta,
-      });
+    await mongoose.connect(db, connectionParams);
+
+    logger.info("MongoDB connected successfully");
+  } catch (error) {
+    let meta = "database";
+
+    logger.error("MongoDB connection error: " + error.message, {
+      ...error,
+      meta,
     });
+  }
 };
 
 // export dbSetup module

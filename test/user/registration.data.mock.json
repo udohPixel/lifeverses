@@ -1,0 +1,38 @@
+{
+  "validData": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "gender": "Male",
+    "username": "myusername",
+    "email": "udoh4eva@gmail.com",
+    "password": "the3password?",
+    "careerField": "Education and Training"
+  },
+  "invalidEmailData": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "gender": "Male",
+    "username": "johnny123",
+    "email": "udohndem@gmail.com",
+    "password": "the#Passcode123",
+    "careerField": "Education and Training"
+  },
+  "invalidUsernameData": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "gender": "Male",
+    "username": "ipixel",
+    "email": "jasmine444@gmail.com",
+    "password": "the&Passcode123",
+    "careerField": "Education and Training"
+  },
+  "invalidPasswordData": {
+    "firstname": "Lagbaja",
+    "lastname": "Dowey",
+    "gender": "Female",
+    "username": "lagbaja3",
+    "email": "lagbaja@gmail.com",
+    "password": "lagbamiti",
+    "careerField": "Education and Training"
+  }
+}
