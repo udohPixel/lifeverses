@@ -14,6 +14,12 @@ const updatePersonalUserCtrl = async (req, res) => {
       email,
       profilePic,
       careerField,
+      bio,
+      facebook,
+      youtube,
+      instagram,
+      linkedIn,
+      twitter,
     } = req.body);
 
     let userId = req.user.id;
@@ -23,7 +29,7 @@ const updatePersonalUserCtrl = async (req, res) => {
 
     return apiResponse.success(res, "Profile updated successfully", user);
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "personal_user_update");
+    return apiResponse.errorObject(res, error, null, "personal-user-update");
   }
 };
 

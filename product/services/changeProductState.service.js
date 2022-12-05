@@ -11,10 +11,17 @@ const changeProductStateService = async (productId) => {
   if (!product) throw new ApplicationException("Product does not exist", 404);
 
   // toggle product state
-  product.isActive = !product.isActive;
+  let theIsActive = (product.isActive = !product.isActive);
 
-  // save product state
-  await product.save();
+  const theReviewValues = {
+    "isActive": theIsActive
+  };
+
+  // update product state
+  await Product.updateOne(
+    { _id: productId },
+    { $set: theReviewValues }
+  );
 
   return product.isActive;
 };

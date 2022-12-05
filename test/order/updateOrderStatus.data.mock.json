@@ -1,0 +1,64 @@
+{
+  "bodyData": {
+    "valid": {
+      "orderStatus": "Shipped"
+    },
+    "valid1": {
+      "orderStatus": "Delivered"
+    },
+    "invalid": "Gone"
+  },
+  "paramsData": {
+    "valid": {
+      "id": "637a4894ef1eef4525f6600b"
+    },
+    "invalid": {
+      "id": "777777777777777a77777777"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "637a4894ef1eef4525f6600b",
+      "userId": "636b9a3d4f562bab327b163e",
+      "shippingInfo": {
+        "contactName": "Lagbaja Adefemi",
+        "streetAddress": "14, Kelvin lane",
+        "city": "Uyo",
+        "state": "Akwa Ibom",
+        "country": "Nigeria",
+        "phoneNo": "09012345678"
+      },
+      "paymentInfo": {
+        "paymentId": "811467892100",
+        "paymentStatus": "Paid"
+      },
+      "orderProducts": [
+        {
+          "id": "637a4894ef1eef4525f6600c",
+          "productId": "637a4859ef1eef4525f66008",
+          "title": "My First Product",
+          "price": 5550,
+          "discount": 500,
+          "coverPic": "first-coverphoto-url.jpg",
+          "quantity": 5
+        },
+        {
+          "id": "637a4894ef1eef4525f6600d",
+          "productId": "637b12ef750acd0e8b255118",
+          "title": "My Second Product",
+          "price": 12000,
+          "discount": 1500,
+          "coverPic": "second-coverphoto-url.jpg",
+          "quantity": 2
+        }
+      ],
+      "productsPrice": 46250,
+      "shippingPrice": 2000,
+      "totalPrice": 48250,
+      "orderStatus": "Pending",
+      "createdAt": "2022-11-20T15:32:36.901Z",
+      "updatedAt": "2022-11-20T15:32:36.901Z"
+    },
+    "invalid": null
+  }
+}

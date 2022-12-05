@@ -9,17 +9,18 @@ const addToFavouriteService = {
     // check if scripture exists
     let scripture = await Scripture.findOne({ _id: scriptureId }).exec();
     if (!scripture) {
-      throw new ApplicationException("Scripture does not exist");
+      throw new ApplicationException("Scripture does not exist", 404);
     }
 
+    await User.findByIdAndUpdate(
+      { _id: userId },
+      { $push: { favouriteScriptures: scriptureId } }
+    ).exec();
+
     // get user by id
-    let user = await User.findOne({ _id: userId }).exec();
+    let user = await User.findOne({ _id: userId });
 
-    let theUser = await user.updateOne({
-      $push: { favouriteScriptures: scriptureId },
-    });
-
-    return theUser.favouriteScriptures;
+    return user.favouriteScriptures;
   },
 
   removeFromFavourite: async (userId, scriptureId) => {
@@ -29,14 +30,15 @@ const addToFavouriteService = {
       throw new ApplicationException("Scripture does not exist", 404);
     }
 
+    await User.findByIdAndUpdate(
+      { _id: userId },
+      { $pull: { favouriteScriptures: scriptureId } }
+    ).exec();
+
     // get user by id
-    let user = await User.findOne({ _id: userId }).exec();
+    let user = await User.findOne({ _id: userId });
 
-    let theUser = await user.updateOne({
-      $pull: { favouriteScriptures: scriptureId },
-    });
-
-    return theUser.favouriteScriptures;
+    return user.favouriteScriptures;
   },
 };
 

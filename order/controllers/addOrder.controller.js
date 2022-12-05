@@ -1,6 +1,5 @@
 // import required modules
 const apiResponse = require("../../common/ApiResponse");
-
 const addOrderService = require("../services/addOrder.service");
 
 // add order controller

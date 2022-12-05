@@ -24,10 +24,10 @@ const addScriptureService = async (
     throw new ApplicationException(
       "Scripture already exists for this situation. Try another"
     );
-  }
+  };
 
-  // create a new instance of Scripture to store the user-imputed values
-  const newScripture = new Scripture({
+  // update scripture scripture
+  const newScripture = await Scripture.create({
     userId,
     slug: theSlug,
     situationId: theSituationId,
@@ -36,10 +36,7 @@ const addScriptureService = async (
     bibleVerses,
   });
 
-  // update scripture scripture
-  scripture = await newScripture.save();
-
-  return scripture;
+  return newScripture;
 };
 
 // export service

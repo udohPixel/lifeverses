@@ -23,10 +23,14 @@ const updatePersonalPasswordService = async (userId, oldPassword, password) => {
   }
 
   // hash password
-  user.password = await hashPassword(password);
+  const theHashedPassword = user.password = await hashPassword(password);
 
-  // save password
-  await user.save();
+  // update password
+  user = await User.findOneAndUpdate(
+    { _id: user.id },
+    { $set: { password: theHashedPassword } },
+    { new: true }
+  );
 
   // send mail to user informing him/her of successful password change
   let passwordResetMessage =

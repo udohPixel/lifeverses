@@ -1,0 +1,69 @@
+{
+  "paramsData": {
+    "valid": {
+      "id": "637b12ef750acd0e8b255118",
+      "review_id": "637f3e6199954dc2d40f635f"
+    },
+    "invalid": {
+      "id": "777777a77777777777777777",
+      "review_id": "88888b888888888888888888"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "637b12ef750acd0e8b255118",
+      "userId": "636b9a3d4f562bab327b163e",
+      "format": "Physical Book",
+      "title": "My First Product",
+      "slug": "my-first-product-9211007789922",
+      "aboutAuthor": "This is a little text about me. Thank you for your time",
+      "authors": "Udoh Ndem",
+      "pages": 105,
+      "publicationDate": "2017-03-15T14:34:00.000Z",
+      "isbn": "9211007789922",
+      "category": "Young Adult",
+      "overview": "This is a short overview of the book in question. Thank you oh",
+      "description": "Some oh description of the product in question. This would aid the user get more information about the product he/she wants to purchase. In this case, the book he/she wants to purchase. Thus, he/she has three (3) option to go about purchasing the product. \n(1) Add to cart, and procees with other purchase.\n(2) Add to wishlist, to purchase later.\n(3) The user can also ourightly \"Buy\" the product at that moment by clicking the \"Buy Now\" button.",
+      "price": 5550,
+      "discount": 500,
+      "ratings": 4.3333333333,
+      "coverPic": "first-coverphoto-url.jpg",
+      "previewPages": "first-previewphoto-url.pdf",
+      "stock": 158,
+      "isActive": false,
+      "totalReviews": 3,
+      "reviews": [
+        {
+          "id": "637f3e6199954dc2d40f635f",
+          "productId": "637b12ef750acd0e8b255118",
+          "isActive": true,
+          "reviewerId": "636b9a3d4f562bab327b163e",
+          "reviewTitle": "Some sample reviewer's review",
+          "reviewRating": 4,
+          "comment": "This is a sample user comment for the reviewer's review."
+        },
+        {
+          "id": "637e5d9fc457a382b43c79db",
+          "productId": "637b12ef750acd0e8b255118",
+          "isActive": true,
+          "reviewerId": "888888888888888888a88888",
+          "reviewTitle": "Some sample first review",
+          "reviewRating": 5,
+          "comment": "This is a sample user comment for the first review."
+        },
+        {
+          "id": "637f3e2099954dc2d40f635b",
+          "productId": "637b12ef750acd0e8b255118",
+          "isActive": true,
+          "reviewerId": "99999999999999999999999b",
+          "reviewTitle": "Some sample second review",
+          "reviewRating": 4,
+          "comment": "This is a sample user comment for the second review."
+        }
+      ],
+      "createdAt": "2022-11-20T15:31:37.354Z",
+      "updatedAt": "2022-11-20T15:31:37.354Z"
+    },
+    "invalid": null
+  }
+}

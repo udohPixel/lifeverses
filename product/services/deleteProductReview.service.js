@@ -17,29 +17,40 @@ const deleteProductReviewService = async (productId, reviewId) => {
     return review.id;
   });
 
+  // check if review to be deleted exist
+  if (!reviewIds.includes(reviewId)) {
+    throw new ApplicationException("Review does not exist", 404);
+  };
+
   // get index of review to be deleted
   let indexOfReview = reviewIds.indexOf(reviewId);
 
-  // check if review to be deleted exist
-  if (indexOfReview < 0) {
-    throw new ApplicationException("Review does not exist", 404);
-  }
+  // get review rating with specific index
+  let oldReviewRating = Number(product.reviews[indexOfReview].reviewRating);
 
-  // remove review with specific index
-  product.reviews.splice(indexOfReview, 1);
-
-  // update total reviews
-  product.totalReviews = product.reviews.length;
-
-  // update ratings
+  // update ratings and totalReviews
   let totalRatings = 0;
   product.reviews.forEach((review) => (totalRatings += review.reviewRating));
-  product.ratings = totalRatings / product.totalReviews;
+  let theRatings = (totalRatings - oldReviewRating) / (product.reviews.length - 1);
 
-  // save review
-  let newProduct = await product.save();
+  const productValues = {
+    totalReviews: product.reviews.length - 1,
+    ratings: theRatings
+  };
 
-  return newProduct.reviews;
+  await Product.findOneAndUpdate(
+    { _id: productId },
+    { $set: productValues },
+    { new: true }
+  );
+
+  // delete review
+  const theProduct = await Product.findByIdAndUpdate(
+    { _id: productId },
+    { $pull: { reviews: { _id: reviewId } } }
+  );
+
+  return theProduct;
 };
 
 // export service

@@ -12,7 +12,7 @@ const getProductCtrl = async (req, res) => {
 
     return apiResponse.success(res, "Product found successfully", product);
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "get_product");
+    return apiResponse.errorObject(res, error, null, "get-product");
   }
 };
 

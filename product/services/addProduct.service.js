@@ -29,22 +29,19 @@ const addProductService = async (userId, productInfo) => {
   // check if title exists or not in dB
   if (product) {
     throw new ApplicationException("Title has already been taken. Try another");
-  }
+  };
 
   let slug = titleToSlug(title) + "-" + isbn;
 
   // create a new instance of Product to store the user-imputed values
-  const newProduct = new Product({
+  const theProduct = await Product.create({
     userId,
     slug,
     ...productInfo,
     // publicationDate: new Date(publicationDate),
   });
 
-  // save new product object to dB
-  product = await newProduct.save();
-
-  return product;
+  return theProduct;
 };
 
 // export service

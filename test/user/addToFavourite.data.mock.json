@@ -1,0 +1,76 @@
+{
+  "bodyData": {
+    "valid": {
+      "scriptureId": "638461d45a145a04e704ca07"
+    },
+    "invalid": {
+      "scriptureId": "44444444444c444444444444"
+    }
+  },
+  "userData": {
+    "valid": {
+      "id": "636b9fcd18029dcbc8e3337b"
+    },
+    "invalid": {
+      "id": "999999999999999999999999"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "638461d45a145a04e704ca07",
+      "userId": "636b9a3d4f562bab327b163e",
+      "slug": "matthew1-1-7",
+      "situationId": "636b9d4e4f562bab327b1643",
+      "bibleVersion": "NKJV",
+      "bibleTitle": "Matthew",
+      "bibleChapter": 1,
+      "bibleVerses": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "createdAt": "2022-11-28T07:23:41.246Z",
+      "updatedAt": "2022-11-28T07:23:41.246Z"
+    },
+    "valid1": {
+      "id": "636b9fcd18029dcbc8e3337b",
+      "firstname": "Johnson",
+      "lastname": "Doegh",
+      "gender": "Male",
+      "username": "johnnydoe",
+      "email": "johnson.doegh@gmail.com",
+      "password": "$2a$10$1FQle85g4y7hlCS7aYZ1c.RbuVtpgapLliMs0KGoAK9zyExzcksUm",
+      "profilePic": "https://st4.depositphotos.com/3265223/21282/v/600/depositphotos_212821870-stock-illustration-default-avatar-photo-placeholder-profile.jpg",
+      "careerField": "Education and Training",
+      "isActive": false,
+      "favouriteScriptures": [
+        "638461fd5a145a04e704ca0b",
+        "638461d45a145a04e704ca07"
+      ],
+      "createdAt": "2022-11-09T12:40:46.128Z",
+      "updatedAt": "2022-11-09T12:40:46.128Z"
+    },
+    "valid2": {
+      "id": "636b9fcd18029dcbc8e3337b",
+      "firstname": "Johnson",
+      "lastname": "Doegh",
+      "gender": "Male",
+      "username": "johnnydoe",
+      "email": "johnson.doegh@gmail.com",
+      "password": "$2a$10$1FQle85g4y7hlCS7aYZ1c.RbuVtpgapLliMs0KGoAK9zyExzcksUm",
+      "profilePic": "https://st4.depositphotos.com/3265223/21282/v/600/depositphotos_212821870-stock-illustration-default-avatar-photo-placeholder-profile.jpg",
+      "careerField": "Education and Training",
+      "isActive": false,
+      "favouriteScriptures": [
+        "638461fd5a145a04e704ca0b"
+      ],
+      "createdAt": "2022-11-09T12:40:46.128Z",
+      "updatedAt": "2022-11-09T12:40:46.128Z"
+    },
+    "invalid": null
+  }
+}

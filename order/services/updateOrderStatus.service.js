@@ -11,17 +11,15 @@ const updateOrderStatusService = async (orderId, theOrderStatus) => {
   // check order exists
   if (!order) {
     throw new ApplicationException("Order does not exist", 404);
-  }
+  };
 
   // set shipment date and reduce product's stock
   if (theOrderStatus === "Shipped") {
-    order.shippedAt = Date.now();
-
     // update product's stock
     const queries = order.orderProducts.map((product) => {
       return Product.findOneAndUpdate(
-        { _id: p.productId },
-        { $inc: { stock: -p.quantity } }
+        { _id: product.productId },
+        { $inc: { stock: -product.quantity } }
       ).exec();
     });
 
@@ -29,13 +27,28 @@ const updateOrderStatusService = async (orderId, theOrderStatus) => {
   }
 
   // set delivery date
+  let theDeliveredAt = null;
+  let theShippedAt = null;
   if (theOrderStatus === "Delivered") {
-    order.deliveredAt = Date.now();
-  }
+    theDeliveredAt = Date.now();
+  };
+  if (theOrderStatus === "Shipped") {
+    theShippedAt = Date.now();
+  };
+
+  // pass fields to be updated into orderValues object
+  const orderValues = {
+    orderStatus: theOrderStatus,
+    deliveredAt: theDeliveredAt ?? undefined,
+    shippedAt: theShippedAt ?? undefined,
+  };
 
   // update order status
-  order.orderStatus = theOrderStatus;
-  order = await order.save();
+  order = await Order.findOneAndUpdate(
+    { _id: orderId },
+    { $set: orderValues },
+    { new: true }
+  )
 
   return order;
 };

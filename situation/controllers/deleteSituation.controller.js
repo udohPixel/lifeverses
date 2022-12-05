@@ -10,11 +10,7 @@ const deleteSituationCtrl = async (req, res) => {
     // delete situation service
     const situation = await deleteSituationService(situationId);
 
-    return apiResponse.success(
-      res,
-      "Situation deleted successfully",
-      situation
-    );
+    return apiResponse.success(res, "Situation deleted successfully", situation);
   } catch (error) {
     return apiResponse.errorObject(res, error, null, "delete_situation");
   }

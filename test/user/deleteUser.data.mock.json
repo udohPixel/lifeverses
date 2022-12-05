@@ -1,0 +1,28 @@
+{
+  "paramsData": {
+    "valid": {
+      "id": "636b9fcd18029dcbc8e3337b"
+    },
+    "invalid": {
+      "id": "777777777777777a77777777"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "636b9fcd18029dcbc8e3337b",
+      "firstname": "Johnson",
+      "lastname": "Doegh",
+      "gender": "Male",
+      "username": "johnnydoe",
+      "email": "johnson.doegh@gmail.com",
+      "password": "$2a$10$1FQle85g4y7hlCS7aYZ1c.RbuVtpgapLliMs0KGoAK9zyExzcksUm",
+      "profilePic": "https://st4.depositphotos.com/3265223/21282/v/600/depositphotos_212821870-stock-illustration-default-avatar-photo-placeholder-profile.jpg",
+      "careerField": "Education and Training",
+      "isActive": false,
+      "favouriteScriptures": [],
+      "createdAt": "2022-11-09T12:40:46.128Z",
+      "updatedAt": "2022-11-09T12:40:46.128Z"
+    },
+    "invalid": null
+  }
+}

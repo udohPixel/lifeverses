@@ -16,7 +16,7 @@ const addProductReviewCtrl = async (req, res) => {
       productId,
       reviewerId,
       reviewTitle,
-      reviewRating,
+      Number(reviewRating),
       comment
     );
 

@@ -13,20 +13,12 @@ chai.use(chaiHttp);
 const situationData = require("./deleteSituation.data.mock.json");
 const Situation = require("../../situation/models/Situation");
 const deleteSituationService = require("../../situation/services/deleteSituation.service");
+const { stubFindOneSituation } = require("../helpers/helper.sinon");
 
 // delete situation test
 describe("DELETE SITUATION UNIT TEST", () => {
-  const inputData = { ...situationData.validData };
-
-  const foundData = {
-    "id": "636b9d4e4f562bab327b1643",
-    "title": "Thank you God",
-    "slug": "thank-you-god",
-    "colour": "bg-green-1 color-green",
-    "icon": "ri-love-and-thanks",
-    "createdAt": "2022-11-09T12:30:06.312Z",
-    "updatedAt": "2022-11-09T12:30:06.312Z",
-  };
+  const paramsData = { ...situationData.paramsData.valid };
+  const foundData = { ...situationData.foundData.valid };
 
   const stubData = {
     "id": foundData.situationId,
@@ -44,19 +36,16 @@ describe("DELETE SITUATION UNIT TEST", () => {
   });
 
   it("should delete a situation successfully", async () => {
-    const foundDataExec = {
-      exec: async () => { return foundData }
-    };
-    const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
-    const stubDelete = sinon.stub(Situation, "findOneAndRemove").returns(stubData);
+    const stubFind = stubFindOneSituation(foundData);
+    const stubDelete = sinon.stub(Situation, "findOneAndRemove").resolves(stubData);
 
-    const response = await deleteSituationService(inputData.situationId);
+    const response = await deleteSituationService(paramsData.id);
 
     expect(stubFind.calledOnce).to.be.true;
     expect(stubDelete.calledOnce).to.be.true;
     const stubDeleteCallArg = stubDelete.getCalls()[0].args[0];
     expect(stubDeleteCallArg).to.be.an('object');
-    expect(stubDeleteCallArg._id).to.eq(inputData.situationId);
+    expect(stubDeleteCallArg._id).to.equal(paramsData.id);
     expect(response).to.be.an("object");
     expect(response).to.have.property("id", stubData.id);
     expect(response).to.have.property("title", stubData.title);

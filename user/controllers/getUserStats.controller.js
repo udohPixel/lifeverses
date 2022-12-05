@@ -8,7 +8,7 @@ const getUserStatsCtrl = async (_req, res) => {
     // get user statistics service
     const stats = await getUserStatsService();
 
-    return apiResponse.success(res, "Stats loaded successfully", stats);
+    return apiResponse.success(res, "User statistics loaded successfully", stats);
   } catch (error) {
     return apiResponse.errorObject(res, error, null, "get-user-stats");
   }

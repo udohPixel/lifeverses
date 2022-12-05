@@ -1,14 +1,34 @@
 {
-  "validData": {
-    "situationId": "636b9d4e4f562bab327b1643",
-    "title": "Joy",
-    "colour": "bg-blue-1 color-blue",
-    "icon": "ri-face-3-laughter"
+  "paramsData": {
+    "valid": {
+      "id": "636b9d4e4f562bab327b1643"
+    },
+    "invalid": {
+      "id": "777777777777777a77777777"
+    }
   },
-  "invalidData": {
-    "situationId": "9999d4e4f56888c3276b111b",
-    "title": "Joyful",
-    "colour": "bg-blue-1 color-blue",
-    "icon": "ri-face-3-joy"
+  "bodyData": {
+    "valid": {
+      "title": "Thank you Lord",
+      "colour": "bg-green-1 color-green",
+      "icon": "ri-love-and-thanks"
+    },
+    "invalid": {
+      "title": "Thank you Oh",
+      "colour": "bg-red-1 color-red",
+      "icon": "ri-face-2-love"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "636b9d4e4f562bab327b1643",
+      "title": "Thank you God",
+      "slug": "thank-you-god",
+      "colour": "bg-green-1 color-green",
+      "icon": "ri-love-and-thanks",
+      "createdAt": "2022-11-09T12:30:06.312Z",
+      "updatedAt": "2022-11-09T12:30:06.312Z"
+    },
+    "invalid": null
   }
 }

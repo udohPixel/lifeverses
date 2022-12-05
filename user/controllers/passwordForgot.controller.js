@@ -8,10 +8,10 @@ const passwordForgotCtrl = async (req, res) => {
     // get all required params
     let email = req.body.email;
     let protocol = req.protocol;
-    let host = req.get("host");
+    let host = req.hostname;
 
     // forgot password service
-    await passwordForgotService(email, protocol, host);
+    const passwordResetToken = await passwordForgotService(email, protocol, host);
 
     return apiResponse.success(res, "Email sent to " + email + " successfully");
   } catch (error) {

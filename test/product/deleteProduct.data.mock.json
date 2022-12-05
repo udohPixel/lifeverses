@@ -1,0 +1,49 @@
+{
+  "paramsData": {
+    "valid": {
+      "id": "636b9d4e4f562bab327b1643"
+    },
+    "invalid": {
+      "id": "777777777777777a77777777"
+    }
+  },
+  "userData": {
+    "valid": {
+      "id": "636b9a3d4f562bab327b163e",
+      "role": "Admin"
+    },
+    "invalid": {
+      "id": "999999999999999999999999",
+      "role": "User"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "637b12ef750acd0e8b255118",
+      "userId": "636b9a3d4f562bab327b163e",
+      "format": "Physical Book",
+      "title": "My Second Product",
+      "slug": "my-second-product-9733988210114",
+      "aboutAuthor": "This is a little text about me. Thank you for your time. Yeah!",
+      "authors": "Udoh Ndem",
+      "pages": 200,
+      "publicationDate": "2020-01-24T11:00:00.000Z",
+      "isbn": "9733988210114",
+      "category": "Young Adult",
+      "overview": "This is a short overview of the book i.e the second product. Thanks.",
+      "description": "Some description of the second product. This would aid the user get more information about the product he/she wants to purchase. In this case, the book he/she wants to purchase. Thus, he/she has three (3) option to go about purchasing the product. \n(1) Add to cart, and procees with other purchase.\n(2) Add to wishlist, to purchase later.\n(3) The user can also ourightly \"Buy\" the product at that moment by clicking the \"Buy Now\" button.",
+      "price": 5550,
+      "discount": 500,
+      "ratings": 0,
+      "coverPic": "second-coverphoto-url.jpg",
+      "previewPages": "second-previewphoto-url.pdf",
+      "stock": 85,
+      "isActive": false,
+      "totalReviews": 0,
+      "reviews": [],
+      "createdAt": "2022-11-21T05:55:59.081Z",
+      "updatedAt": "2022-11-21T05:55:59.081Z"
+    },
+    "invalid": null
+  }
+}

@@ -8,7 +8,7 @@ const checkerService = {
   // check if favourite has been added already
   isFavouriteAdded: async (userId, scriptureId) => {
     // get user by id
-    let user = await User.findOne({ _id: userId }).exec();
+    let user = await User.findById(userId).exec();
 
     return user.favouriteScriptures.includes(scriptureId);
   },

@@ -23,7 +23,16 @@ const updateCartService = async (theUserId, cartId) => {
   cart.quantity = cart.quantity + 1;
 
   // update cart
-  cart = await cart.save();
+  // cart = await cart.save();
+
+  // pass fields to be updated into cartValues object
+  const cartValues = { quantity: cart.quantity };
+
+  cart = await Cart.findOneAndUpdate(
+    { _id: cartId },
+    { $set: cartValues },
+    { new: true }
+  )
 
   return cart;
 };

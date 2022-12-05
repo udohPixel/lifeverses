@@ -23,12 +23,7 @@ const updatePersonalPasswordCtrl = async (req, res) => {
       thePassword
     );
   } catch (error) {
-    return apiResponse.errorObject(
-      res,
-      error,
-      null,
-      "personal_password_update"
-    );
+    return apiResponse.errorObject(res, error, null, "personal_password_update");
   }
 };
 

@@ -1,22 +1,23 @@
 // import required modules
+const Product = require("../../product/models/Product");
 const Cart = require("../models/Cart");
 const ApplicationException = require("../../common/ApplicationException");
 
 const addToCartService = async (userId, productId, quantity) => {
-  // check if user exists
-  if (!productId) {
+  // fetch product by id from dB
+  let product = await Product.findOne({ _id: productId }).exec();
+
+  // check if product exists
+  if (!product) {
     throw new ApplicationException("Product does not exist", 404);
   }
 
-  // create a new instance of Cart to store the user-imputed values
-  const newCart = new Cart({
+  // create new cart
+  const cart = await Cart.create({
     userId,
     productId,
     quantity,
   });
-
-  // save new cart to dB
-  const cart = await newCart.save();
 
   return cart;
 };

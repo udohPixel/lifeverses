@@ -13,21 +13,13 @@ chai.use(chaiHttp);
 const situationData = require("./deleteSituation.data.mock.json");
 const Situation = require("../../situation/models/Situation");
 const deleteSituationCtrl = require("../../situation/controllers/deleteSituation.controller");
+const { stubFindOneSituation } = require("../helpers/helper.sinon");
 
 // delete situation test
 describe("DELETE SITUATION E2E TEST", () => {
   describe("POSITIVE TEST", () => {
-    const inputData = { ...situationData.validData };
-
-    const foundData = {
-      "id": "636b9d4e4f562bab327b1643",
-      "title": "Thank you God",
-      "slug": "thank-you-god",
-      "colour": "bg-green-1 color-green",
-      "icon": "ri-love-and-thanks",
-      "createdAt": "2022-11-09T12:30:06.312Z",
-      "updatedAt": "2022-11-09T12:30:06.312Z",
-    };
+    const paramsData = { ...situationData.paramsData.valid };
+    const foundData = { ...situationData.foundData.valid };
 
     const stubData = {
       "id": foundData.situationId,
@@ -55,19 +47,11 @@ describe("DELETE SITUATION E2E TEST", () => {
 
     it("should delete a situation successfully", async () => {
       const req = {
-        body: {
-          "situationId": inputData.situationId,
-        },
-        params: {
-          "id": inputData.situationId,
-        }
+        params: paramsData
       };
 
-      const foundDataExec = {
-        exec: async () => { return foundData }
-      };
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
-      const stubDelete = sinon.stub(Situation, "findOneAndRemove").returns(stubData);
+      const stubFind = stubFindOneSituation(foundData);
+      const stubDelete = sinon.stub(Situation, "findOneAndRemove").resolves(stubData);
 
       await deleteSituationCtrl(req, res);
 
@@ -83,9 +67,8 @@ describe("DELETE SITUATION E2E TEST", () => {
   });
 
   describe("NEGATIVE TEST", () => {
-    const inputData = { ...situationData.invalidData };
-
-    const foundData = null;
+    const paramsData = { ...situationData.paramsData.invalid };
+    const foundData = situationData.foundData.invalid;
 
     let status, json, res;
 
@@ -102,21 +85,14 @@ describe("DELETE SITUATION E2E TEST", () => {
 
     it("should not delete a situation successfully when situation is not found by id", async () => {
       const req = {
-        body: {
-          "situationId": inputData.situationId,
-        },
-        params: {
-          "id": inputData.situationId,
-        }
+        params: paramsData
       };
 
-      const foundDataExec = {
-        exec: async () => { return foundData }
-      };
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
+      const stubFind = stubFindOneSituation(foundData);
 
       await deleteSituationCtrl(req, res);
 
+      expect(stubFind.calledOnce).to.be.true;
       expect(status.calledOnce).to.be.true;
       expect(status.args[0][0]).to.equal(404);
       expect(json.calledOnce).to.be.true;

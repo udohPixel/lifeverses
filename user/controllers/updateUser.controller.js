@@ -31,7 +31,7 @@ const updateUserCtrl = async (req, res) => {
 
     return apiResponse.success(res, "User updated successfully", user);
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "update_user");
+    return apiResponse.errorObject(res, error, null, "update-user");
   }
 };
 

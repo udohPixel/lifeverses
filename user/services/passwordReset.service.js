@@ -22,17 +22,21 @@ const passwordResetService = async (token, password) => {
   }
 
   // fetch user by email
-  let user = await User.findOne({ email: isToken.email });
+  let user = await User.find({ email: isToken.email }).exec();
 
   // check if user exists
   if (!user) {
     throw new ApplicationException("User does not exist", 404);
   }
 
-  user.password = await hashPassword(password);
+  let theHashedPassword = user.password = await hashPassword(password);
 
-  // save password, password reset token and time
-  await user.save();
+  // update password, password reset token and time
+  await User.findOneAndUpdate(
+    { _id: user.id },
+    { $set: { password: theHashedPassword } },
+    { new: true }
+  );
 
   // send mail to user informing him/her of successful password change
   let passwordResetMessage =

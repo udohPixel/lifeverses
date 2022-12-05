@@ -35,11 +35,11 @@ router.get("/:id", getScripture);
 
 /**
  * @desc    - route for fetching scripture by slug
- * @api     - /api/scripture/:situation_slug/:slug
+ * @api     - /api/scripture/:situation_slug/:slug/scripture
  * @access  - PUBLIC
  * @type    - GET
  */
-router.get("/:situation_slug/:slug", getScriptureBySlug);
+router.get("/:situation_slug/:slug/scripture", getScriptureBySlug);
 
 /**
  * @desc    - route for fetching all scriptures

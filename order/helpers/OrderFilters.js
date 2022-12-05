@@ -1,7 +1,9 @@
+const Order = require("../models/Order");
+
 // app features
 class OrderFilters {
   // order filter function
-  filterItems(query, queryStr) {
+  filterItems(queryStr) {
     let queryObject = {};
 
     // find by keyword
@@ -15,9 +17,24 @@ class OrderFilters {
     }
 
     // find by keyword or orderStatus
-    query = query.find(queryObject).exec();
+    return Order.find(queryObject).exec();
+  }
 
-    return query;
+  // personal order filter function
+  filterPersonalItems(theUserId, queryStr) {
+    let queryObject = {};
+
+    // find by keyword
+    if (queryStr.keyword) {
+      queryObject.$or = [{ _id: { $regex: queryStr.keyword, $options: "i" } }];
+    }
+
+    // find by orderStatus
+    if (queryStr.orderStatus) {
+      queryObject.orderStatus = String(queryStr.orderStatus).split(",");
+    }
+
+    return Order.find(queryObject).where("userId").equals(theUserId).exec();
   }
 }
 
