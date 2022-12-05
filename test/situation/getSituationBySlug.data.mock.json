@@ -1,8 +1,22 @@
 {
-  "validData": {
-    "slug": "636b9d4e4f562bab327b1643"
+  "paramsData": {
+    "valid": {
+      "slug": "thank-you-god"
+    },
+    "invalid": {
+      "slug": "a-wrong-slug-param"
+    }
   },
-  "invalidData": {
-    "slug": "9999d4e4f56888c3276b111b"
+  "foundData": {
+    "valid": {
+      "id": "636b9d4e4f562bab327b1643",
+      "title": "Thank you God",
+      "slug": "thank-you-god",
+      "colour": "bg-green-1 color-green",
+      "icon": "ri-love-and-thanks",
+      "createdAt": "2022-11-09T12:30:06.312Z",
+      "updatedAt": "2022-11-09T12:30:06.312Z"
+    },
+    "invalid": null
   }
 }

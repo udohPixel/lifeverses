@@ -13,7 +13,7 @@ const loginCtrl = async (req, res) => {
 
     return apiResponse.success(
       res,
-      "Logged in successfully",
+      "You logged in successfully",
       "Bearer " + token
     );
   } catch (error) {

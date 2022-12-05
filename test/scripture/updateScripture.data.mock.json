@@ -1,0 +1,66 @@
+{
+  "bodyData": {
+    "valid": {
+      "bibleTitle": "Matthew",
+      "bibleChapter": 1,
+      "bibleVerses": "1,2,3,4,5,6,7"
+    },
+    "invalid": {
+      "bibleTitle": "Mat",
+      "bibleChapter": 105,
+      "bibleVerses": "3,4,5"
+    }
+  },
+  "userData": {
+    "valid": {
+      "role": "Admin",
+      "id": "636b9a3d4f562bab327b163e"
+    },
+    "invalid": {
+      "role": "User",
+      "id": "999999999999999999999999"
+    }
+  },
+  "paramsData": {
+    "valid": {
+      "situation_id": "636b9d4e4f562bab327b1643",
+      "scripture_id": "636b9d4e4f562bab327b1643"
+    },
+    "invalid": {
+      "situation_id": "777777777777777a77777777",
+      "scripture_id": "888d88888888888888888888"
+    }
+  },
+  "foundData": {
+    "valid1": {
+      "id": "636b9d4e4f562bab327b1643",
+      "title": "Thank you God",
+      "slug": "thank-you-god",
+      "colour": "bg-green-1 color-green",
+      "icon": "ri-love-and-thanks",
+      "createdAt": "2022-11-09T12:30:06.312Z",
+      "updatedAt": "2022-11-09T12:30:06.312Z"
+    },
+    "valid": {
+      "id": "638461fd5a145a04e704ca0b",
+      "userId": "636b9a3d4f562bab327b163e",
+      "slug": "matthew1-1-7",
+      "situationId": "636b9d4e4f562bab327b1643",
+      "bibleVersion": "NKJV",
+      "bibleTitle": "Matthew",
+      "bibleChapter": 1,
+      "bibleVerses": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "createdAt": "2022-11-28T07:23:41.246Z",
+      "updatedAt": "2022-11-28T07:23:41.246Z"
+    },
+    "invalid": null
+  }
+}

@@ -13,21 +13,13 @@ chai.use(chaiHttp);
 const situationData = require("./getSituationBySlug.data.mock.json");
 const Situation = require("../../situation/models/Situation");
 const getSituationCtrl = require("../../situation/controllers/getSituationBySlug.controller");
+const { stubFindOneSituation } = require("../helpers/helper.sinon");
 
 // get situation by slug test
 describe("GET SITUATION BY SLUG E2E TEST", () => {
   describe("POSITIVE TEST", () => {
-    const inputData = { ...situationData.validData };
-
-    const foundData = {
-      "id": "636b9d4e4f562bab327b1643",
-      "title": "Thank you God",
-      "slug": "thank-you-god",
-      "colour": "bg-green-1 color-green",
-      "icon": "ri-love-and-thanks",
-      "createdAt": "2022-11-09T12:30:06.312Z",
-      "updatedAt": "2022-11-09T12:30:06.312Z",
-    };
+    const paramsData = { ...situationData.paramsData.valid };
+    const foundData = { ...situationData.foundData.valid };
 
     let status, json, res;
 
@@ -44,18 +36,10 @@ describe("GET SITUATION BY SLUG E2E TEST", () => {
 
     it("should get situation by slug successfully", async () => {
       const req = {
-        body: {
-          "theSlug": inputData.slug,
-        },
-        params: {
-          "slug": inputData.slug,
-        }
+        params: paramsData
       };
 
-      const foundDataExec = {
-        exec: async () => { return foundData }
-      };
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
+      const stubFind = stubFindOneSituation(foundData);
 
       await getSituationCtrl(req, res);
 
@@ -70,9 +54,8 @@ describe("GET SITUATION BY SLUG E2E TEST", () => {
   });
 
   describe("NEGATIVE TEST", () => {
-    const inputData = { ...situationData.invalidData };
-
-    const foundData = null;
+    const paramsData = { ...situationData.paramsData.invalid };
+    const foundData = situationData.foundData.invalid;
 
     let status, json, res;
 
@@ -89,21 +72,14 @@ describe("GET SITUATION BY SLUG E2E TEST", () => {
 
     it("should not get situation by slug successfully", async () => {
       const req = {
-        body: {
-          "theSlug": inputData.slug,
-        },
-        params: {
-          "slug": inputData.slug,
-        }
+        params: paramsData
       };
 
-      const foundDataExec = {
-        exec: async () => { return foundData }
-      };
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
+      const stubFind = stubFindOneSituation(foundData);
 
       await getSituationCtrl(req, res);
 
+      expect(stubFind.calledOnce).to.be.true;
       expect(status.calledOnce).to.be.true;
       expect(status.args[0][0]).to.equal(404);
       expect(json.calledOnce).to.be.true;

@@ -14,10 +14,7 @@ const addSituationService = async (title, colour, icon) => {
 
   let slug = titleToSlug(title);
 
-  // create a new instance of Situation to store the user-imputed values
-  // const newSituation = new Situation();
-
-  // save new situation to dB
+  // create new situation
   situation = await Situation.create({
     title,
     slug,

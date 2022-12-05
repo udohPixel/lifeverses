@@ -1,7 +1,10 @@
+// import required modulesconst 
+User = require("../models/User");
+
 // app features
 class UserFilters {
   // search function
-  filterItems(query, queryStr) {
+  filterItems(queryStr) {
     let queryObject = {};
 
     // find by keyword
@@ -24,9 +27,11 @@ class UserFilters {
     }
 
     // find by keyword, gender or careerField
-    query = query.find(queryObject).exec();
-
-    return query;
+    return User.find(queryObject)
+      .where("role")
+      .ne("SuperAdmin")
+      .select("-role")
+      .select("-password").exec();
   }
 }
 

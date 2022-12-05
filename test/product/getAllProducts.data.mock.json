@@ -1,0 +1,66 @@
+{
+    "queryData": {
+        "valid": {
+            "keyword": "short",
+            "category": "Young Adult"
+        },
+        "invalid": {}
+    },
+    "foundData": {
+        "valid": [
+            {
+                "id": "637a4859ef1eef4525f66008",
+                "userId": "636b9a3d4f562bab327b163e",
+                "format": "Physical Book",
+                "title": "My First Product",
+                "slug": "my-first-product-9211007789922",
+                "aboutAuthor": "This is a little text about me. Thank you for your time",
+                "authors": "Udoh Ndem",
+                "pages": 105,
+                "publicationDate": "2017-03-15T14:34:00.000Z",
+                "isbn": "9211007789922",
+                "category": "Young Adult",
+                "overview": "This is a short overview of the book in question. Thank you oh",
+                "description": "Some oh description of the product in question. This would aid the user get more information about the product he/she wants to purchase. In this case, the book he/she wants to purchase. Thus, he/she has three (3) option to go about purchasing the product. \n(1) Add to cart, and procees with other purchase.\n(2) Add to wishlist, to purchase later.\n(3) The user can also ourightly \"Buy\" the product at that moment by clicking the \"Buy Now\" button.",
+                "price": 5550,
+                "discount": 500,
+                "ratings": 0,
+                "coverPic": "first-coverphoto-url.jpg",
+                "previewPages": "first-previewphoto-url.pdf",
+                "stock": 158,
+                "isActive": false,
+                "totalReviews": 0,
+                "reviews": [],
+                "createdAt": "2022-11-20T15:31:37.354Z",
+                "updatedAt": "2022-11-20T15:31:37.354Z"
+            },
+            {
+                "id": "637b12ef750acd0e8b255118",
+                "userId": "636b9a3d4f562bab327b163e",
+                "format": "Physical Book",
+                "title": "My Second Product",
+                "slug": "my-second-product-9733988210114",
+                "aboutAuthor": "This is a little text about me. Thank you for your time. Yeah!",
+                "authors": "Udoh Ndem",
+                "pages": 200,
+                "publicationDate": "2020-01-24T11:00:00.000Z",
+                "isbn": "9733988210114",
+                "category": "Young Adult",
+                "overview": "This is a short overview of the book i.e the second product. Thanks.",
+                "description": "Some description of the second product. This would aid the user get more information about the product he/she wants to purchase. In this case, the book he/she wants to purchase. Thus, he/she has three (3) option to go about purchasing the product. \n(1) Add to cart, and procees with other purchase.\n(2) Add to wishlist, to purchase later.\n(3) The user can also ourightly \"Buy\" the product at that moment by clicking the \"Buy Now\" button.",
+                "price": 5550,
+                "discount": 500,
+                "ratings": 0,
+                "coverPic": "second-coverphoto-url.jpg",
+                "previewPages": "second-previewphoto-url.pdf",
+                "stock": 85,
+                "isActive": false,
+                "totalReviews": 0,
+                "reviews": [],
+                "createdAt": "2022-11-21T05:55:59.081Z",
+                "updatedAt": "2022-11-21T05:55:59.081Z"
+            }
+        ],
+        "invalid": null
+    }
+}

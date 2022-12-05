@@ -1,0 +1,31 @@
+{
+    "foundData": {
+        "valid": [
+            {
+                "id": "637767ce0bf8ba4efccd1aab",
+                "userId": "215a1a3d4f562bab327b33c4",
+                "productId": "62f94b7f73a885c736e5babb",
+                "quantity": 1,
+                "createdAt": "2022-11-18T11:09:02.523Z",
+                "updatedAt": "2022-11-18T11:09:02.523Z"
+            },
+            {
+                "id": "637781a8fd7f53912d3c68ae",
+                "userId": "433b9a3d4f562bab327b163e",
+                "productId": "63778138563b44d4daa63877",
+                "quantity": 3,
+                "createdAt": "2022-11-18T12:59:20.531Z",
+                "updatedAt": "2022-11-19T11:24:35.121Z"
+            },
+            {
+                "id": "6377879db92fa0d0faf06c5a",
+                "userId": "636b9a3d4f562bab327b163e",
+                "productId": "63778138563b44d4daa63877",
+                "quantity": 4,
+                "createdAt": "2022-11-18T13:24:45.621Z",
+                "updatedAt": "2022-11-18T13:24:45.621Z"
+            }
+        ],
+        "invalid": null
+    }
+}

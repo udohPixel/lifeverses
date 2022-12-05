@@ -1,0 +1,53 @@
+{
+  "bodyData": {
+    "valid": {
+      "bibleTitle": "Matthew",
+      "bibleChapter": 1,
+      "bibleVerses": "1,2,3,4,5,6,7"
+    },
+    "invalid": {
+      "bibleTitle": "Mat",
+      "bibleChapter": 105,
+      "bibleVerses": "3,4,5"
+    }
+  },
+  "userData": {
+    "valid": {
+      "id": "636b9a3d4f562bab327b163e"
+    },
+    "invalid": {
+      "id": "999999999999999999999999"
+    }
+  },
+  "paramsData": {
+    "valid": {
+      "situation_id": "88888b888888888888888888"
+    },
+    "invalid": {
+      "situation_id": "636b9d4e4f562bab327b1643"
+    }
+  },
+  "foundData": {
+    "valid": null,
+    "invalid": {
+      "id": "638461fd5a145a04e704ca0b",
+      "userId": "636b9a3d4f562bab327b163e",
+      "slug": "matthew1-1-7",
+      "situationId": "636b9d4e4f562bab327b1643",
+      "bibleVersion": "NKJV",
+      "bibleTitle": "Matthew",
+      "bibleChapter": 1,
+      "bibleVerses": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "createdAt": "2022-11-28T07:23:41.246Z",
+      "updatedAt": "2022-11-28T07:23:41.246Z"
+    }
+  }
+}

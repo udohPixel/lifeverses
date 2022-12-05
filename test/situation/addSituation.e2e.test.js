@@ -13,20 +13,19 @@ chai.use(chaiHttp);
 const situationData = require("./addSituation.data.mock.json");
 const Situation = require("../../situation/models/Situation");
 const addSituationCtrl = require("../../situation/controllers/addSituation.controller");
-const { titleToSlug } = require("../../common/helpers");
+const { stubFindOneSituation } = require("../helpers/helper.sinon");
 
-// add situation test
-describe("ADD NEW SITUATION E2E TEST", () => {
+// create situation test
+describe("CREATE SITUATION E2E TEST", () => {
   describe("POSITIVE TEST", () => {
-    const inputData = { ...situationData.validData };
+    const inputData = { ...situationData.bodyData.valid };
     inputData.title = Date.now() + "_" + inputData.title;
-
-    const foundData = null;
+    const foundData = situationData.foundData.valid;
 
     const stubData = {
       "id": "636b9d4e4f562bab327b1643",
       "title": inputData.title,
-      "slug": titleToSlug(inputData.title),
+      "slug": "thank-you-god",
       "colour": inputData.colour,
       "icon": inputData.icon,
       "createdAt": "2022-11-09T12:30:06.312Z",
@@ -49,19 +48,11 @@ describe("ADD NEW SITUATION E2E TEST", () => {
 
     it("should create a situation successfully", async () => {
       const req = {
-        body: {
-          "title": inputData.title,
-          "colour": inputData.colour,
-          "icon": inputData.icon,
-        }
+        body: inputData
       };
 
-      const foundDataExec = {
-        exec: async () => { return foundData }
-      };
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
-
-      const stubCreate = sinon.stub(Situation, "create").returns(stubData);
+      const stubFind = stubFindOneSituation(foundData);
+      const stubCreate = sinon.stub(Situation, "create").resolves(stubData);
 
       await addSituationCtrl(req, res);
 
@@ -78,17 +69,8 @@ describe("ADD NEW SITUATION E2E TEST", () => {
   });
 
   describe("NEGATIVE TEST", () => {
-    const inputData = { ...situationData.invalidData };
-
-    const foundData = {
-      "id": "636b9d4e4f562bab327b1643",
-      "title": "Thank you God",
-      "slug": "thank-you-god",
-      "colour": "bg-green-1 color-green",
-      "icon": "ri-love-and-thanks",
-      "createdAt": "2022-11-09T12:30:06.312Z",
-      "updatedAt": "2022-11-09T12:30:06.312Z",
-    };
+    const inputData = { ...situationData.bodyData.invalid };
+    const foundData = situationData.foundData.invalid;
 
     let status, json, res;
 
@@ -105,20 +87,14 @@ describe("ADD NEW SITUATION E2E TEST", () => {
 
     it("should not create a situation successfully when title is not unique", async () => {
       const req = {
-        body: {
-          "title": inputData.title,
-          "colour": inputData.colour,
-          "icon": inputData.icon,
-        }
+        body: inputData
       };
 
-      const foundDataExec = {
-        exec: async () => { return foundData }
-      };
-      const stubFind = sinon.stub(Situation, "findOne").returns(foundDataExec);
+      const stubFind = stubFindOneSituation(foundData);
 
       await addSituationCtrl(req, res);
 
+      expect(stubFind.calledOnce).to.be.true;
       expect(status.calledOnce).to.be.true;
       expect(status.args[0][0]).to.equal(400);
       expect(json.calledOnce).to.be.true;

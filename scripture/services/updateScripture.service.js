@@ -2,6 +2,7 @@
 const Situation = require("../../situation/models/Situation");
 const Scripture = require("../models/Scripture");
 const ApplicationException = require("../../common/ApplicationException");
+const { scriptureSlug } = require("../helpers/checkers");
 const { isEditor, isAdmin, isSuperAdmin } = require("../../common/helpers");
 
 // update scripture service

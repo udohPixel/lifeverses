@@ -8,7 +8,7 @@ const getOrderStatsCtrl = async (_req, res) => {
     // get order statistics service
     const stats = await getOrderStatsService();
 
-    return apiResponse.success(res, "Stats loaded successfully", stats);
+    return apiResponse.success(res, "Order statistics loaded successfully", stats);
   } catch (error) {
     return apiResponse.errorObject(res, error, null, "get-order-stats");
   }

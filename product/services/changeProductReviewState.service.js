@@ -17,22 +17,28 @@ const changeProductReviewStateService = async (productId, reviewId) => {
     return review.id;
   });
 
+  // check if review whose state is to be changed exist
+  if (!reviewIds.includes(reviewId)) {
+    throw new ApplicationException("Review does not exist", 404);
+  };
+
   // get index of review whose state is to be changed
   let indexOfReview = reviewIds.indexOf(reviewId);
 
-  // check if review whose state is to be changed exist
-  if (indexOfReview < 0) {
-    throw new ApplicationException(
-      "Review does not exist in this product",
-      404
-    );
-  }
-
   // toggle review state
-  product.reviews[indexOfReview].isActive =
-    !product.reviews[indexOfReview].isActive;
+  let theIsActive = (product.reviews[indexOfReview].isActive =
+    !product.reviews[indexOfReview].isActive);
 
-  await product.save();
+  let theReviewerId = product.reviews[indexOfReview].reviewerId;
+
+  const theReviewValues = {
+    "reviews.$.isActive": theIsActive
+  };
+
+  await Product.updateOne(
+    { _id: productId, "reviews.reviewerId": theReviewerId },
+    { $set: theReviewValues }
+  );
 
   return product.reviews[indexOfReview].isActive;
 };

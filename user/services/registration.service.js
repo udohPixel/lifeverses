@@ -19,6 +19,7 @@ const registrationService = async (userInfo) => {
     careerField,
   } = userInfo;
 
+
   // fetch user by email from dB
   let isExistingEmail = await User.findOne({
     email: email.toLowerCase(),
@@ -30,7 +31,7 @@ const registrationService = async (userInfo) => {
   }
 
   // fetch user by username from dB
-  let isExistingUsername = await User.findOne({
+  let isExistingUsername = await User.find({
     username: username.toLowerCase(),
   }).exec();
 
@@ -51,20 +52,17 @@ const registrationService = async (userInfo) => {
       "https://st4.depositphotos.com/3265223/21281/v/600/depositphotos_212811214-stock-illustration-profile-placeholder-default-avatar.jpg";
   }
 
-  // create a new instance of User to store the user-imputed values
-  const newUser = new User({
-    ...userInfo,
-    profilePic: profilePic ?? defaultProfilePic,
-  });
-
-  // store hashed password in new user object
-  newUser.password = await hashPassword(newUser.password);
+  // hash the raw password
+  let hashedPassword = await hashPassword(password);
 
   // save new user object in DB
-  let user;
-  user = await newUser.save();
+  const newUser = User.create({
+    ...userInfo,
+    profilePic: profilePic ?? defaultProfilePic,
+    password: hashedPassword
+  });
 
-  return user;
+  return newUser;
 };
 
 // export service

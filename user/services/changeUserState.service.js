@@ -11,10 +11,17 @@ const changeUserStateService = async (userId) => {
   if (!user) throw new ApplicationException("User does not exist", 404);
 
   // toggle user state
-  user.isActive = !user.isActive;
+  let theIsActive = (user.isActive = !user.isActive);
 
-  // save user state
-  await user.save();
+  const theUserValues = {
+    "isActive": theIsActive
+  }
+
+  // update user state
+  await User.updateOne(
+    { _id: userId },
+    { $set: theUserValues }
+  );
 
   return user.isActive;
 };

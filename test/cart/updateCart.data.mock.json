@@ -1,0 +1,29 @@
+{
+  "paramsData": {
+    "valid": {
+      "id": "637781a8fd7f53912d3c68ae"
+    },
+    "invalid": {
+      "id": "888888888888888888888888"
+    }
+  },
+  "userData": {
+    "valid": {
+      "id": "636b9a3d4f562bab327b163e"
+    },
+    "invalid": {
+      "id": "999999999999999999999999"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "637781a8fd7f53912d3c68ae",
+      "userId": "636b9a3d4f562bab327b163e",
+      "productId": "63778138563b44d4daa63877",
+      "quantity": "2",
+      "createdAt": "2022-11-18T12:59:48.727Z",
+      "updatedAt": "2022-11-18T12:59:48.727Z"
+    },
+    "invalid": null
+  }
+}

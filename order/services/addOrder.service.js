@@ -19,8 +19,8 @@ const addOrderService = async (
   // calculate totalPrice
   let totalPrice = productsPrice + shippingPrice;
 
-  // create a new instance of Order to store the user-imputed values
-  const newOrder = new Order({
+  // create new order
+  const order = await Order.create({
     userId,
     orderProducts,
     shippingInfo,
@@ -29,9 +29,6 @@ const addOrderService = async (
     shippingPrice,
     totalPrice,
   });
-
-  // save new order object to dB
-  let order = await newOrder.save();
 
   return order;
 };

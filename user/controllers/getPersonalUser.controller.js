@@ -1,6 +1,6 @@
 // import required modules
 const apiResponse = require("../../common/ApiResponse");
-const getPersonalUserService = require("../services/getPersonalUser.service.");
+const getPersonalUserService = require("../services/getPersonalUser.service");
 
 // get personal user controller
 const getPersonalUserCtrl = async (req, res) => {

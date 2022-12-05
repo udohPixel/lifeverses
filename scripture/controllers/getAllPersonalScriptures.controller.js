@@ -20,7 +20,7 @@ const getAllPersonalScripturesCtrl = async (req, res) => {
       scriptures
     );
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "get_all_scriptures");
+    return apiResponse.errorObject(res, error, null, "get-all-personal-scriptures");
   }
 };
 

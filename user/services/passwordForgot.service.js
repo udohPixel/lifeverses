@@ -22,15 +22,12 @@ const passwordForgotService = async (email, protocol, host) => {
 
   let passwordResetExpirationDate = Date.now() + 3 * 24 * 60 * 60 * 1000; // Expiration date set to 3 days
 
-  // create a new instance of PasswordReset to store the new token
-  const newPasswordReset = new PasswordReset({
+  // create password reset token and email
+  let passwordResetInfo = await PasswordReset.create({
     email: user.email,
     passwordResetToken,
     passwordResetExpirationDate,
   });
-
-  // save password reset token and email
-  await newPasswordReset.save();
 
   // send mail to user containing password reset link
   let link = protocol + "://" + host + "/password/reset/" + passwordResetToken;

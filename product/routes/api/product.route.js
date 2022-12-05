@@ -115,17 +115,17 @@ router.put(
  * @desc    - route for adding/updating product review
  * @api     - /api/product/:id/review
  * @access  - PRIVATE
- * @type    - POST
+ * @type    - PUT
  */
 router.put("/:id/review", isLoggedIn, addProductReview);
 
 /**
- * @desc    - route for deleting product review
+ * @desc    - route for removing product review from array
  * @api     - /api/product/:id/review/:review_id
  * @access  - PRIVATE
- * @type    - POST
+ * @type    - PUT
  */
-router.delete(
+router.put(
   "/:id/review/:review_id",
   isLoggedIn,
   isTheAdminOrSuperAdmin,
@@ -136,7 +136,7 @@ router.delete(
  * @desc    - route for fetching product reviews
  * @api     - /api/product/:id/reviews
  * @access  - PRIVATE
- * @type    - POST
+ * @type    - GET
  */
 router.get("/:id/reviews", getProductReviews);
 

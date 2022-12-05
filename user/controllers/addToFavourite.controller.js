@@ -1,5 +1,4 @@
 // import required modules
-const User = require("../models/User");
 const apiResponse = require("../../common/ApiResponse");
 const { isFavouriteAdded } = require("../helpers/checkers");
 const {
@@ -29,11 +28,8 @@ const addToFavouriteCtrl = async (req, res) => {
     }
 
     if (isFavouriteAddedCheck === true) {
-      // add to favourite microservice
-      const favouriteScriptures = await removeFromFavourite(
-        userId,
-        scriptureId
-      );
+      // remove from favourite microservice
+      const favouriteScriptures = await removeFromFavourite(userId, scriptureId);
 
       return apiResponse.success(
         res,

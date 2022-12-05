@@ -29,7 +29,7 @@ const addScriptureCtrl = async (req, res) => {
       201
     );
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "add_scripture");
+    return apiResponse.errorObject(res, error, null, "add-scripture");
   }
 };
 

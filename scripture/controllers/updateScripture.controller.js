@@ -32,7 +32,7 @@ const updateScriptureCtrl = async (req, res) => {
       scripture
     );
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "update_scripture");
+    return apiResponse.errorObject(res, error, null, "update-scripture");
   }
 };
 

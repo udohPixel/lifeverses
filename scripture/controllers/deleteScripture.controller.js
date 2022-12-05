@@ -25,7 +25,7 @@ const deleteScriptureCtrl = async (req, res) => {
       scripture
     );
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "delete_scripture");
+    return apiResponse.errorObject(res, error, null, "delete-scripture");
   }
 };
 

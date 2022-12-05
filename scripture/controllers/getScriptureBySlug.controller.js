@@ -14,7 +14,7 @@ const getScriptureBySlugCtrl = async (req, res) => {
     // use API: https://functional-pancreas.glitch.me//api/get_verse/:book/:chapter/:verse(s) in frontend
     return apiResponse.success(res, "Scripture found successfully", scripture);
   } catch (error) {
-    return apiResponse.errorObject(res, error, null, "get_scripture_by_slug");
+    return apiResponse.errorObject(res, error, null, "get-scripture-by-slug");
   }
 };
 

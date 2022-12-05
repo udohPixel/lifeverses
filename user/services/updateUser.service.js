@@ -23,7 +23,7 @@ const updateUserService = async (userId, currentUserId, userInfo) => {
   } = userInfo;
 
   // fetch user by id from dB
-  let user = await User.findOne({ _id: userId }).exec();
+  let user = await User.findById(userId).exec();
 
   const socialLinks = {
     facebook,

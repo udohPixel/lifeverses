@@ -1,7 +1,9 @@
+const Scripture = require("../models/Scripture");
+
 // app features
 class ScriptureFilters {
   // scripture bibleTitle filter function
-  filterItems(query, queryStr) {
+  filterItems(queryStr) {
     let queryObject = {};
 
     // find by bibleTitle
@@ -9,7 +11,19 @@ class ScriptureFilters {
       queryObject.bibleTitle = String(queryStr.bibleTitle).split(",");
     }
 
-    return query;
+    return Scripture.find(queryObject).exec();
+  }
+
+  // personal scripture bibleTitle filter function
+  filterPersonalItems(theUserId, queryStr) {
+    let queryObject = {};
+
+    // find by bibleTitle
+    if (queryStr.bibleTitle) {
+      queryObject.bibleTitle = String(queryStr.bibleTitle).split(",");
+    }
+
+    return Scripture.find(queryObject).where("userId").equals(theUserId).exec();
   }
 }
 

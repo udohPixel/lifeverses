@@ -1,9 +1,8 @@
 {
-    "include": "test",
-    "exclude": "cart common logger order product providers scriptures settings situation user",
-    "check-coverage": true,
-    "branches": 80,
-    "lines": 80,
-    "functions": 80,
-    "statements": 80
+    "exclude": [
+        "test",
+        "logger",
+        "common"
+    ],
+    "check-coverage": true
 }

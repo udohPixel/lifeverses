@@ -16,7 +16,7 @@ const changeProductReviewStateCtrl = async (req, res) => {
 
     return apiResponse.success(
       res,
-      "Product state changed successfully",
+      "Product review state changed successfully",
       productState
     );
   } catch (error) {
@@ -24,7 +24,7 @@ const changeProductReviewStateCtrl = async (req, res) => {
       res,
       error,
       null,
-      "change_product_review_state"
+      "change-product-review-state"
     );
   }
 };

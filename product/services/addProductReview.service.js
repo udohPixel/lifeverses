@@ -16,58 +16,88 @@ const addProductReviewService = async (
   // check if product exists
   if (!product) {
     throw new ApplicationException("Product does not exist", 404);
-  }
-
-  // fetch reviewer ids
-  let reviewerIds = product.reviews.map((review) => {
-    return review.reviewerId;
-  });
-
-  // get index of review to be updated
-  let indexOfReview = reviewerIds.indexOf(reviewerId);
-
-  // new review object
-  const reviewValues = {
-    productId: product.id,
-    reviewerId,
-    reviewTitle,
-    reviewRating: Number(reviewRating),
-    comment,
   };
 
-  let totalRatingsArray;
+  let reviewerIds;
+  // check if reviews array is empty
+  if (!product.reviews == []) {
+    // fetch reviewer ids
+    reviewerIds = product.reviews.map((review) => {
+      return review.reviewerId;
+    });
+  };
 
-  // check if review to be added exist
-  if (indexOfReview < 0) {
-    // push updated review object into product reviews
-    product.reviews[indexOfReview] = reviewValues;
+  // create new review
+  if (product.reviews == [] || (!product.reviews == [] && !reviewerIds.includes(reviewerId))) {
+    // add new review
+    // new review object
+    const reviewValues = {
+      productId,
+      reviewerId,
+      reviewTitle,
+      reviewRating,
+      comment
+    };
 
-    // update ratings
-    let totalRatings = 0;
-    product.reviews.forEach((review) => (totalRatings += review.reviewRating));
-    product.ratings = totalRatings / product.totalReviews;
+    await Product.findByIdAndUpdate(
+      { _id: productId },
+      { $push: { reviews: reviewValues } }
+    );
 
-    // update existing review
-    let updatedProduct = await product.save();
+    // update ratings and totalReviews
+    let theTotalRatings = 0;
+    product.reviews.forEach((review) => (theTotalRatings += review.reviewRating));
+    let theRatings = (theTotalRatings + reviewRating) / product.totalReviews;
 
-    return updatedProduct.reviews;
+    const productValues = {
+      totalReviews: product.reviews.length + 1,
+      ratings: theRatings
+    };
+
+    let newProduct = await Product.findOneAndUpdate(
+      { _id: productId },
+      { $set: productValues },
+      { new: true }
+    );
+
+    return newProduct;
   }
 
-  // push new review object into product reviews
-  product.reviews.push(reviewValues);
+  // update existing review
+  if (!product.reviews == [] && reviewerIds.includes(reviewerId)) {
+    // update existing review
+    const theReviewValues = {
+      "reviews.$.reviewTitle": reviewTitle,
+      "reviews.$.reviewRating": reviewRating,
+      "reviews.$.comment": comment
+    };
 
-  // update total reviews
-  product.totalReviews = product.reviews.length;
+    await Product.updateOne(
+      { _id: productId, "reviews.reviewerId": reviewerId },
+      { $set: theReviewValues }
+    );
 
-  // update ratings
-  let theTotalRatings = 0;
-  product.reviews.forEach((review) => (theTotalRatings += review.reviewRating));
-  product.ratings = theTotalRatings / product.totalReviews;
+    // update ratings
+    // get index of review to be updated
+    let indexOfReview = reviewerIds.indexOf(reviewerId);
 
-  // add new review
-  let newProduct = await product.save();
+    let totalRatings = 0;
+    product.reviews.forEach((review) => (totalRatings += review.reviewRating));
+    let oldRating = product.reviews[indexOfReview].reviewRating;
+    let theRatings = (totalRatings + reviewRating - oldRating) / product.totalReviews;
 
-  return newProduct.reviews;
+    const productValues = {
+      ratings: theRatings
+    }
+
+    let updatedProduct = await Product.findOneAndUpdate(
+      { _id: productId },
+      { $set: productValues },
+      { new: true }
+    );
+
+    return updatedProduct;
+  }
 };
 
 // export service

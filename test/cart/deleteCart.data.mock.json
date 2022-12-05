@@ -1,0 +1,37 @@
+{
+  "paramsData": {
+    "valid": {
+      "id": "636b9d4e4f562bab327b1643"
+    },
+    "invalid": {
+      "id": "777777777777777a77777777"
+    }
+  },
+  "userData": {
+    "valid": {
+      "id": "636b9a3d4f562bab327b163e"
+    },
+    "invalid": {
+      "id": "999999999999999999999999"
+    }
+  },
+  "foundData": {
+    "valid": {
+      "id": "637781a8fd7f53912d3c68ae",
+      "userId": "636b9a3d4f562bab327b163e",
+      "productId": "63778138563b44d4daa63877",
+      "quantity": 1,
+      "createdAt": "2022-11-18T12:59:20.531Z",
+      "updatedAt": "2022-11-18T15:10:55.278Z"
+    },
+    "valid2": {
+      "id": "637781a8fd7f53912d3c68ae",
+      "userId": "636b9a3d4f562bab327b163e",
+      "productId": "63778138563b44d4daa63877",
+      "quantity": 6,
+      "createdAt": "2022-11-18T12:59:20.531Z",
+      "updatedAt": "2022-11-18T15:10:55.278Z"
+    },
+    "invalid": null
+  }
+}
